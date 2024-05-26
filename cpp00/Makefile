@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/05/26 20:15:02 by maalexan         ###   ########.fr        #
+#    Updated: 2024/05/26 20:26:24 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,23 +23,19 @@ CC			:=	c++
 CFLAGS		:=	-Wall -Wextra -Werror -std=c++98
 
 # Source files
-FUN			:=	megaphone.cpp
+SRC			:=	$(SRC_DIR)/megaphone.cpp
 
 # Object files
-OBJ			:=	$(FUN:%.c=$(OBJ_DIR)/%.o)
+OBJ			:=	$(SRC:$(SRC_DIR)%.cpp=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -o $@
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(@D)
-	cc $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(BSRC_DIR)/%.c
-	@mkdir -p $(@D)
-	@$(CC) $(BCFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 val: all
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${NAME}  || echo ""
@@ -52,4 +48,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re val
