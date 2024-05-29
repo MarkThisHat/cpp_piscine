@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 21:42:39 by maalexan          #+#    #+#             */
-/*   Updated: 2024/05/28 22:16:58 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/05/28 22:55:38 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,21 @@ Contact::Contact() : firstName_(""),
 					 phoneNumber_(""),
 					 darkestSecret_("") {}
 
+
+bool Contact::isInputInvalid(const std::string& input) const {
+    if (input.empty()) {
+        return true;
+    }
+    for (size_t i = 0; i < input.length(); i++) {
+        if (!std::isspace(static_cast<unsigned char>(input[i]))) {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool Contact::setFirstName(const std::string& firstName) {
-	if (firstName.empty()) {
+	if (isInputInvalid(firstName)) {
 		return false;
 	}
 	firstName_ = firstName;
@@ -27,7 +40,7 @@ bool Contact::setFirstName(const std::string& firstName) {
 }
 
 bool Contact::setLastName(const std::string& lastName) {
-	if (lastName.empty()) {
+	if (isInputInvalid(lastName)) {
 		return false;
 	}
 	lastName_ = lastName;
@@ -35,7 +48,7 @@ bool Contact::setLastName(const std::string& lastName) {
 }
 
 bool Contact::setNickname(const std::string& nickname) {
-	if (nickname.empty()) {
+	if (isInputInvalid(nickname)) {
 		return false;
 	}
 	nickname_ = nickname;
@@ -43,7 +56,7 @@ bool Contact::setNickname(const std::string& nickname) {
 }
 
 bool Contact::setPhoneNumber(const std::string& phoneNumber) {
-	if (phoneNumber.empty()) {
+	if (isInputInvalid(phoneNumber)) {
 		return false;
 	}
 	phoneNumber_ = phoneNumber;
@@ -51,7 +64,7 @@ bool Contact::setPhoneNumber(const std::string& phoneNumber) {
 }
 
 bool Contact::setDarkestSecret(const std::string& darkestSecret) {
-	if (darkestSecret.empty()) {
+	if (isInputInvalid(darkestSecret)) {
 		return false;
 	}
 	darkestSecret_ = darkestSecret;
