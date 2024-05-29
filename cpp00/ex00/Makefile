@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/05/26 22:21:58 by maalexan         ###   ########.fr        #
+#    Updated: 2024/05/28 21:16:44 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,18 +30,14 @@ OBJ			:=	$(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -o $@
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)%.cpp
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME):
+	$(CC) $(CFLAGS) $(SRC) -o $@
 
 val: all
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${NAME}  || echo ""
 
 clean:
-	@[ -d ./objs ] && rm -rf ./objs || echo Object directory doesn\'t exist
+	@[ -d ./objs ] && rm -rf ./objs || [ -f Makefile ]
 
 fclean: clean
 	@[ -f ./$(NAME) ] && rm $(NAME) || echo Program $(NAME) isn\'t compiled
