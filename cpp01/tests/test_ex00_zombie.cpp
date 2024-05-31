@@ -26,3 +26,16 @@ TEST(ZombieTest, RandomChump) {
     std::string announcement = output.substr(0, pos + 1);
     EXPECT_EQ(announcement, "Baz: BraiiiiiiinnnzzzZ...\n");
 }
+
+
+/*
+TEST(ZombieTest, ForceMemoryLeak) {
+    // Intentionally allocating memory without freeing it to test Valgrind
+    int* leak = new int[10];
+    // Doing something with the allocated memory to avoid optimization
+    for (int i = 0; i < 10; ++i) {
+        leak[i] = i;
+    }
+    // Note: Intentionally not deleting 'leak' to create a memory leak
+}
+*/

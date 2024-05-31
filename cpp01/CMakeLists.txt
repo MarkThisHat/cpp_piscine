@@ -4,6 +4,8 @@ project(cpp01)
 
 set(CMAKE_CXX_STANDARD 98)
 
+include(CTest)
+
 enable_testing()
 
 # Add subdirectory for tests
