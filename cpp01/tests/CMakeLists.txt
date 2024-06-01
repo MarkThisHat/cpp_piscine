@@ -2,10 +2,6 @@
 
 set(CMAKE_CXX_STANDARD 98)
 
-# Google Test
-#find_package(GTest REQUIRED)
-#include_directories(${GTEST_INCLUDE_DIRS})
-
 # Include directories for project sources
 include_directories(
     ../ex00
@@ -31,9 +27,12 @@ set(EX00_SOURCES
 add_executable(runTests ${TEST_SOURCES} ${EX00_SOURCES} # ${EX01_SOURCES}
 )
 
-# Link libraries, including gtest_main
-target_link_libraries(runTests gtest gtest_main pthread)
-#target_link_libraries(runTests ${GTEST_LIBRARIES} gtest_main pthread)
+# Link libraries, including gtest and gtest_main
+if (GTest_FOUND)
+    target_link_libraries(runTests GTest::gtest GTest::gtest_main pthread)
+else()
+    target_link_libraries(runTests gtest gtest_main pthread)
+endif()
 
 # Add tests
 add_test(NAME runTests COMMAND runTests)
