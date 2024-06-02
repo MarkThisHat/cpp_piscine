@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 21:42:39 by maalexan          #+#    #+#             */
-/*   Updated: 2024/05/28 22:55:38 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/02 18:41:40 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ Contact::Contact() : firstName_(""),
 					 nickname_(""),
 					 phoneNumber_(""),
 					 darkestSecret_("") {}
-
 
 bool Contact::isInputInvalid(const std::string& input) const {
     if (input.empty()) {
@@ -59,6 +58,13 @@ bool Contact::setPhoneNumber(const std::string& phoneNumber) {
 	if (isInputInvalid(phoneNumber)) {
 		return false;
 	}
+	for (t_iter it = phoneNumber.begin(); it != phoneNumber.end(); ++it) {
+		if (!std::isdigit(static_cast<unsigned char>(*it)) &&
+			*it != '(' && *it != ')' && *it != '-') {
+				return false;
+			}
+	}
+
 	phoneNumber_ = phoneNumber;
 	return true;
 }

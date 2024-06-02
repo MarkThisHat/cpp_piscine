@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 21:33:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/05/28 22:54:30 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/02 18:31:57 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 class Contact {
 public:
+	typedef std::string::const_iterator t_iter;
+
 	Contact();
 
 	bool setFirstName(const std::string& firstName);

@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 22:06:27 by maalexan          #+#    #+#             */
-/*   Updated: 2024/05/28 23:20:19 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/02 18:37:37 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void getInput(const std::string& prompt, bool(Contact::*setter)(const std::strin
 		if ((contact.*setter)(input) || std::cin.eof()) {
 			break;
 		} else {
-			std::cerr << "Input cannot be empty." << std::endl;
+			std::cerr << "Invalid input." << std::endl;
 		}
 	}
 }
@@ -43,11 +43,11 @@ int main() {
 		if (command == "ADD") {
 			Contact contact;
 
-			getInput("Enter first name: ", &Contact::setFirstName, contact);
-			getInput("Enter last name: ", &Contact::setLastName, contact);
-			getInput("Enter nickname: ", &Contact::setNickname, contact);
-			getInput("Enter phone number: ", &Contact::setPhoneNumber, contact);
-			getInput("Enter darkest secret: ", &Contact::setDarkestSecret, contact);
+			getInput("First name: ", &Contact::setFirstName, contact);
+			getInput("Last name: ", &Contact::setLastName, contact);
+			getInput("Nickname: ", &Contact::setNickname, contact);
+			getInput("Phone number: ", &Contact::setPhoneNumber, contact);
+			getInput("Darkest secret: ", &Contact::setDarkestSecret, contact);
 			phoneBook.addContact(contact);
 		} else if (command == "SEARCH") {
 			phoneBook.searchContacts();

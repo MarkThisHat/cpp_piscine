@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 21:58:15 by maalexan          #+#    #+#             */
-/*   Updated: 2024/05/27 13:02:39 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/02 18:24:26 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include <string>
 
 class Megaphone {
-	public:
-		static std::string amplify(const std::string& input) {
-			std::string::const_iterator it = input.begin();
-			std::string::const_iterator end = input.end();
-			std::string output;
-			for (; it != end; it++) {
-				output += std::toupper(*it);
-			}
-			return output;
+public:
+	typedef std::string::const_iterator t_ssci;
+
+	static std::string amplify(const std::string& input) {
+		std::string output;
+		for (t_ssci it = input.begin(); it != input.end(); ++it) {
+			output += std::toupper(*it);
 		}
+		return output;
+	}
 };
 
 int main(int argc, char **argv) {
