@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/05/31 14:21:30 by maalexan         ###   ########.fr        #
+#    Updated: 2024/06/02 20:52:25 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,10 @@ CC			:=	c++
 CFLAGS		:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
 
 # Source files
-SRC			:=	Zombie.cpp
+SRC			:=	Zombie.cpp \
+				newZombie.cpp \
+				randomChump.cpp \
+				main.cpp
 
 # Object files
 OBJ			:=	$(SRC:%.cpp=$(OBJ_DIR)/%.o)
@@ -49,8 +52,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re val
-
-#	diff --ignore-matching-lines='^\[[0-9_]*\]' 19920104_091532.log newlog
-#	OR
-#	sed 's/\[[0-9_]*\]//' 19920104_091532.log > original_clean
-#	sed 's/\[[0-9_]*\]//' newlog > newlog_clean

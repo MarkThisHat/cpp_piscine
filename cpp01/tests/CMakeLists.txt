@@ -16,7 +16,10 @@ set(TEST_SOURCES
 
 # Source files
 set(EX00_SOURCES
+    ../ex00/main.cpp
     ../ex00/Zombie.cpp
+    ../ex00/newZombie.cpp
+    ../ex00/randomChump.cpp
 )
 
 # set(EX01_SOURCES
@@ -24,7 +27,9 @@ set(EX00_SOURCES
 #)
 
 # Create the test executable
-add_executable(runTests ${TEST_SOURCES} ${EX00_SOURCES} # ${EX01_SOURCES}
+add_executable(runTests ${TEST_SOURCES} 
+                        ${EX00_SOURCES}
+                        #${EX01_SOURCES}
 )
 
 # Link libraries, including gtest and gtest_main
