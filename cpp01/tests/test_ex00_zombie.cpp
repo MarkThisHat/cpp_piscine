@@ -27,7 +27,6 @@ TEST(ZombieTest, RandomChump) {
     EXPECT_EQ(announcement, "Baz: BraiiiiiiinnnzzzZ...\n");
 }
 
-
 /*
 TEST(ZombieTest, ForceMemoryLeak) {
     // Intentionally allocating memory without freeing it to test Valgrind

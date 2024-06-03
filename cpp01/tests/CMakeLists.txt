@@ -16,7 +16,6 @@ set(TEST_SOURCES
 
 # Source files
 set(EX00_SOURCES
-    ../ex00/main.cpp
     ../ex00/Zombie.cpp
     ../ex00/newZombie.cpp
     ../ex00/randomChump.cpp

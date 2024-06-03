@@ -75,7 +75,7 @@ if [ "$VALGRIND" = true ]; then
     echo "Running tests with valgrind..."
     ctest --output-on-failure -T memcheck
 else
-    ctest --output-on-failure
+    ctest --output-on-failure --verbose
 fi
 
 # Check if tests succeeded
