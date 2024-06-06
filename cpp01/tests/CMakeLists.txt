@@ -5,13 +5,7 @@ set(CMAKE_CXX_STANDARD 98)
 # Include directories for project sources
 include_directories(
     ../ex00
-    # ../ex01
-)
-
-# Test sources
-set(TEST_SOURCES
-    test_ex00_zombie.cpp
-    # test_ex01_something.cpp
+    ../ex01
 )
 
 # Source files
@@ -21,22 +15,26 @@ set(EX00_SOURCES
     ../ex00/randomChump.cpp
 )
 
-# set(EX01_SOURCES
-#    ../ex01/something.cpp
-#)
-
-# Create the test executable
-add_executable(runTests ${TEST_SOURCES} 
-                        ${EX00_SOURCES}
-                        #${EX01_SOURCES}
+set(EX01_SOURCES
+   ../ex01/Zombie.cpp
+   ../ex01/zombieHorde.cpp
 )
 
-# Link libraries, including gtest and gtest_main
-if (GTest_FOUND)
-    target_link_libraries(runTests GTest::gtest GTest::gtest_main pthread)
-else()
-    target_link_libraries(runTests gtest gtest_main pthread)
-endif()
 
-# Add tests
-add_test(NAME runTests COMMAND runTests)
+# Create test executables for ex00
+add_executable(runTests_ex00 test_ex00_zombie.cpp ${EX00_SOURCES})
+if (GTest_FOUND)
+    target_link_libraries(runTests_ex00 GTest::gtest GTest::gtest_main pthread)
+else()
+    target_link_libraries(runTests_ex00 gtest gtest_main pthread)
+endif()
+add_test(NAME runTests_ex00 COMMAND runTests_ex00)
+
+# Create test executables for ex01
+add_executable(runTests_ex01 test_ex01_zombieHorde.cpp ${EX01_SOURCES})
+if (GTest_FOUND)
+    target_link_libraries(runTests_ex01 GTest::gtest GTest::gtest_main pthread)
+else()
+    target_link_libraries(runTests_ex01 gtest gtest_main pthread)
+endif()
+add_test(NAME runTests_ex01 COMMAND runTests_ex01)
