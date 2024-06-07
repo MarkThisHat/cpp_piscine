@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/05/28 22:08:52 by maalexan         ###   ########.fr        #
+#    Updated: 2024/06/07 09:49:46 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CFLAGS		:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
 # Source files
 SRC			:=	PhoneBook.cpp \
 				Contact.cpp \
-				Main.cpp
+				main.cpp
 
 # Object files
 OBJ			:=	$(SRC:%.cpp=$(OBJ_DIR)/%.o)

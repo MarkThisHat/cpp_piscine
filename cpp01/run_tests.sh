@@ -4,6 +4,19 @@
 BUILD_DIR="tests/build"
 VALGRIND=false
 
+# Set color codes
+RED='\033[0;31m'
+BRIGHT_RED='\033[1;31m'
+GREEN='\033[0;32m'
+BRIGHT_GREEN='\033[1;32m'
+WHITE='\033[0;37m'
+BRIGHT_WHITE='\033[1;37m'
+MAGENTA='\033[0;35m'
+BRIGHT_MAGENTA='\033[1;35m'
+BLUE='\033[0;34m'
+BRIGHT_BLUE='\033[1;34m'
+NC='\033[0m' # No Color
+
 # Function to clean up the build directory
 cleanup() {
     if [ -d "$BUILD_DIR" ]; then
@@ -25,6 +38,21 @@ cleanup() {
     fi
 }
 
+# Function to clone Google Test locally
+clone_gtest() {
+    if [ -d "external/googletest" ]; then
+        echo "Google Test already exists in external/googletest. Skipping clone."
+    else
+        echo "Cloning Google Test into external/googletest..."
+        git clone https://github.com/google/googletest.git external/googletest
+        if [ $? -ne 0 ]; then
+            echo "Failed to clone Google Test."
+            exit 1
+        fi
+        echo "Cloning complete."
+    fi
+}
+
 # Parse command-line arguments
 KEEP_BUILD_DIR=false
 for arg in "$@"
@@ -38,8 +66,17 @@ do
         VALGRIND=true
         shift # Remove --valgrind from processing
         ;;
+        --local)
+        USE_LOCAL_GTEST=true
+        shift # Remove --local from processing
+        ;;
     esac
 done
+
+# Clone Google Test locally if --local flag is set
+if [ "$USE_LOCAL_GTEST" = true ]; then
+    clone_gtest
+fi
 
 # Always clean up the build directory before starting
 cleanup
@@ -55,7 +92,7 @@ cmake ../.. -D CTEST_USE_LAUNCHERS=ON
 
 # Check if CMake succeeded
 if [ $? -ne 0 ]; then
-    echo "CMake configuration failed."
+    echo -e "CMake configuration ${BRIGHT_RED}failed${NC}. Try running this script with ${BRIGHT_GREEN}--local${NC} flag"
     cd ../..
     exit 1
 fi

@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 98)
 include_directories(
     ../ex00
     ../ex01
+    ${gtest_SOURCE_DIR}/include
+    ${gmock_SOURCE_DIR}/include
 )
 
 # Source files
