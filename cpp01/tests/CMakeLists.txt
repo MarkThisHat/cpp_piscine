@@ -22,6 +22,7 @@ set(EX01_SOURCES
    ../ex01/zombieHorde.cpp
 )
 
+# Exercise ex02 only has a main function, no sources added
 
 # Create test executables for ex00
 add_executable(runTests_ex00 test_ex00_zombie.cpp ${EX00_SOURCES})
@@ -40,3 +41,12 @@ else()
     target_link_libraries(runTests_ex01 gtest gtest_main pthread)
 endif()
 add_test(NAME runTests_ex01 COMMAND runTests_ex01)
+
+# Create test executables for ex01
+add_executable(runTests_ex02 test_ex02_brain.cpp)
+if (GTest_FOUND)
+    target_link_libraries(runTests_ex02 GTest::gtest GTest::gtest_main pthread)
+else()
+    target_link_libraries(runTests_ex02 gtest gtest_main pthread)
+endif()
+add_test(NAME runTests_ex02 COMMAND runTests_ex02)
