@@ -89,6 +89,7 @@ do
 		shift # Remove --clean from processing
 		;;
 		--rerun)
+		KEEP_BUILD_DIR=true
 		RERUN_TESTS=true
 		shift # Remove --rerun from processing
 		;;
@@ -129,7 +130,7 @@ fi
 
 # Check if rebuild flag is set and the build directory exists
 if [ "$RERUN_TESTS" = true ] && [ ! -d "$BUILD_DIR" ]; then
-    echo -e "Build directory inexistant. Please run without --rebuild${NC}"
+    echo -e "Build directory inexistant. Please run with --keep and without --rerun${NC}"
     exit 1
 fi
 
