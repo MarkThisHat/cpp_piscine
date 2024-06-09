@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:14:29 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/09 12:49:03 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:07:43 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 class Weapon {
  public:
-  Weapon(std::string type);
+  Weapon(const std::string& type);
   ~Weapon();
   const std::string& getType() const;
   void setType(const std::string& type);

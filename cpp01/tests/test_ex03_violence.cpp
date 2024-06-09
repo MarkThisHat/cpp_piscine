@@ -15,3 +15,16 @@ TEST(violenceTest, setType) {
   weapon.setType("Mace");
   EXPECT_EQ(weapon.getType(), "Mace");
 }
+
+TEST(violenceTest, setTypeBlank) {
+  Weapon weapon("");
+
+  EXPECT_NE(weapon.getType(), "");
+  EXPECT_EQ(weapon.getType(), "Default");
+  weapon.setType("Mace");
+  EXPECT_NE(weapon.getType(), "Default");
+  EXPECT_EQ(weapon.getType(), "Mace");
+  weapon.setType("");
+  EXPECT_NE(weapon.getType(), "");
+  EXPECT_EQ(weapon.getType(), "Default");
+}
