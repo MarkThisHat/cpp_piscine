@@ -43,7 +43,7 @@ cleanup() {
 clean_external() {
 	if [ -d "external/googletest" ]; then
 		echo -e "Cleaning external directory..."
-		rm -rf "external/googletest"
+		rm -rf "external"
 		if [ $? -ne 0 ]; then
 			echo -e "${BRIGHT_RED}Failed ${NC}to remove the external directory."
 		else
@@ -92,7 +92,7 @@ do
 		RERUN_TESTS=true
 		shift # Remove --rerun from processing
 		;;
-		--h)
+		-h)
 		INFO_SCRIPT=true
 		shift # Remove --h from processing
 		;;
@@ -116,7 +116,7 @@ do
 done
 
 if [ "$INFO_SCRIPT" = true ]; then
-	echo -e "Options:\n\t--keep\t\tbuild directory will persist\n\t--rerun\t\tuses a previous build\n\t--local\t\tcreates google test folder locally\n\t--valgrind\tcheck for memory leaks\n\t--clean\t\tremoves build and gtest directories"
+	echo -e "Options:\n\t--keep\t\tbuild directory will persist\n\t--rerun\t\tuses a previous build\n\t--local\t\tcreates google test folder locally\n\t--valgrind\tcheck for memory leaks\n\t--clean\t\tremoves build and gtest directories\n"
 	exit 0
 fi
 
