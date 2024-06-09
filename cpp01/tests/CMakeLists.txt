@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 98)
 include_directories(
     ../ex00
     ../ex01
+    ../ex03
     ${gtest_SOURCE_DIR}/include
     ${gmock_SOURCE_DIR}/include
 )
@@ -23,6 +24,10 @@ set(EX01_SOURCES
 )
 
 # Exercise ex02 only has a main function, no sources added
+
+set(EX03_SOURCES
+    ../ex03/Weapon.cpp
+)
 
 # Create test executables for ex00
 add_executable(runTests_ex00 test_ex00_zombie.cpp ${EX00_SOURCES})
@@ -50,3 +55,12 @@ else()
     target_link_libraries(runTests_ex02 gtest gtest_main pthread)
 endif()
 add_test(NAME runTests_ex02 COMMAND runTests_ex02)
+
+# Create test executables for ex03
+add_executable(runTests_ex03 test_ex03_violence.cpp ${EX03_SOURCES})
+if (GTest_FOUND)
+    target_link_libraries(runTests_ex03 GTest::gtest GTest::gtest_main pthread)
+else()
+    target_link_libraries(runTests_ex03 gtest gtest_main pthread)
+endif()
+add_test(NAME runTests_ex03 COMMAND runTests_ex03)

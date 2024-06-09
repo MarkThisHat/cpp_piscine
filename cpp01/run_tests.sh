@@ -140,7 +140,6 @@ if [ "$USE_LOCAL_GTEST" = true ]; then
 fi
 
 if [ "$RERUN_TESTS" = false ]; then
-	echo "hehehe"
 	# Always clean up the build directory before starting
 	cleanup
 
