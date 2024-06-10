@@ -27,6 +27,8 @@ set(EX01_SOURCES
 
 set(EX03_SOURCES
     ../ex03/Weapon.cpp
+    ../ex03/HumanA.cpp
+#    ../ex03/HumanB.cpp
 )
 
 # Create test executables for ex00
