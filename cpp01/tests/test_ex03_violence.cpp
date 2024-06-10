@@ -31,6 +31,13 @@ TEST(violenceTest, setTypeBlank) {
   EXPECT_EQ(weapon.getType(), "Default");
 }
 
+TEST(violenceTest, HumanAName) {
+  Weapon weapon("");
+  HumanA bob("Bob", weapon);
+
+  EXPECT_EQ("Bob", bob.getName());
+}
+
 TEST(violenceTest, HumanAAttack) {
   std::setlocale(LC_ALL, "pt_BR.UTF-8");
   Weapon weapon("Zweihänder");
@@ -40,4 +47,15 @@ TEST(violenceTest, HumanAAttack) {
   bob.attack();
   std::string output = testing::internal::GetCapturedStdout();
   EXPECT_EQ(output, "Bob attacks with their Zweihänder!\n");
+}
+
+TEST(violenceTest, HumanASetWeapon) {
+  Weapon knife("Knife");
+  Weapon submachine("Submachine gun");
+  HumanA bob("Robert", knife);
+
+  testing::internal::CaptureStdout();
+  bob.setWeapon(submachine);
+  std::string output = testing::internal::GetCapturedStdout();  
+  EXPECT_EQ(output, "Robert puts down Knife and picks up Submachine gun.\n");
 }

@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 09:08:42 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/10 09:26:43 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:41:56 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class HumanB {
   HumanB(std::string name, Weapon& weapon);
   ~HumanB();
   void attack() const;
-  void getName() const;
+  std::string getName() const;
   void setWeapon(Weapon& weapon);
   void unsetWeapon();
 
