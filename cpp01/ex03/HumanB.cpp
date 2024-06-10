@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 09:27:13 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/10 12:01:56 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:57:38 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void HumanB::setWeapon(Weapon& weapon) {
 
 void HumanB::unsetWeapon() {
   std::cout << name_;
-
   if (weapon_ == NULL) {
     std::cout << " is already unarmed!";
   } else {

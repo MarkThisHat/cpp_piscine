@@ -33,29 +33,70 @@ TEST(violenceTest, setTypeBlank) {
 
 TEST(violenceTest, HumanAName) {
   Weapon weapon("");
-  HumanA bob("Bob", weapon);
+  HumanA alice("Alice", weapon);
 
-  EXPECT_EQ("Bob", bob.getName());
+  EXPECT_EQ("Alice", alice.getName());
 }
 
 TEST(violenceTest, HumanAAttack) {
   std::setlocale(LC_ALL, "pt_BR.UTF-8");
   Weapon weapon("Zweihänder");
-  HumanA bob("Bob", weapon);
+  HumanA alice("Alice", weapon);
 
   testing::internal::CaptureStdout();
-  bob.attack();
+  alice.attack();
   std::string output = testing::internal::GetCapturedStdout();
-  EXPECT_EQ(output, "Bob attacks with their Zweihänder!\n");
+  EXPECT_EQ(output, "Alice attacks with their Zweihänder!\n");
 }
 
 TEST(violenceTest, HumanASetWeapon) {
   Weapon knife("Knife");
   Weapon submachine("Submachine gun");
-  HumanA bob("Robert", knife);
+  HumanA alice("Allie", knife);
 
   testing::internal::CaptureStdout();
-  bob.setWeapon(submachine);
+  alice.setWeapon(submachine);
   std::string output = testing::internal::GetCapturedStdout();  
-  EXPECT_EQ(output, "Robert puts down Knife and picks up Submachine gun.\n");
+  EXPECT_EQ(output, "Allie puts down Knife.\nAllie picks up Submachine gun.\n");
+}
+
+TEST(violenceTest, HumanBName) {
+  HumanB bob("Bob");
+
+  EXPECT_EQ("Bob", bob.getName());
+}
+
+TEST(violenceTest, HumanBAttack) {
+  std::setlocale(LC_ALL, "pt_BR.UTF-8");
+  Weapon weapon("Épée");
+  HumanB bob("Bob", weapon);
+
+  testing::internal::CaptureStdout();
+  bob.attack();
+  std::string output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ(output, "Bob attacks with their Épée!\n");
+  bob.unsetWeapon();
+  testing::internal::CaptureStdout();
+  bob.attack();
+  output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ(output, "Bob attacks with their *bare hands*!\n");
+}
+
+TEST(violenceTest, HumanBSetWeapon) {
+  HumanB bob("Robert");
+
+  testing::internal::CaptureStdout();
+  bob.unsetWeapon();
+  std::string output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ(output, "Robert is already unarmed!\n");
+  Weapon dagger("Dagger");
+  testing::internal::CaptureStdout();
+  bob.setWeapon(dagger);
+  output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ(output, "Robert picks up Dagger.\n");
+  Weapon shotgun("Shotgun");
+  testing::internal::CaptureStdout();
+  bob.setWeapon(shotgun);
+  output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ(output, "Robert puts down Dagger.\nRobert picks up Shotgun.\n");
 }
