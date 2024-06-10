@@ -31,6 +31,10 @@ set(EX03_SOURCES
     ../ex03/HumanB.cpp
 )
 
+set(EX04_SOURCES
+    ../ex04/FileProcessor.cpp
+)
+
 # Create test executables for ex00
 add_executable(runTests_ex00 test_ex00_zombie.cpp ${EX00_SOURCES})
 if (GTest_FOUND)
@@ -66,3 +70,12 @@ else()
     target_link_libraries(runTests_ex03 gtest gtest_main pthread)
 endif()
 add_test(NAME runTests_ex03 COMMAND runTests_ex03)
+
+# Create test executables for ex03
+add_executable(runTests_ex04 test_ex04_sed_sob.cpp ${EX04_SOURCES})
+if (GTest_FOUND)
+    target_link_libraries(runTests_ex04 GTest::gtest GTest::gtest_main pthread)
+else()
+    target_link_libraries(runTests_ex04 gtest gtest_main pthread)
+endif()
+add_test(NAME runTests_ex04 COMMAND runTests_ex04)

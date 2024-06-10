@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   FileProcessor.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 15:40:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/10 19:25:08 by maalexan         ###   ########.fr       */
+/*   Created: 2024/06/10 18:09:09 by maalexan          #+#    #+#             */
+/*   Updated: 2024/06/10 19:00:03 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FileProcessor.hpp"
-#include "Utils.hpp"
+#pragma once
+#include <string>
+#include <fstream>
+#include <ostream>
+#include <iostream>
+#include <sstream>
 
-int main(int argc, char** argv) {
-  if (argc != 4) {
-    return Utils::argReject(argv[0]);
-  }
-
-  if (!FileProcessor::processFile(argv[1], argv[2], argv[3])) {
-    return 1;
-  }
-  std::cout << "File processed successfully." << std::endl;
-  return 0;
-}
+class FileProcessor {
+ public:
+  static bool processFile(
+    const std::string& filename,
+    const std::string& target,
+    const std::string& replacement);
+};
