@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:45 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/11 00:06:34 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/11 00:08:56 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ std::string FileProcessor::readFile(const std::string& filename) {
 
 std::string FileProcessor::replaceFile(const std::string& content,
  const std::string& target, const std::string& replacement) {
-  std::string modifiedContent = content;
+  std::string modified = content;
   size_t position = 0;
-  while ((position = modifiedContent.find(target, position)) != std::string::npos) {
-      modifiedContent.replace(position, target.length(), replacement);
+  while ((position = modified.find(target, position)) != std::string::npos) {
+      modified.replace(position, target.length(), replacement);
       position += replacement.length();
   }
-  return modifiedContent;
+  return modified;
 }
 
 bool FileProcessor::editFile(const std::string& filename,
