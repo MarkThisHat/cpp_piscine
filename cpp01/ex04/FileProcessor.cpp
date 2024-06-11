@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:45 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/10 19:24:01 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/10 23:21:02 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@ bool FileProcessor::processFile(const std::string &filename,
     return false;
   }
 
+
   std::string wholeFile;
   std::string line;
   while (std::getline(file, line)) {
-      wholeFile += line + "\n";
+      wholeFile += line;
+      if (!file.eof()) {
+      wholeFile += "\n";
+    }
   }
   file.close();
 
@@ -36,7 +40,7 @@ bool FileProcessor::processFile(const std::string &filename,
     position += replacement.length();
   }
 
-  std::string replacedFile = filename + ".replacement";
+  std::string replacedFile = filename + ".replace";
   std::ofstream newFile(replacedFile.c_str());
   if (!newFile) {
     std::cerr << "Failed to create file: " << replacedFile << std::endl;
