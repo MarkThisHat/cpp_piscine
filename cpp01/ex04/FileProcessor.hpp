@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:09:09 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/10 23:23:59 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/11 00:02:38 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,15 @@
 class FileProcessor {
  public:
   static bool processFile(
-    const std::string& filename,
-    const std::string& target,
-    const std::string& replacement);
+    const std::string &filename,
+    const std::string &target,
+    const std::string &replacement);
+  static std::string replaceFile(
+    const std::string &content,
+    const std::string &target,
+    const std::string &replacement);
+  static bool editFile(
+    const std::string &filename,
+    const std::string &content);
+  static std::string readFile(const std::string &filename);
 };

@@ -6,49 +6,64 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:45 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/10 23:28:54 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/11 00:06:34 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FileProcessor.hpp"
 
-bool FileProcessor::processFile(const std::string &filename,
-                                const std::string &target,
-                                const std::string &replacement) {
+std::string FileProcessor::readFile(const std::string& filename) {
   std::ifstream file(filename.c_str());
   if (!file) {
     std::cerr << "Failed to open file: " << filename << std::endl;
-    return false;
+    return "";
   }
-
-
-  std::string wholeFile;
+  std::string readFile;
   std::string line;
   while (std::getline(file, line)) {
-      wholeFile += line;
+      readFile += line;
       if (!file.eof()) {
-      wholeFile += "\n";
+      readFile += "\n";
     }
   }
   file.close();
 
+  return readFile;
+}
+
+std::string FileProcessor::replaceFile(const std::string& content,
+ const std::string& target, const std::string& replacement) {
+  std::string modifiedContent = content;
   size_t position = 0;
-
-  while ((position = wholeFile.find(target, position)) != std::string::npos) {
-    wholeFile.erase(position, target.length());
-    wholeFile.insert(position, replacement);
-    position += replacement.length();
+  while ((position = modifiedContent.find(target, position)) != std::string::npos) {
+      modifiedContent.replace(position, target.length(), replacement);
+      position += replacement.length();
   }
+  return modifiedContent;
+}
 
-  std::string replacedFile = filename + ".replace";
-  std::ofstream newFile(replacedFile.c_str());
+bool FileProcessor::editFile(const std::string& filename,
+ const std::string& content) {
+  std::ofstream newFile(filename.c_str());
   if (!newFile) {
-    std::cerr << "Failed to create file: " << replacedFile << std::endl;
+    std::cerr << "Failed to create file: " << filename << std::endl;
     return false;
   }
-  newFile << wholeFile;
+  newFile << content;
   newFile.close();
-  std::cout << "Generated " << replacedFile << " successfully." << std::endl;
+  std::cout << "Generated " << filename << " successfully." << std::endl;
 
   return true;
+}
+
+bool FileProcessor::processFile(const std::string &filename,
+ const std::string &target, const std::string &replacement) {
+  std::string wholeFile = readFile(filename);
+  if (wholeFile.empty()) {
+    return false;
+  }
+  std::string modified = replaceFile(wholeFile, target, replacement);
+  std::string replacedFile = filename + ".replace";
+
+  return editFile(replacedFile, modified);
 }
