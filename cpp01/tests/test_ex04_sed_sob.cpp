@@ -6,14 +6,12 @@
 class FileProcessorTest : public ::testing::Test {
 protected:
     void SetUp() override {
-        // Create a test file with known content
         std::ofstream srcFile(srcFileName.c_str());
         srcFile << "This is a test file.\nThis file has multiple lines.\nThis line contains a word to be replaced: test\nEnd of file";
         srcFile.close();
     }
 
     void TearDown() override {
-        // Remove test files if they exist
         std::remove(srcFileName.c_str());
         std::remove(replaceFileName.c_str());
     }
@@ -29,7 +27,7 @@ TEST_F(FileProcessorTest, ReplaceString) {
     std::string resultContent((std::istreambuf_iterator<char>(resultFile)), std::istreambuf_iterator<char>());
     resultFile.close();
 
-    const std::string expectedContent = "This is a sample file.\nThis file has multiple lines.\nThis line contains a word to be replaced: sample\nEnd of file\n";
+    const std::string expectedContent = "This is a sample file.\nThis file has multiple lines.\nThis line contains a word to be replaced: sample\nEnd of file";
     EXPECT_EQ(resultContent, expectedContent);
 }
 

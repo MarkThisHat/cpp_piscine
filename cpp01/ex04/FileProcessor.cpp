@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:45 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/10 23:21:02 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/10 23:28:54 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ bool FileProcessor::processFile(const std::string &filename,
   }
   newFile << wholeFile;
   newFile.close();
+  std::cout << "Generated " << replacedFile << " successfully." << std::endl;
 
   return true;
 }

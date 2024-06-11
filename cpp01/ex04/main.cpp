@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:40:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/10 19:25:08 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/10 23:29:04 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int main(int argc, char** argv) {
   if (!FileProcessor::processFile(argv[1], argv[2], argv[3])) {
     return 1;
   }
-  std::cout << "File processed successfully." << std::endl;
+
   return 0;
 }
