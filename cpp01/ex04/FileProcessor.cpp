@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:45 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/11 00:08:56 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/11 08:44:01 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ std::string FileProcessor::replaceFile(const std::string& content,
   return modified;
 }
 
-bool FileProcessor::editFile(const std::string& filename,
+bool FileProcessor::produceFile(const std::string& filename,
  const std::string& content) {
   std::ofstream newFile(filename.c_str());
   if (!newFile) {
@@ -65,5 +65,5 @@ bool FileProcessor::processFile(const std::string &filename,
   std::string modified = replaceFile(wholeFile, target, replacement);
   std::string replacedFile = filename + ".replace";
 
-  return editFile(replacedFile, modified);
+  return produceFile(replacedFile, modified);
 }
