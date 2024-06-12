@@ -40,6 +40,10 @@ set(EX05_SOURCES
     ../ex05/Harl.cpp
 )
 
+set(EX06_SOURCES
+    ../ex06/Harl.cpp
+)
+
 # Create test executables for ex00
 add_executable(runTests_ex00 test_ex00_zombie.cpp ${EX00_SOURCES})
 if (GTest_FOUND)
@@ -93,3 +97,12 @@ else()
     target_link_libraries(runTests_ex05 gtest gtest_main pthread)
 endif()
 add_test(NAME runTests_ex05 COMMAND runTests_ex05)
+
+# Create test executables for ex06
+add_executable(runTests_ex06 test_ex06_harlFilter.cpp ${EX06_SOURCES})
+if (GTest_FOUND)
+    target_link_libraries(runTests_ex06 GTest::gtest GTest::gtest_main pthread)
+else()
+    target_link_libraries(runTests_ex06 gtest gtest_main pthread)
+endif()
+add_test(NAME runTests_ex06 COMMAND runTests_ex06)
