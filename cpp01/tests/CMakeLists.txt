@@ -7,6 +7,8 @@ include_directories(
     ../ex00
     ../ex01
     ../ex03
+    ../ex04
+    ../ex05
     ${gtest_SOURCE_DIR}/include
     ${gmock_SOURCE_DIR}/include
 )
@@ -35,6 +37,10 @@ set(EX04_SOURCES
     ../ex04/FileProcessor.cpp
 )
 
+set(EX05_SOURCES
+    ../ex05/Harl.cpp
+)
+
 # Create test executables for ex00
 add_executable(runTests_ex00 test_ex00_zombie.cpp ${EX00_SOURCES})
 if (GTest_FOUND)
@@ -53,7 +59,7 @@ else()
 endif()
 add_test(NAME runTests_ex01 COMMAND runTests_ex01)
 
-# Create test executables for ex01
+# Create test executables for ex02
 add_executable(runTests_ex02 test_ex02_brain.cpp)
 if (GTest_FOUND)
     target_link_libraries(runTests_ex02 GTest::gtest GTest::gtest_main pthread)
@@ -71,7 +77,7 @@ else()
 endif()
 add_test(NAME runTests_ex03 COMMAND runTests_ex03)
 
-# Create test executables for ex03
+# Create test executables for ex04
 add_executable(runTests_ex04 test_ex04_sed_sob.cpp ${EX04_SOURCES})
 if (GTest_FOUND)
     target_link_libraries(runTests_ex04 GTest::gtest GTest::gtest_main pthread)
@@ -79,3 +85,12 @@ else()
     target_link_libraries(runTests_ex04 gtest gtest_main pthread)
 endif()
 add_test(NAME runTests_ex04 COMMAND runTests_ex04)
+
+# Create test executables for ex05
+add_executable(runTests_ex05 test_ex05_harl2dot0.cpp ${EX05_SOURCES})
+if (GTest_FOUND)
+    target_link_libraries(runTests_ex05 GTest::gtest GTest::gtest_main pthread)
+else()
+    target_link_libraries(runTests_ex05 gtest gtest_main pthread)
+endif()
+add_test(NAME runTests_ex05 COMMAND runTests_ex05)

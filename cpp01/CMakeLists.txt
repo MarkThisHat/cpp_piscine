@@ -30,4 +30,3 @@ endif()
 
 # Add subdirectory for tests
 add_subdirectory(tests)
-

@@ -6,11 +6,23 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:45 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/11 08:44:01 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:01:13 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FileProcessor.hpp"
+
+bool FileProcessor::processFile(const std::string &filename,
+ const std::string &target, const std::string &replacement) {
+  std::string wholeFile = readFile(filename);
+  if (wholeFile.empty()) {
+    return false;
+  }
+  std::string modified = replaceFile(wholeFile, target, replacement);
+  std::string replacedFile = filename + ".replace";
+
+  return produceFile(replacedFile, modified);
+}
 
 std::string FileProcessor::readFile(const std::string& filename) {
   std::ifstream file(filename.c_str());
@@ -54,16 +66,4 @@ bool FileProcessor::produceFile(const std::string& filename,
   std::cout << "Generated " << filename << " successfully." << std::endl;
 
   return true;
-}
-
-bool FileProcessor::processFile(const std::string &filename,
- const std::string &target, const std::string &replacement) {
-  std::string wholeFile = readFile(filename);
-  if (wholeFile.empty()) {
-    return false;
-  }
-  std::string modified = replaceFile(wholeFile, target, replacement);
-  std::string replacedFile = filename + ".replace";
-
-  return produceFile(replacedFile, modified);
 }
