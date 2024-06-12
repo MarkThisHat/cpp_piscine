@@ -8,7 +8,6 @@ include_directories(
     ../ex01
     ../ex03
     ../ex04
-    ../ex05
     ${gtest_SOURCE_DIR}/include
     ${gmock_SOURCE_DIR}/include
 )
@@ -87,7 +86,7 @@ endif()
 add_test(NAME runTests_ex04 COMMAND runTests_ex04)
 
 # Create test executables for ex05
-add_executable(runTests_ex05 test_ex05_harl2dot0.cpp ${EX05_SOURCES})
+add_executable(runTests_ex05 test_ex05_harl.cpp ${EX05_SOURCES})
 if (GTest_FOUND)
     target_link_libraries(runTests_ex05 GTest::gtest GTest::gtest_main pthread)
 else()

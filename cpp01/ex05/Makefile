@@ -6,12 +6,12 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/06/11 15:11:11 by maalexan         ###   ########.fr        #
+#    Updated: 2024/06/12 09:41:44 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name
-NAME		:=	harl2.0
+NAME		:=	harl
 
 # Directories for source, object and libraries
 SRC_DIR		:=	./

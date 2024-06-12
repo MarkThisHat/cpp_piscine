@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../ex04/FileProcessor.hpp"
+#include "FileProcessor.hpp"
 #include <fstream>
 #include <string>
 

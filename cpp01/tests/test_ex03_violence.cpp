@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "../ex03/Weapon.hpp"
-#include "../ex03/HumanA.hpp"
-#include "../ex03/HumanB.hpp"
+#include "Weapon.hpp"
+#include "HumanA.hpp"
+#include "HumanB.hpp"
 
 TEST(violenceTest, getType) {
   Weapon weapon("Cudgel");
