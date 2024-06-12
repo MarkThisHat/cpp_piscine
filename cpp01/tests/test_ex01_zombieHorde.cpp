@@ -16,7 +16,7 @@ TEST(HordeTest, OneZombie) {
 	ASSERT_NE(horde, nullptr);
 	EXPECT_NO_THROW(horde->announce());
 	horde[0].~Zombie();
-	operator delete[](horde);
+	delete[] horde;
 }
 
 TEST(HordeTest, ProperHorde) {
@@ -28,7 +28,7 @@ TEST(HordeTest, ProperHorde) {
 	for (int i = 0; i < 10; i++) {
 		horde[i].~Zombie();
 	}
-	operator delete[](horde);
+	delete[] horde;
 }
 
 TEST(HordeTest, Announcements) {
@@ -42,5 +42,5 @@ TEST(HordeTest, Announcements) {
 	for (int i = 0; i < 3; i++) {
 		horde[i].~Zombie();
 	}
-	operator delete[](horde);
+	delete[]horde;
 }
