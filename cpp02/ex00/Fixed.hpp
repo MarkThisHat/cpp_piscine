@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 11:46:07 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/16 15:07:47 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:33:04 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ class Fixed {
  public:
   Fixed();
   Fixed(const Fixed &other);
-  Fixed& operator =(const Fixed &other);
+  Fixed& operator=(const Fixed &other);
   ~Fixed();
 
   int getRawBits() const;
