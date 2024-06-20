@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:16:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/19 21:19:26 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:03:42 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,23 @@ Fixed Fixed::operator+(const Fixed& other) {
 
 Fixed Fixed::operator-(const Fixed& other) {
   Fixed subtraction;
-  subtraction.fixedPointValue = fixedPointValue + other.fixedPointValue;
+  subtraction.fixedPointValue = fixedPointValue - other.fixedPointValue;
   return subtraction;
 }
 
 Fixed Fixed::operator/(const Fixed& other) {
   Fixed division;
-  division.fixedPointValue = fixedPointValue + other.fixedPointValue;
+  division.fixedPointValue =
+    (fixedPointValue * (1 << fractionalBits))
+      / other.fixedPointValue;
   return division;
 }
 
 Fixed Fixed::operator*(const Fixed& other) {
   Fixed multiplication;
-  multiplication.fixedPointValue = fixedPointValue + other.fixedPointValue;
+  multiplication.fixedPointValue = 
+    (fixedPointValue * other.fixedPointValue)
+      / (1 << fractionalBits);
   return multiplication;
 }
 
@@ -109,16 +113,32 @@ Fixed &Fixed::operator--() {
   return *this;
 }
 
-Fixed &Fixed::operator++(int) {
+Fixed Fixed::operator++(int) {
   Fixed temp = *this;
   fixedPointValue += 1;
   return temp;
 }
 
-Fixed &Fixed::operator--(int) {
+Fixed Fixed::operator--(int) {
   Fixed temp = *this;
   fixedPointValue -= 1;
   return temp;
+}
+
+Fixed &Fixed::min(Fixed &a, Fixed &b) {
+  return (a.fixedPointValue < b.fixedPointValue) ? a : b;
+}
+
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b) {
+  return (a.fixedPointValue < b.fixedPointValue) ? a : b;
+}
+
+Fixed &Fixed::max(Fixed &a, Fixed &b) {
+  return (a.fixedPointValue > b.fixedPointValue) ? a : b;
+}
+
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b) {
+  return (a.fixedPointValue > b.fixedPointValue) ? a : b;
 }
 
 std::ostream& operator<<(std::ostream &out, const Fixed &fixed) {

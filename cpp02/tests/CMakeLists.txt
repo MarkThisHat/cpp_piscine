@@ -19,6 +19,10 @@ set(EX01_SOURCES
     ../ex01/Fixed.cpp
 )
 
+set(EX02_SOURCES
+    ../ex02/Fixed.cpp
+)
+
 # Create test executables for ex00
 add_executable(runTests_ex00 test_ex00.cpp ${EX00_SOURCES})
 if (GTest_FOUND)
@@ -36,3 +40,12 @@ else()
     target_link_libraries(runTests_ex01 gtest gtest_main pthread)
 endif()
 add_test(NAME runTests_ex01 COMMAND runTests_ex01)
+
+# Create test executables for ex02
+add_executable(runTests_ex02 test_ex02.cpp ${EX02_SOURCES})
+if (GTest_FOUND)
+    target_link_libraries(runTests_ex02 GTest::gtest GTest::gtest_main pthread)
+else()
+    target_link_libraries(runTests_ex02 gtest gtest_main pthread)
+endif()
+add_test(NAME runTests_ex02 COMMAND runTests_ex02)
