@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.hpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:28:53 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/20 21:29:31 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:46:21 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int main() {
   claptrap1.attack("Target-02");
 
   claptrap1.takeDamage(5);
-  claptrap1.takeDamage(10);
 
   claptrap1.beRepaired(3);
   claptrap1.beRepaired(8);
