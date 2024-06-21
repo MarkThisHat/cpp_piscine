@@ -6,12 +6,12 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/06/20 20:31:35 by maalexan         ###   ########.fr        #
+#    Updated: 2024/06/20 21:31:14 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name
-NAME		:=	clap_trap
+NAME		:=	claptrap
 
 # Directories for source, object and libraries
 SRC_DIR		:=	./
@@ -23,8 +23,8 @@ CC			:=	c++
 CFLAGS		:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
 
 # Source files
-SRC			:=	ClapTrap.cpp	\
-						
+SRC			:=	main.cpp			\
+						ClapTrap.cpp	\
 
 # Object files
 OBJ			:=	$(SRC:%.cpp=$(OBJ_DIR)/%.o)
