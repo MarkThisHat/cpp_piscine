@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:11:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/22 14:03:25 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/22 14:02:47 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void ClapTrap::attack(const std::string& target) {
   } else {
     std::cout << " attacks " << target << " for [" << attackDamage
       << (attackDamage > 0 ? "] damage! (" : "] - no harm done! (")
-      << energyPoints << ") energy points left).";
+      << energyPoints << ") energy points left.";
   }
   std::cout << std::endl;
 }

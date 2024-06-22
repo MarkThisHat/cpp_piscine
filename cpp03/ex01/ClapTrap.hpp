@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:03:59 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/22 13:01:50 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/22 12:30:57 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ class ClapTrap {
   unsigned int getEnergyPoints() const;
   unsigned int getAttackDamage() const;
 
- private:
+ protected:
+  bool spendEnergy(unsigned int amount);
   std::string name;
   unsigned int hitPoints;
   unsigned int energyPoints;
   unsigned int attackDamage;
-  bool spendEnergy(unsigned int amount);
+
+ private:
   ClapTrap();
 };
