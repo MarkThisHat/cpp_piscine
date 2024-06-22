@@ -1,9 +1,6 @@
 #include <gtest/gtest.h>
 #include "../ex00/ClapTrap.hpp"
 
-#include <gtest/gtest.h>
-#include "ClapTrap.hpp"
-
 TEST(ClapTrapTest, Constructor) {
     ClapTrap claptrap("CT-01");
     ASSERT_EQ(claptrap.getName(), "CT-01");

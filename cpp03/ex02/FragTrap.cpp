@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.cpp                                       :+:      :+:    :+:   */
+/*   FragTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 13:44:57 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/22 19:10:11 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/22 20:04:34 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
-ScavTrap::ScavTrap(const std::string name): ClapTrap(name), guarding(false) {
+FragTrap::FragTrap(const std::string name): ClapTrap(name) {
   hitPoints = 100;
-  energyPoints = 50;
-  attackDamage = 20;
-  std::cout << "A wild ScavTrap " << name << " appears!" << std::endl;
+  energyPoints = 100;
+  attackDamage = 30;
+  std::cout << "A wild FragTrap " << name << " appears!" << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& other):
- ClapTrap(other), guarding(other.guarding) {
-  std::cout << "Another wild ScavTrap " << name << " appears!" << std::endl;       
+FragTrap::FragTrap(const FragTrap& other): ClapTrap(other) {
+  std::cout << "Another wild FragTrap " << name << " appears!" << std::endl;       
 }
 
-ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
+FragTrap& FragTrap::operator=(const FragTrap& other) {
   if (this != &other) {
     ClapTrap::operator=(other);
-    guarding = other.guarding;
-    std::cout << "Yet another ScavTrap " << name << " appears!" << std::endl;
+    std::cout << "Yet another FragTrap " << name << " appears!" << std::endl;
   }
   return *this;
 }
 
-void ScavTrap::attack(const std::string& target) {
-  std::cout << "ScavTrap " << name;
+void FragTrap::attack(const std::string& target) {
+  std::cout << "FragTrap " << name;
   if (!hitPoints || !spendEnergy(1)) {
     std::cout << " is unable to attack!";
   } else {
@@ -45,16 +43,12 @@ void ScavTrap::attack(const std::string& target) {
   std::cout << std::endl;
 }
 
-void ScavTrap::guardGate() {
-  guarding = !guarding;
-  std::cout << "Scavtrap " << name << (guarding ? " starts" : " stops")
-    << " guarding the gate!" << std::endl;
+void FragTrap::highFivesGuys() const {
+    std::cout << "FragTrap " << name 
+      << " is requesting a high five! High fives, folks!" << std::endl;
 }
 
-bool ScavTrap::guardingStatus() const {
-  return guarding;
-}
-
-ScavTrap::~ScavTrap() {
-  std::cout << "ScavTrap " << name << " starts to disassemble..." << std::endl;
+FragTrap::~FragTrap() {
+  std::cout << "FragTrap " << name 
+    << " holds up its hand waiting for a final high five..." << std::endl;
 }

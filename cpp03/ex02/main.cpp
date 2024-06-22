@@ -6,42 +6,42 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:28:53 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/22 19:49:34 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/22 20:05:03 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int main() {
-  ScavTrap scavtrap("ST-01");
-  scavtrap.attack("Target-01");
-  scavtrap.attack("Target-02");
+  FragTrap fragtrap("ST-01");
+  fragtrap.attack("Target-01");
+  fragtrap.attack("Target-02");
 
-  scavtrap.takeDamage(5);
+  fragtrap.takeDamage(5);
 
-  scavtrap.beRepaired(3);
-  scavtrap.beRepaired(8);
+  fragtrap.beRepaired(3);
+  fragtrap.beRepaired(8);
 
-  scavtrap.guardGate();
+  fragtrap.highFivesGuys();
 
   for (int i = 0; i < 10; ++i) {
-      scavtrap.attack("Target-03");
+      fragtrap.attack("Target-03");
   }
 
-  scavtrap.attack("Target-04");
-  scavtrap.beRepaired(5);
+  fragtrap.attack("Target-04");
+  fragtrap.beRepaired(5);
 
-  ScavTrap ScavTrap2(scavtrap);
-  ScavTrap2.attack("Target-05");
+  FragTrap FragTrap2(fragtrap);
+  FragTrap2.attack("Target-05");
 
-  ScavTrap ScavTrap3("ST-03");
-  ScavTrap3 = scavtrap;
-  ScavTrap3.attack("Target-06");
+  FragTrap FragTrap3("ST-03");
+  FragTrap3 = fragtrap;
+  FragTrap3.attack("Target-06");
 
-  scavtrap.takeDamage(100);
-  scavtrap.takeDamage(100);
-  scavtrap.attack("Bogus target");
-  ClapTrap* ptr = new ScavTrap("ST-02");
+  fragtrap.takeDamage(100);
+  fragtrap.takeDamage(100);
+  fragtrap.attack("Bogus target");
+  ClapTrap* ptr = new FragTrap("ST-02");
   ptr->attack("proof why you should use virtual attack");
   // Incorrect cleanup if destructor is not virtual
   delete ptr;
