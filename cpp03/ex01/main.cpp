@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 21:28:53 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/22 19:49:34 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:36:33 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int main() {
   ScavTrap scavtrap("ST-01");
+  scavtrap.guardGate();
+  scavtrap.guardGate();
+  scavtrap.guardGate();
   scavtrap.attack("Target-01");
   scavtrap.attack("Target-02");
 
@@ -22,7 +25,6 @@ int main() {
   scavtrap.beRepaired(3);
   scavtrap.beRepaired(8);
 
-  scavtrap.guardGate();
 
   for (int i = 0; i < 10; ++i) {
       scavtrap.attack("Target-03");

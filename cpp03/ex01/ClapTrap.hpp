@@ -1,36 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/23 09:38:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/23 15:17:43 by maalexan         ###   ########.fr       */
+/*   Created: 2024/06/20 20:03:59 by maalexan          #+#    #+#             */
+/*   Updated: 2024/06/23 23:16:58 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+#include <iostream>
+#include <string>
 
-#include "../ex01/ScavTrap.hpp"
-#include "../ex02/FragTrap.hpp"
-
-class DiamondTrap : virtual public ScavTrap, virtual public FragTrap {
+class ClapTrap {
  public:
-  DiamondTrap(const std::string name);
-  DiamondTrap(const DiamondTrap& other);
-  DiamondTrap& operator=(const DiamondTrap& other);
-  ~DiamondTrap();
+  ClapTrap(const std::string name);
+  ClapTrap(const ClapTrap& other);
+  ClapTrap& operator=(const ClapTrap& other);
+  virtual ~ClapTrap();
 
-  void attack(const std::string& target);
-  void whoAmI() const;
+  virtual void attack(const std::string& target);
+  void takeDamage(unsigned int amount);
+  void beRepaired(unsigned int amount);
 
   const std::string getName() const;
   unsigned int getHitPoints() const;
   unsigned int getEnergyPoints() const;
   unsigned int getAttackDamage() const;
 
- private:
+ protected:
+  bool spendEnergy(unsigned int amount);
   std::string name;
-  DiamondTrap();
+  unsigned int hitPoints;
+  unsigned int energyPoints;
+  unsigned int attackDamage;
+  void initEnergyPoints();
+  void initHitPoints();
+  void initAttackDamage();
+
+ private:
+  ClapTrap();
 };

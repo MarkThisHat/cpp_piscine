@@ -6,16 +6,16 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 13:44:57 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/23 13:09:45 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:41:39 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FragTrap.hpp"
 
 FragTrap::FragTrap(const std::string name): ClapTrap(name) {
-  hitPoints = 100;
-  energyPoints = 100;
-  attackDamage = 30;
+  initHitPoints();
+  initEnergyPoints();
+  initAttackDamage();
   std::cout << "A wild FragTrap " << name << " appears!" << std::endl;
 }
 
@@ -40,11 +40,23 @@ void FragTrap::attack(const std::string& target) {
   if (!hitPoints || !spendEnergy(1)) {
     std::cout << " is unable to attack!";
   } else {
-    std::cout << " attacks " << target << " for [" << attackDamage
+    std::cout << " FRAG-attacks " << target << " for [" << attackDamage
       << (attackDamage > 0 ? "] damage! (" : "] - no harm done! (")
       << energyPoints << ") energy points left.";
   }
   std::cout << std::endl;
+}
+
+void FragTrap::initHitPoints() {
+  hitPoints = 100;
+}
+
+void FragTrap::initEnergyPoints() {
+  energyPoints = 100;
+}
+
+void FragTrap::initAttackDamage() {
+  attackDamage = 30;
 }
 
 void FragTrap::highFivesGuys() const {

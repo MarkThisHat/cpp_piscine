@@ -15,6 +15,7 @@ set(EX00_SOURCES
 )
 
 set(EX01_SOURCES
+    ../ex01/ClapTrap.cpp
     ../ex01/ScavTrap.cpp
 )
 
@@ -36,7 +37,7 @@ endif()
 add_test(NAME runTests_ex00 COMMAND runTests_ex00)
 
 # Create test executables for ex01
-add_executable(runTests_ex01 test_ex01.cpp ${EX00_SOURCES} ${EX01_SOURCES})
+add_executable(runTests_ex01 test_ex01.cpp ${EX01_SOURCES})
 if (GTest_FOUND)
     target_link_libraries(runTests_ex01 GTest::gtest GTest::gtest_main pthread)
 else()
@@ -45,7 +46,7 @@ endif()
 add_test(NAME runTests_ex01 COMMAND runTests_ex01)
 
 # Create test executables for ex02
-add_executable(runTests_ex02 test_ex02.cpp ${EX00_SOURCES} ${EX02_SOURCES})
+add_executable(runTests_ex02 test_ex02.cpp ${EX01_SOURCES} ${EX02_SOURCES})
 if (GTest_FOUND)
     target_link_libraries(runTests_ex02 GTest::gtest GTest::gtest_main pthread)
 else()
@@ -54,7 +55,7 @@ endif()
 add_test(NAME runTests_ex02 COMMAND runTests_ex02)
 
 # Create test executables for ex03
-add_executable(runTests_ex03 test_ex03.cpp ${EX00_SOURCES} ${EX01_SOURCES} ${EX02_SOURCES} ${EX03_SOURCES})
+add_executable(runTests_ex03 test_ex03.cpp ${EX01_SOURCES} ${EX02_SOURCES} ${EX03_SOURCES})
 if (GTest_FOUND)
     target_link_libraries(runTests_ex03 GTest::gtest GTest::gtest_main pthread)
 else()

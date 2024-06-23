@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/06/22 17:17:17 by maalexan         ###   ########.fr        #
+#    Updated: 2024/06/26 15:09:14 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CFLAGS		:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
 
 # Source files
 SRC			:=	main.cpp			\
-						../ex00/ClapTrap.cpp	\
+						ClapTrap.cpp	\
 						ScavTrap.cpp
 
 # Object files
@@ -36,10 +36,6 @@ $(NAME): $(OBJ)
 	$(CC) $(OBJ) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)%.cpp
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/%.o: ../ex00/%.cpp
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 

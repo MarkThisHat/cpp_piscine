@@ -6,14 +6,17 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 20:11:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/26 15:13:59 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/23 23:19:18 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap(const std::string name): name(name),
- hitPoints(10), energyPoints(10), attackDamage(0) {
+ hitPoints(0), energyPoints(0), attackDamage(0) {
+  initHitPoints();
+  initEnergyPoints();
+  initAttackDamage();
   std::cout << "A wild ClapTrap " << name << " appears!" << std::endl;
 }
 
@@ -92,4 +95,16 @@ bool ClapTrap::spendEnergy(unsigned int amount) {
   }
   energyPoints -= amount;
   return true;
+}
+
+void ClapTrap::initHitPoints() {
+  hitPoints = 10;
+}
+
+void ClapTrap::initEnergyPoints() {
+  energyPoints = 10;
+}
+
+void ClapTrap::initAttackDamage() {
+  attackDamage = 0;
 }
