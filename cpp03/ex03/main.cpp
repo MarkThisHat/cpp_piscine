@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 11:18:09 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/23 11:55:38 by maalexan         ###   ########.fr       */
+/*   Created: 2024/06/23 09:34:31 by maalexan          #+#    #+#             */
+/*   Updated: 2024/06/23 12:18:25 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include "../ex00/ClapTrap.hpp"
+#include "DiamondTrap.hpp"
 
-class FragTrap: virtual public ClapTrap {
- public:
-  FragTrap(const std::string name);
-  FragTrap(const FragTrap& other);
-  FragTrap& operator=(const FragTrap& other);
-  virtual ~FragTrap();
+int main() {
+  DiamondTrap dt("Diamond");
 
-  virtual void attack(const std::string& target);
-  void highFivesGuys() const;
+  dt.attack("target");
+  dt.whoAmI();
 
- private:
-  FragTrap();
-};
+  std::cout << "Hit points: " << dt.getHitPoints() << std::endl;
+  std::cout << "Energy points: " << dt.getEnergyPoints() << std::endl;
+  std::cout << "Attack damage: " << dt.getAttackDamage() << std::endl;
+
+  return 0;
+}

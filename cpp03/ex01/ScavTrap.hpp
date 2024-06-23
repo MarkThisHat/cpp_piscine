@@ -6,14 +6,14 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 11:18:09 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/22 19:50:42 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/23 11:50:11 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "../ex00/ClapTrap.hpp"
 
-class ScavTrap: public ClapTrap {
+class ScavTrap: virtual public ClapTrap {
  public:
   ScavTrap(const std::string name);
   ScavTrap(const ScavTrap& other);
@@ -22,7 +22,7 @@ class ScavTrap: public ClapTrap {
 
   void guardGate();
   bool guardingStatus() const;
-  virtual void attack(const std::string &target);
+  virtual void attack(const std::string& target);
 
  private:
   bool guarding;

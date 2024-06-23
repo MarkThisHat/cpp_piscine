@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 13:44:57 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/22 20:04:34 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/23 11:59:24 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ FragTrap::FragTrap(const std::string name): ClapTrap(name) {
 }
 
 FragTrap::FragTrap(const FragTrap& other): ClapTrap(other) {
-  std::cout << "Another wild FragTrap " << name << " appears!" << std::endl;       
+  std::cout << "Another wild FragTrap " << name << " appears!" << std::endl;
 }
 
 FragTrap& FragTrap::operator=(const FragTrap& other) {

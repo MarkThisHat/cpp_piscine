@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/22 11:18:09 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/23 11:55:38 by maalexan         ###   ########.fr       */
+/*   Created: 2024/06/23 09:38:36 by maalexan          #+#    #+#             */
+/*   Updated: 2024/06/23 11:52:56 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "../ex00/ClapTrap.hpp"
 
-class FragTrap: virtual public ClapTrap {
+#include "../ex01/ScavTrap.hpp"
+#include "../ex02/FragTrap.hpp"
+
+class DiamondTrap : public ScavTrap, public FragTrap {
  public:
-  FragTrap(const std::string name);
-  FragTrap(const FragTrap& other);
-  FragTrap& operator=(const FragTrap& other);
-  virtual ~FragTrap();
+  DiamondTrap(const std::string name);
+  DiamondTrap(const DiamondTrap& other);
+  DiamondTrap& operator=(const DiamondTrap& other);
+  ~DiamondTrap();
 
-  virtual void attack(const std::string& target);
-  void highFivesGuys() const;
+  void attack(const std::string& target);
+  void whoAmI() const;
 
  private:
-  FragTrap();
+  std::string name;
+  DiamondTrap();
 };
