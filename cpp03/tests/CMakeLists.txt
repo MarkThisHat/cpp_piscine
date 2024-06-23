@@ -22,6 +22,10 @@ set(EX02_SOURCES
     ../ex02/FragTrap.cpp
 )
 
+set(EX03_SOURCES
+    ../ex03/DiamondTrap.cpp
+)
+
 # Create test executables for ex00
 add_executable(runTests_ex00 test_ex00.cpp ${EX00_SOURCES})
 if (GTest_FOUND)
@@ -50,10 +54,10 @@ endif()
 add_test(NAME runTests_ex02 COMMAND runTests_ex02)
 
 # Create test executables for ex03
-#add_executable(runTests_ex03 test_ex03.cpp ${EX03_SOURCES})
-#if (GTest_FOUND)
-#    target_link_libraries(runTests_ex03 GTest::gtest GTest::gtest_main pthread)
-#else()
-#    target_link_libraries(runTests_ex03 gtest gtest_main pthread)
-#endif()
-#add_test(NAME runTests_ex03 COMMAND runTests_ex03)
+add_executable(runTests_ex03 test_ex03.cpp ${EX00_SOURCES} ${EX01_SOURCES} ${EX02_SOURCES} ${EX03_SOURCES})
+if (GTest_FOUND)
+    target_link_libraries(runTests_ex03 GTest::gtest GTest::gtest_main pthread)
+else()
+    target_link_libraries(runTests_ex03 gtest gtest_main pthread)
+endif()
+add_test(NAME runTests_ex03 COMMAND runTests_ex03)

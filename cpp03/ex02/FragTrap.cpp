@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 13:44:57 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/23 11:59:24 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/23 13:09:45 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ FragTrap::FragTrap(const FragTrap& other): ClapTrap(other) {
 FragTrap& FragTrap::operator=(const FragTrap& other) {
   if (this != &other) {
     ClapTrap::operator=(other);
+    name = other.name;
+    hitPoints = other.hitPoints;
+    energyPoints = other.energyPoints;
+    attackDamage = other.attackDamage;
     std::cout << "Yet another FragTrap " << name << " appears!" << std::endl;
   }
   return *this;

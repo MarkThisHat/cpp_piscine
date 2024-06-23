@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 13:44:57 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/22 19:10:11 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/23 13:10:00 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ ScavTrap::ScavTrap(const ScavTrap& other):
 ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
   if (this != &other) {
     ClapTrap::operator=(other);
+    name = other.name;
+    hitPoints = other.hitPoints;
+    energyPoints = other.energyPoints;
+    attackDamage = other.attackDamage;
     guarding = other.guarding;
     std::cout << "Yet another ScavTrap " << name << " appears!" << std::endl;
   }
