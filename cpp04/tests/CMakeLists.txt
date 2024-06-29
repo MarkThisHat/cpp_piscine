@@ -4,13 +4,18 @@ set(CMAKE_CXX_STANDARD 98)
 
 # Include directories for project sources
 include_directories(
+    ../ex00/incl
     ${gtest_SOURCE_DIR}/include
     ${gmock_SOURCE_DIR}/include
 )
 
 # Source files
 set(EX00_SOURCES
-
+  ../ex00/src/Animal.cpp
+  ../ex00/src/Cat.cpp
+  ../ex00/src/Dog.cpp
+  ../ex00/src/WrongAnimal.cpp
+  ../ex00/src/WrongCat.cpp
 )
 
 set(EX01_SOURCES
