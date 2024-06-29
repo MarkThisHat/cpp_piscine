@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:20:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/26 16:35:32 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/29 11:26:04 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,22 @@
 #define BRIGHT_CYAN   "\033[96m"
 #define BRIGHT_WHITE  "\033[97m"
 
-#define PR_BLACK(text)  (std::cout << BLACK << text << RESET << std::endl)
-#define PR_RED(text)    (std::cout << RED << text << RESET << std::endl)
-#define PR_GREEN(text)  (std::cout << GREEN << text << RESET << std::endl)
-#define PR_YELLOW(text) (std::cout << YELLOW << text << RESET << std::endl)
-#define PR_BLUE(text)   (std::cout << BLUE << text << RESET << std::endl)
-#define PR_PINK(text)   (std::cout << PINK << text << RESET << std::endl)
-#define PR_CYAN(text)   (std::cout << CYAN << text << RESET << std::endl)
-#define PR_WHITE(text)  (std::cout << WHITE << text << RESET << std::endl)
+#define PUT_BLACK(text)    (std::cout << BLACK << text << RESET << std::endl)
+#define PUT_RED(text)      (std::cout << RED << text << RESET << std::endl)
+#define PUT_GREEN(text)    (std::cout << GREEN << text << RESET << std::endl)
+#define PUT_YELLOW(text)   (std::cout << YELLOW << text << RESET << std::endl)
+#define PUT_BLUE(text)     (std::cout << BLUE << text << RESET << std::endl)
+#define PUT_PINK(text)     (std::cout << PINK << text << RESET << std::endl)
+#define PUT_CYAN(text)     (std::cout << CYAN << text << RESET << std::endl)
+#define PUT_WHITE(text)    (std::cout << WHITE << text << RESET << std::endl)
 
-#define PL_BLACK(text)  (std::cout << BRIGHT_BLACK << text << RESET << std::endl)
-#define PL_RED(text)    (std::cout << BRIGHT_RED << text << RESET << std::endl)
-#define PL_GREEN(text)  (std::cout << BRIGHT_GREEN << text << RESET << std::endl)
-#define PL_YELLOW(text) (std::cout << BRIGHT_YELLOW << text << RESET << std::endl)
-#define PL_BLUE(text)   (std::cout << BRIGHT_BLUE << text << RESET << std::endl)
-#define PL_PINK(text)   (std::cout << BRIGHT_PINK << text << RESET << std::endl)
-#define PL_CYAN(text)   (std::cout << BRIGHT_CYAN << text << RESET << std::endl)
-#define PL_WHITE(text)  (std::cout << BRIGHT_WHITE << text << RESET << std::endl)
+#define PUT_L_BLACK(text)  (std::cout << BRIGHT_BLACK << text << RESET << std::endl)
+#define PUT_L_RED(text)    (std::cout << BRIGHT_RED << text << RESET << std::endl)
+#define PUT_L_GREEN(text)  (std::cout << BRIGHT_GREEN << text << RESET << std::endl)
+#define PUT_L_YELLOW(text) (std::cout << BRIGHT_YELLOW << text << RESET << std::endl)
+#define PUT_L_BLUE(text)   (std::cout << BRIGHT_BLUE << text << RESET << std::endl)
+#define PUT_L_PINK(text)   (std::cout << BRIGHT_PINK << text << RESET << std::endl)
+#define PUT_L_CYAN(text)   (std::cout << BRIGHT_CYAN << text << RESET << std::endl)
+#define PUT_L_WHITE(text)  (std::cout << BRIGHT_WHITE << text << RESET << std::endl)
 
 #endif
