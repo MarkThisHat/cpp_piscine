@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:08:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 12:44:35 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:02:53 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ class Animal {
   virtual void makeSound() const;
 
  protected:
-  const std::string type;
+  std::string type;
 };

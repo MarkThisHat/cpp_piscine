@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 11:39:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 12:47:59 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/29 15:57:44 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ Cat::Cat(): Animal("Cat") {
 Cat::Cat(const Cat& other): Animal(other.type) {}
 
 Cat& Cat::operator=(const Cat& other) {
-/*  if (this != &other) {
+  if (this != &other) {
     type = other.type;
-  }*/
- (void)other;
+  }
   return *this;
 }
 
