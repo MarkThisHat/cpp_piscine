@@ -6,25 +6,23 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:20:32 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 12:39:20 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/29 12:47:34 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-Dog::Dog() {
-  type = "Dog";
+Dog::Dog(): Animal("Dog") {
   PUT_GREEN("You adopt a new Dog!");
 }
 
-Dog::Dog(const Dog& other): Animal() {
-  type = other.type;
-}
+Dog::Dog(const Dog& other): Animal(other.type) {}
 
 Dog& Dog::operator=(const Dog& other) {
-  if (this != &other) {
+/*  if (this != &other) {
     type = other.type;
-  }
+  }*/
+ (void)other;
   return *this;
 }
 

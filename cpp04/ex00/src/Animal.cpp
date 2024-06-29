@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 11:08:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 12:31:53 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/29 12:45:49 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@ Animal::Animal(): type("") {
   PUT_WHITE("Base animal constructed");
 }
 
-Animal::Animal(const Animal& other): type(other.type) {}
+Animal::Animal(const std::string &type): type(type) {}
+
+Animal::Animal(const Animal& other) {
+  (void)other;
+}
 
 Animal& Animal::operator=(const Animal& other) {
-  if (this != &other) {
+ /* if (this != &other) {
     type = other.type;
-  }
+  }*/
+ (void)other;
  return *this;
 }
 
