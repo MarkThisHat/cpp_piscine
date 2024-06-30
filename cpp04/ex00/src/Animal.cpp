@@ -6,14 +6,15 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 11:08:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 23:41:36 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/30 10:58:53 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/Animal.hpp"
 
 Animal::Animal(): type("") {
-  PUT_WHITE("Base animal constructed");
+  LAY_BLUE("Constructor: ");
+  PUT_WHITE("Animal");
 }
 
 Animal::Animal(const std::string &type): type(type) {}
@@ -27,10 +28,13 @@ Animal& Animal::operator=(const Animal& other) {
  return *this;
 }
 
-Animal::~Animal() {}
+Animal::~Animal() {
+  LAY_RED("Destructor: ");
+  PUT_WHITE("Animal");
+}
 
 void Animal::makeSound() const {
-  PUT_WHITE("Animal makes Animal noises");
+  PUT_WHITE("Animal makes Animal-like noises");
 }
 
 const std::string Animal::getType() const {

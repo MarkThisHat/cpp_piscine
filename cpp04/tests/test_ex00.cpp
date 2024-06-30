@@ -10,14 +10,14 @@ TEST(AnimalTest, MakeSound) {
     testing::internal::CaptureStdout();
     animal.makeSound();
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "\033[37mAnimal makes Animal noises\033[0m\n");
+    EXPECT_EQ(output, "\033[37mAnimal makes Animal-like noises\033[0m\n");
 }
 
 TEST(CatTest, MakeSound) {
     testing::internal::CaptureStdout();
     Animal* cat = new Cat();
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "\033[33mYou are adopted by a new Cat!\033[0m\n");
+    EXPECT_EQ(output, "\x1B[34mConstructor: \x1B[0m\x1B[33mYou are adopted by a new Cat!\x1B[0m\n");
     testing::internal::CaptureStdout();
     cat->makeSound();
     output = testing::internal::GetCapturedStdout();
@@ -29,7 +29,7 @@ TEST(DogTest, MakeSound) {
     testing::internal::CaptureStdout();
     Animal* dog = new Dog();
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "\033[32mYou adopt a new Dog!\033[0m\n");
+    EXPECT_EQ(output, "\x1B[34mConstructor: \x1B[0m\x1B[32mYou adopt a new Dog!\x1B[0m\n");
     testing::internal::CaptureStdout();
     dog->makeSound();
     output = testing::internal::GetCapturedStdout();

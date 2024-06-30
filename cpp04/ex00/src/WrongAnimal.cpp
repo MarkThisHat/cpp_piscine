@@ -6,14 +6,15 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 11:08:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 23:21:38 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/30 11:12:35 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/WrongAnimal.hpp"
 
 WrongAnimal::WrongAnimal(): type("") {
-  PUT_WHITE("Base WrongAnimal constructed");
+  LAY_BLUE("Constructor: ");
+  PUT_L_PINK("WrongAnimal");
 }
 
 WrongAnimal::WrongAnimal(const std::string &type): type(type) {}
@@ -27,7 +28,10 @@ WrongAnimal& WrongAnimal::operator=(const WrongAnimal& other) {
  return *this;
 }
 
-WrongAnimal::~WrongAnimal() {}
+WrongAnimal::~WrongAnimal() {
+  LAY_RED("Destructor: ");
+  PUT_L_PINK("WrongAnimal");
+}
 
 void WrongAnimal::makeSound() const {
   PUT_L_PINK("The sounds this animal makes are just SO WRONG");
