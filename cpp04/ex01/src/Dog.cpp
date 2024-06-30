@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:20:32 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/30 14:25:01 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/30 15:05:00 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,12 @@ Dog::~Dog() {
 
 void Dog::makeSound() const {
   PUT_GREEN("Dog BARKS");
+}
+
+const Brain& Dog::getBrain() const {
+  return *brain;
+}
+
+void Dog::setBrainIdea(const std::string& idea, int index) {
+  brain->setIdea(idea, index);
 }

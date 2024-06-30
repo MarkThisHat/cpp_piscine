@@ -6,12 +6,12 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/06/30 14:29:13 by maalexan         ###   ########.fr        #
+#    Updated: 2024/06/30 14:34:14 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name
-NAME		:=	smartFarm
+NAME		:=	thinkingFarm
 
 # Directories for source, object and libraries
 SRC_DIR		:=	./src
@@ -24,10 +24,10 @@ CFLAGS	:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
 
 # Source files
 SRC			:=	main.cpp		\
-				Animal.cpp		\
-				Cat.cpp			\
-				Dog.cpp			\
-				Brain.cpp		\
+						Animal.cpp	\
+						Cat.cpp			\
+						Dog.cpp			\
+						Brain.cpp		\
 
 # Object files
 OBJ			:=	$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(notdir $(SRC)))

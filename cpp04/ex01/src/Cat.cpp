@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 11:39:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/30 14:27:17 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/30 15:04:36 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,12 @@ Cat::~Cat() {
 
 void Cat::makeSound() const {
   PUT_YELLOW("Cat MEOWS");
+}
+
+const Brain* Cat::getBrain() const {
+  return brain;
+}
+
+void Cat::setBrainIdea(const std::string& idea, int index) {
+  brain->setIdea(idea, index);
 }

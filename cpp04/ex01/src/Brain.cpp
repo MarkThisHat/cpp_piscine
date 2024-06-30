@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:57:41 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/30 14:28:08 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/30 15:38:25 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ Brain& Brain::operator=(const Brain& other) {
     for (int i = 0; i < 100; i++) {
       ideas[i] = other.ideas[i];
     }
-    LAY_WHITE("Operator = overload: ");
+    LAY_WHITE("Operator= overload: ");
     PUT_PINK("Brain");
   }
   return *this;
@@ -39,4 +39,21 @@ Brain& Brain::operator=(const Brain& other) {
 Brain::~Brain() {
   LAY_RED("Destructor: ");
   PUT_PINK("Brainless now");
+}
+
+const std::string &Brain::getIdea(int index) const {
+  static const std::string noIdea = "This animal has no idea";
+  if (index < 0 || index > 99 || ideas[index] == "") {
+    return noIdea;
+  }
+  return ideas[index];
+}
+
+void Brain::setIdea(const std::string &idea, int index)
+{
+  if (idea == "" || index < 0 || index > 99) {
+    PUT_L_RED("That's not really an idea");
+    return;
+  }
+  ideas[index] = idea;
 }
