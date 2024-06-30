@@ -6,22 +6,24 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:20:32 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/30 10:55:16 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/30 14:25:01 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/Dog.hpp"
 
-Dog::Dog(): Animal("Dog") {
+Dog::Dog(): Animal("Dog"), brain(new Brain()) {
   LAY_BLUE("Constructor: ");
   PUT_GREEN("You adopt a new Dog!");
 }
 
-Dog::Dog(const Dog& other): Animal(other.type) {}
+Dog::Dog(const Dog& other): Animal(other.type), brain(new Brain(*other.brain))
+{}
 
 Dog& Dog::operator=(const Dog& other) {
   if (this != &other) {
-    type = other.type;
+    Animal::operator=(other);
+    *brain = *other.brain;
   }
   return *this;
 }
@@ -29,6 +31,7 @@ Dog& Dog::operator=(const Dog& other) {
 Dog::~Dog() {
   LAY_RED("Destructor: ");
   PUT_GREEN("Dog");
+  delete brain;
 }
 
 void Dog::makeSound() const {

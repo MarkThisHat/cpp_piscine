@@ -6,13 +6,13 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:08:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/30 13:50:22 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/30 14:19:41 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "../ex00/incl/pretty_print.hpp"
-#include <string>
+#include "../../ex00/incl/pretty_print.hpp"
+#include "Brain.hpp"
 
 class Animal {
  public:

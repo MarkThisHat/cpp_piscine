@@ -6,12 +6,12 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/06/30 12:34:37 by maalexan         ###   ########.fr        #
+#    Updated: 2024/06/30 14:29:13 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name
-NAME		:=	animalFarm
+NAME		:=	smartFarm
 
 # Directories for source, object and libraries
 SRC_DIR		:=	./src

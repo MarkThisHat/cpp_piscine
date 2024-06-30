@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/29 11:06:22 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/30 14:20:17 by maalexan         ###   ########.fr       */
+/*   Created: 2024/06/30 12:34:44 by maalexan          #+#    #+#             */
+/*   Updated: 2024/06/30 14:19:33 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include "Animal.hpp"
 
-class Cat: public Animal {
+#include "../../ex00/incl/pretty_print.hpp"
+#include <string>
+
+class Brain {
  public:
-  Cat();
-  Cat(const Cat& other);
-  Cat& operator=(const Cat& other);
-  ~Cat();
+  Brain();
+  Brain(const Brain& other);
+  Brain& operator=(const Brain& other);
+  ~Brain();
 
-  void makeSound() const;
  private:
-  Brain *brain;
+  std::string ideas[100];
 };

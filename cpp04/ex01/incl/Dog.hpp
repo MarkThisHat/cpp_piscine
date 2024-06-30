@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 10:36:57 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 11:06:14 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/30 14:20:21 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,6 @@ class Dog : public Animal {
   ~Dog();
 
   void makeSound() const;
+ private:
+  Brain *brain;
 };
