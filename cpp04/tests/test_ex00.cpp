@@ -10,7 +10,7 @@ TEST(AnimalTest, MakeSound) {
     testing::internal::CaptureStdout();
     animal.makeSound();
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "Makes Animal noises\n");
+    EXPECT_EQ(output, "\033[37mAnimal makes Animal noises\033[0m\n");
 }
 
 TEST(CatTest, MakeSound) {
@@ -21,24 +21,29 @@ TEST(CatTest, MakeSound) {
     testing::internal::CaptureStdout();
     cat->makeSound();
     output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "\033[33mCat meows\033[0m\n");
+    EXPECT_EQ(output, "\033[33mCat MEOWS\033[0m\n");
     delete cat;
 }
 
 TEST(DogTest, MakeSound) {
-    Dog dog;
     testing::internal::CaptureStdout();
-    dog.makeSound();
+    Animal* dog = new Dog();
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "Dog barks\n");
+    EXPECT_EQ(output, "\033[32mYou adopt a new Dog!\033[0m\n");
+    testing::internal::CaptureStdout();
+    dog->makeSound();
+    output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "\033[32mDog BARKS\033[0m\n");
+    delete dog;
 }
 
 TEST(WrongAnimalTest, MakeSound) {
-    WrongAnimal wrongAnimal("Incorrect");
+    WrongAnimal* wrongAnimal = new WrongCat();
     testing::internal::CaptureStdout();
-    wrongAnimal.makeSound();
+    wrongAnimal->makeSound();
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "WrongAnimal makes a sound\n");
+    EXPECT_EQ(output, "\033[95mThe sounds this animal makes are just SO WRONG\033[0m\n");
+    delete wrongAnimal;
 }
 
 TEST(WrongCatTest, MakeSound) {
@@ -46,7 +51,7 @@ TEST(WrongCatTest, MakeSound) {
     testing::internal::CaptureStdout();
     wrongCat.makeSound();
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "This cat meows wrongly\n");
+    EXPECT_EQ(output, "\033[93mThis cat meows wrongly\033[0m\n");
 }
 
 int main(int argc, char **argv) {

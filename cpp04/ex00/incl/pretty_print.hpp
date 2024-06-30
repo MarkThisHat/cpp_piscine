@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:20:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 11:26:04 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/29 23:51:31 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,23 @@
 #define PUT_L_PINK(text)   (std::cout << BRIGHT_PINK << text << RESET << std::endl)
 #define PUT_L_CYAN(text)   (std::cout << BRIGHT_CYAN << text << RESET << std::endl)
 #define PUT_L_WHITE(text)  (std::cout << BRIGHT_WHITE << text << RESET << std::endl)
+
+#define LAY_BLACK(text)    (std::cout << BLACK << text << RESET)
+#define LAY_RED(text)      (std::cout << RED << text << RESET)
+#define LAY_GREEN(text)    (std::cout << GREEN << text << RESET)
+#define LAY_YELLOW(text)   (std::cout << YELLOW << text << RESET)
+#define LAY_BLUE(text)     (std::cout << BLUE << text << RESET)
+#define LAY_PINK(text)     (std::cout << PINK << text << RESET)
+#define LAY_CYAN(text)     (std::cout << CYAN << text << RESET)
+#define LAY_WHITE(text)    (std::cout << WHITE << text << RESET)
+
+#define LAY_L_BLACK(text)  (std::cout << BRIGHT_BLACK << text << RESET)
+#define LAY_L_RED(text)    (std::cout << BRIGHT_RED << text << RESET)
+#define LAY_L_GREEN(text)  (std::cout << BRIGHT_GREEN << text << RESET)
+#define LAY_L_YELLOW(text) (std::cout << BRIGHT_YELLOW << text << RESET)
+#define LAY_L_BLUE(text)   (std::cout << BRIGHT_BLUE << text << RESET)
+#define LAY_L_PINK(text)   (std::cout << BRIGHT_PINK << text << RESET)
+#define LAY_L_CYAN(text)   (std::cout << BRIGHT_CYAN << text << RESET)
+#define LAY_L_WHITE(text)  (std::cout << BRIGHT_WHITE << text << RESET)
 
 #endif

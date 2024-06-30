@@ -6,11 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 11:08:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 16:36:04 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/29 23:21:38 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "WrongAnimal.hpp"
+#include "../incl/WrongAnimal.hpp"
 
 WrongAnimal::WrongAnimal(): type("") {
   PUT_WHITE("Base WrongAnimal constructed");

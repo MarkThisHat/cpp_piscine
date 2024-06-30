@@ -6,11 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:20:32 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 15:58:02 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/29 23:21:31 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "../incl/Dog.hpp"
 
 Dog::Dog(): Animal("Dog") {
   PUT_GREEN("You adopt a new Dog!");

@@ -6,11 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 11:08:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 15:58:39 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/29 23:41:36 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "../incl/Animal.hpp"
 
 Animal::Animal(): type("") {
   PUT_WHITE("Base animal constructed");
@@ -30,7 +30,7 @@ Animal& Animal::operator=(const Animal& other) {
 Animal::~Animal() {}
 
 void Animal::makeSound() const {
-  PUT_WHITE("Makes Animal noises");
+  PUT_WHITE("Animal makes Animal noises");
 }
 
 const std::string Animal::getType() const {

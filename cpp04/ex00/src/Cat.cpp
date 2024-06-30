@@ -6,11 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 11:39:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/06/29 15:57:44 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/06/29 23:20:58 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cat.hpp"
+#include "../incl/Cat.hpp"
 
 Cat::Cat(): Animal("Cat") {
   PUT_YELLOW("You are adopted by a new Cat!");
