@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:47:33 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/02 19:50:29 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:25:58 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 class Ice: public AMateria {
  public:
-  Ice(const std::string& type);
+  Ice();
   Ice(const Ice& other);
   Ice& operator=(const Ice& other);
   ~Ice();
@@ -24,6 +24,4 @@ class Ice: public AMateria {
   AMateria* clone() const;
   void use(ICharacter& target);
 
- private:
-  Ice();
 };
