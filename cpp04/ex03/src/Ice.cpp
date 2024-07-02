@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ICharacter.hpp                                     :+:      :+:    :+:   */
+/*   Ice.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 20:04:48 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/02 19:46:58 by maalexan         ###   ########.fr       */
+/*   Created: 2024/07/02 19:53:26 by maalexan          #+#    #+#             */
+/*   Updated: 2024/07/02 20:25:09 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include "../incl/AMateria.hpp"
+#include "../incl/Ice.hpp"
 
-class ICharacter {
- public:
-  ICharacter(const ICharacter& other);
+Ice::Ice(): AMateria("ice") {}
 
-  virtual ~ICharacter();
-  virtual const std::string& getName() const = 0;
-  virtual void equip(AMateria* m) = 0;
-  virtual void unequip(int index) = 0;
-  virtual void use(int index, ICharacter& target) = 0;
-};
+Ice::Ice(const Ice& other): AMateria(other.type) {}
+
+Ice& Ice::operator=(const Ice& other) {
+  if (this != &other) {
+    type = "ice";
+  }
+  return *this;
+}
+
+Ice::~Ice() {};

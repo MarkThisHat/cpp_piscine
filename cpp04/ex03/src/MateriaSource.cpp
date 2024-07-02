@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:57:43 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/02 18:40:35 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:10:59 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void MateriaSource::learnMateria(AMateria* materia) {
  }
 }
 
-AMateria* createMateria(const std::string& type) {
+AMateria* MateriaSource::createMateria(const std::string& type) {
   for (int i = 0; i < MAX_SLOT; i++) {
     if (materias[i] != NULL && materias[i]->getType() == type) {
       return materias[i]->clone();
