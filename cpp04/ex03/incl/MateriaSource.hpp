@@ -6,17 +6,12 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:57:43 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/02 19:46:01 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:53:34 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "../incl/IMateriaSource.hpp"
-
-#ifndef NULL
-#define NULL 0
-#endif
-#define MAX_SLOT 4
 
 class MateriaSource: public IMateriaSource {
  public:

@@ -6,12 +6,17 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:01:55 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/02 20:41:57 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:54:06 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "../../ex00/incl/pretty_print.hpp"
+
+#ifndef NULL
+#define NULL 0
+#endif
+#define MAX_SLOT 4
 
 class ICharacter;
 
