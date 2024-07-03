@@ -6,11 +6,12 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:57:43 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/02 19:10:59 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:59:51 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/MateriaSource.hpp"
+#include "MateriaSource.hpp"
 
 MateriaSource::MateriaSource() {
   for (int i = 0; i < MAX_SLOT; i++) {
@@ -18,7 +19,7 @@ MateriaSource::MateriaSource() {
   }
 }
 
-MateriaSource::MateriaSource(const MateriaSource& other) {
+MateriaSource::MateriaSource(const MateriaSource& other): IMateriaSource() {
   copyMaterias(other);
 }
 
@@ -52,7 +53,7 @@ void MateriaSource::deleteMaterias() {
 void MateriaSource::learnMateria(AMateria* materia) {
  for (int i = 0; i < MAX_SLOT; i++) {
   if (materias[i] == NULL) {
-    materias[i] = materia->clone();
+    materias[i] = materia;
     return;
   }
  }

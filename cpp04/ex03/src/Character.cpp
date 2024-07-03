@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:57:15 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/03 17:54:22 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:52:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,15 @@ Character::Character(const Character& other): name(other.name) {
 
 Character& Character::operator=(const Character& other) {
   if (this != &other) {
+    for (int i = 0; i < MAX_SLOT; i++) {
+      if (materias[i] != NULL) {
+        delete materias[i];
+        materias[i] = NULL;
+      }
+    }
     copyMaterias(other);
   }
+  return *this;
 }
 
 Character::~Character() {
@@ -36,7 +43,10 @@ Character::~Character() {
 
 void Character::equip(AMateria *m) {
   for (int i = 0; i < MAX_SLOT; i++) {
-    if (materias[i] == NULL) materias[i] = m;
+    if (materias[i] == NULL) {
+      materias[i] = m;
+      return;
+    }
   }
 }
 
@@ -47,6 +57,10 @@ void Character::unequip(int index) {
 void Character::use(int index, ICharacter& target) {
   if (index >= MAX_SLOT || materias[index] == NULL) return;
   materias[index]->use(target);
+}
+
+const std::string& Character::getName() const {
+  return name;
 }
 
 void Character::copyMaterias(const Character& other) {
