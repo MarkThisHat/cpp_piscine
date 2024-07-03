@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:56:52 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/03 20:31:59 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/03 20:37:05 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int main() {
   me->equip(tmp);
   me->use(2, *bob);
   me->use(3, *bob);
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 14; i++) {
     me->unequip(i);
   }
   delete bob;

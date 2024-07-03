@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:57:15 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/03 20:26:48 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/03 20:38:07 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void Character::equip(AMateria *m) {
 }
 
 void Character::unequip(int index) {
-  if (materias[index] == NULL) return;
+  if (index >= MAX_SLOT || materias[index] == NULL) return;
   Floor::getInstance().addMateria(materias[index]);
   materias[index] = NULL;
 }
