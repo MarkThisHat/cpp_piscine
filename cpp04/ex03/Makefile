@@ -6,12 +6,12 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/06/30 20:05:59 by maalexan         ###   ########.fr        #
+#    Updated: 2024/07/03 20:26:04 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name
-NAME		:=	abstractFarm
+NAME		:=	finalInstancy
 
 # Directories for source, object and libraries
 SRC_DIR		:=	./src
@@ -23,8 +23,13 @@ CC			:=	c++
 CFLAGS	:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
 
 # Source files
-SRC			:=	main.cpp			\
-
+SRC			:=	main.cpp \
+						AMateria.cpp \
+						Character.cpp \
+						Cure.cpp \
+						Ice.cpp \
+						MateriaSource.cpp \
+						Floor.cpp
 
 # Object files
 OBJ			:=	$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(notdir $(SRC)))
