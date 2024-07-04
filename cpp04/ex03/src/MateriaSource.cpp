@@ -6,12 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:57:43 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/03 19:59:51 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/03 21:13:26 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/MateriaSource.hpp"
-#include "MateriaSource.hpp"
 
 MateriaSource::MateriaSource() {
   for (int i = 0; i < MAX_SLOT; i++) {

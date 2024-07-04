@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:57:15 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/03 20:38:07 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/03 21:12:34 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ void Character::unequip(int index) {
 void Character::use(int index, ICharacter& target) {
   if (index >= MAX_SLOT || materias[index] == NULL) return;
   materias[index]->use(target);
+}
+
+const std::string& Character::getMateria(int index) const {
+  static const std::string empty = "";
+  if (index >= MAX_SLOT || materias[index] == NULL) return empty;
+  return materias[index]->getType();
 }
 
 const std::string& Character::getName() const {
