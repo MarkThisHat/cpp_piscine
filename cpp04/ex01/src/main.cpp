@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:28:10 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/06 11:08:55 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:12:13 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ int main() {
     PUT_GREEN(dog1.getBrain().getIdea(i));
   }
   {
-    Animal* farm[100];
+    Animal* farm[10];
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 10; i++) {
       (i % 2) ? farm[i] = new Dog() : farm[i] = new Cat();
     }
     for (int i = 0; i < 4; i++) {
       farm[i]->makeSound();
     }
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 10; i++) {
       delete farm[i];
     }
   }
