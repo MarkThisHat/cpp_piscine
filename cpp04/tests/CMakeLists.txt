@@ -35,7 +35,7 @@ set(EX03_SOURCES
   ../ex03/src/AMateria.cpp
   ../ex03/src/Character.cpp
   ../ex03/src/Cure.cpp
-  ../ex03/src/Floor.cpp
+  ../ex03/src/Limbo.cpp
   ../ex03/src/Ice.cpp
   ../ex03/src/MateriaSource.cpp
 )

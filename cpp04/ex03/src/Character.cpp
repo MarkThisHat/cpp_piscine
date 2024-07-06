@@ -6,12 +6,12 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:57:15 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/03 21:12:34 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:25:05 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/Character.hpp"
-#include "../incl/Floor.hpp"
+#include "../incl/Limbo.hpp"
 
 Character::Character(const std::string name): name(name) {
   for (int i = 0; i < MAX_SLOT; i++) {
@@ -44,7 +44,7 @@ Character::~Character() {
 
 void Character::equip(AMateria *m) {
   for (int i = 0; i < MAX_SLOT; i++) {
-    if (materias[i] == NULL) {
+    if (materias[i] == NULL && Limbo::getInstance().doesNotContain(m)) {
       materias[i] = m;
       return;
     }
@@ -53,7 +53,7 @@ void Character::equip(AMateria *m) {
 
 void Character::unequip(int index) {
   if (index >= MAX_SLOT || materias[index] == NULL) return;
-  Floor::getInstance().addMateria(materias[index]);
+  Limbo::getInstance().addMateria(materias[index]);
   materias[index] = NULL;
 }
 
