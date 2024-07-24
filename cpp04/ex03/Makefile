@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/07/03 20:26:04 by maalexan         ###   ########.fr        #
+#    Updated: 2024/07/06 13:16:47 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC			:=	main.cpp \
 						Cure.cpp \
 						Ice.cpp \
 						MateriaSource.cpp \
-						Floor.cpp
+						Limbo.cpp
 
 # Object files
 OBJ			:=	$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(notdir $(SRC)))

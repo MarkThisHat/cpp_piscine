@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "../ex03/incl/Character.hpp"
-#include "../ex03/incl/Floor.hpp"
+#include "../ex03/incl/Limbo.hpp"
 #include "../ex03/incl/MateriaSource.hpp"
 #include "../ex03/incl/Ice.hpp"
 #include "../ex03/incl/Cure.hpp"
@@ -23,7 +23,7 @@ TEST(CharacterTest, TestEquipMateria) {
     EXPECT_EQ(character->getMateria(2), "");
 
     delete character;
-    Floor::getInstance().clearMaterias();
+    Limbo::getInstance().clearMaterias();
 }
 
 TEST(CharacterTest, TestUnequipMateria) {
@@ -35,7 +35,7 @@ TEST(CharacterTest, TestUnequipMateria) {
     EXPECT_EQ(character->getMateria(0), "");
 
     delete character;
-    Floor::getInstance().clearMaterias();
+    Limbo::getInstance().clearMaterias();
 }
 
 TEST(CharacterTest, TestUseMateria) {
@@ -48,7 +48,7 @@ TEST(CharacterTest, TestUseMateria) {
 
     delete character;
     delete target;
-    Floor::getInstance().clearMaterias();
+    Limbo::getInstance().clearMaterias();
 }
 
 TEST(MateriaSourceTest, TestLearnMateria) {

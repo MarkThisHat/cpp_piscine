@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Floor.cpp                                          :+:      :+:    :+:   */
+/*   Limbo.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:10:40 by maalexan          #+#    #+#             */
-/*   Updated: 2024/07/03 20:27:38 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:24:24 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/Floor.hpp"
+#include "../incl/Limbo.hpp"
 
-Floor& Floor::getInstance() {
-  static Floor instance;
+Limbo& Limbo::getInstance() {
+  static Limbo instance;
   return instance;
 }
 
-Floor::~Floor() {
+Limbo::~Limbo() {
   clearMaterias();
 }
 
-void Floor::addMateria(AMateria* materia) {
+void Limbo::addMateria(AMateria* materia) {
   MateriaNode* newNode = new MateriaNode();
   newNode->materia = materia;
   newNode->next = head;
   head = newNode;
 }
 
-void Floor::clearMaterias() {
+bool Limbo::doesNotContain(AMateria* materia) const {
+    MateriaNode* current = head;
+    while (current != NULL) {
+        if (current->materia == materia) return false;
+        current = current->next;
+    }
+    return true;
+}
+
+void Limbo::clearMaterias() {
   MateriaNode* current = head;
   while (current != NULL) {
     MateriaNode* toDelete = current;
@@ -39,6 +48,6 @@ void Floor::clearMaterias() {
   head = NULL;
 }
 
-Floor::Floor(): head(NULL) {}
-Floor::Floor(const Floor& other) {(void)other;}
-Floor& Floor::operator=(const Floor& other) {(void)other; return *this;}
+Limbo::Limbo(): head(NULL) {}
+Limbo::Limbo(const Limbo& other) {(void)other;}
+Limbo& Limbo::operator=(const Limbo& other) {(void)other; return *this;}
