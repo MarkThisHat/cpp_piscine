@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:45:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/23 11:48:38 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:58:15 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ Bureaucrat& Bureaucrat::validate(int grade) {
   return *this;
 }
 
-Bureaucrat& Bureaucrat::setGrade(int grade) {
-  grade = grade;
+Bureaucrat& Bureaucrat::setGrade(int newGrade) {
+  grade = newGrade;
   return *this;
 }
 
@@ -84,3 +84,4 @@ const char* Bureaucrat::GradeTooHighException::what() const throw() {
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
   return "Grade too Low";
 }
+
