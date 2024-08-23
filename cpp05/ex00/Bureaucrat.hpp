@@ -6,36 +6,48 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:28:52 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/22 23:58:30 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:47:28 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+
+#include "pretty_print.hpp"
+
 #define HIGHEST_GRADE 1
 #define LOWEST_GRADE 150
-
-#include <string>
 
 class Bureaucrat {
  public:
   Bureaucrat();
   Bureaucrat(const std::string& name);
+  Bureaucrat(const std::string& name, const int proposedGrade);
   Bureaucrat(const Bureaucrat& other);
   Bureaucrat& operator=(const Bureaucrat& other); 
   ~Bureaucrat();
 
   const std::string getName() const;
-  const int getGrade() const;
+  int getGrade() const;
 
-  void incrementGrade(int increment);
-  void decrementGrade(int decrement);
+  Bureaucrat& incrementGrade(int increment);
+  Bureaucrat& decrementGrade(int decrement);
 
  private:
-  std::string name;
+  const std::string name;
   int grade;
 
-  void GradeTooHighException() const;
-  void GradeTooLowException() const;
+  Bureaucrat& validate(int grade);
+  Bureaucrat& setGrade(int grade);
+
+  class GradeTooHighException: public std::exception {
+   public:
+    const char* what() const throw();
+  };
+
+  class GradeTooLowException: public std::exception {
+   public:
+    const char* what() const throw();
+  };
 };
 
 std::ostream& operator<<(std::ostream& ostream, const Bureaucrat& bureaucrat);

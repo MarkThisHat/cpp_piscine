@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:20:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/22 17:35:55 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:40:00 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@
 
 #define PUT(color, text) std::cout << color << text << RESET
 #define PRINT(color, text) PUT(color, text) << std::endl
+#define PERR(color, text) std::cerr << color << text << RESET << std::endl
 
 #endif
