@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:45:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/23 11:58:15 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/23 22:06:49 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ std::ostream& operator<<(std::ostream& ostream, const Bureaucrat& bureaucrat) {
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw() {
-  return "Grade too High";
+  return "Thrown Exception: Grade too High";
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
-  return "Grade too Low";
+  return "Thrown Exception: Grade too Low";
 }
 

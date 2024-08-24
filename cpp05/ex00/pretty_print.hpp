@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:20:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/23 11:59:21 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/23 22:56:12 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@
 
 #define COUT(color, text) std::cout << color << text << RESET
 #define PRINT(color, text) COUT(color, text) << std::endl
-#define CERR(color, text) std::cerr << color << text << RESET 
+#define CERR(color, text) std::cerr << color << text << RESET
 #define PERR(color, text) CERR(color, text) << std::endl
 
 #endif
