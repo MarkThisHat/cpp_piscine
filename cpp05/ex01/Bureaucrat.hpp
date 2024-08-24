@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:28:52 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/23 11:52:43 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:16:17 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 #define HIGHEST_GRADE 1
 #define LOWEST_GRADE 150
+
+class Form;
 
 class Bureaucrat {
  public:
@@ -38,6 +40,7 @@ class Bureaucrat {
 
   Bureaucrat& validate(int grade);
   Bureaucrat& setGrade(int newGrade);
+  Bureaucrat& signForm(const Form& form);
 
   class GradeTooHighException: public std::exception {
    public:
