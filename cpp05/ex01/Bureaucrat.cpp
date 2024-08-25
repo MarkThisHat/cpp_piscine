@@ -6,11 +6,12 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:45:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/25 09:45:11 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/25 12:43:45 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat():
   name("Forsaken Minion"), grade(LOWEST_GRADE) {}
@@ -67,6 +68,16 @@ Bureaucrat& Bureaucrat::validateGrade(int grade) {
 Bureaucrat& Bureaucrat::setGrade(int newGrade) {
   grade = newGrade;
   return *this;
+}
+
+void Bureaucrat::signForm(Form& form) {
+  try {
+    form.beSigned(*this);
+    PRINT(L_GREEN, getName() + " signed " + form.getName());
+  } catch (std::exception& exception) {
+    CERR(RED, getName() + " couldn't sign " + form.getName() + " because ");
+    PERR(BOLD BLACK BG_RED, exception.what());
+  }
 }
 
 std::ostream& operator<<(std::ostream& ostream, const Bureaucrat& bureaucrat) {

@@ -6,11 +6,12 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:27:59 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/25 09:46:03 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/25 12:45:04 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.hpp"
+#include "Bureaucrat.hpp"
 
 Form::Form():
   name("Useless Form"),
@@ -22,7 +23,9 @@ Form::Form(const std::string name, const int gradeToSign, const int gradeToExec)
   name(name),
   gradeToSign(gradeToSign),
   gradeToExec(gradeToExec),
-  isSigned(false) {}
+  isSigned(false) {
+    validateGrade(gradeToSign).validateGrade(gradeToExec);
+  }
 
 Form::Form(const Form& other):
   name(other.name),
@@ -39,6 +42,27 @@ Form &Form::operator=(const Form& other) {
 
 Form::~Form(){}
 
+const std::string Form::getName() const {
+  return name;
+}
+
+Form& Form::validateGrade(int grade) {
+  if (grade > LOWEST_GRADE) {
+    throw GradeTooLowException();
+  }
+  if (grade < HIGHEST_GRADE) {
+    throw GradeTooHighException();
+  }
+  return *this;
+}
+
+Form& Form::beSigned(const Bureaucrat& signer) {
+  if (signer.getGrade() > gradeToSign) {
+    throw GradeTooLowException();
+  }
+  isSigned = true;
+  return *this;
+}
 
 const char* Form::GradeTooHighException::what() const throw() {
   return "Exception - Form: Grade too High";

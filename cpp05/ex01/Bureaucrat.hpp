@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:28:52 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/25 09:43:37 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/25 12:43:55 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ class Bureaucrat {
 
   Bureaucrat& validateGrade(int grade);
   Bureaucrat& setGrade(int newGrade);
-  Bureaucrat& signForm(const Form& form);
+  void signForm(Form& form);
 
   class GradeTooHighException: public std::exception {
    public:
