@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:45:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/24 11:23:02 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/25 09:45:11 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ Bureaucrat::Bureaucrat(const std::string& name):
   name(name), grade(LOWEST_GRADE) {}
 
 Bureaucrat::Bureaucrat(const std::string& name, const int grade): name(name) {
-  validate(grade).setGrade(grade);
+  validateGrade(grade).setGrade(grade);
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& other):
@@ -42,19 +42,19 @@ int Bureaucrat::getGrade() const {
   return grade;
 }
 
-Bureaucrat &Bureaucrat::incrementGrade(int increment) {
+Bureaucrat& Bureaucrat::incrementGrade(int increment) {
   int newGrade = grade - increment;
-  validate(newGrade).setGrade(newGrade);
+  validateGrade(newGrade).setGrade(newGrade);
   return *this;
 }
 
-Bureaucrat &Bureaucrat::decrementGrade(int decrement) {
+Bureaucrat& Bureaucrat::decrementGrade(int decrement) {
   int newGrade = grade + decrement;
-  validate(newGrade).setGrade(newGrade);
+  validateGrade(newGrade).setGrade(newGrade);
   return *this;
 }
 
-Bureaucrat& Bureaucrat::validate(int grade) {
+Bureaucrat& Bureaucrat::validateGrade(int grade) {
   if (grade > LOWEST_GRADE) {
     throw GradeTooLowException();
   }

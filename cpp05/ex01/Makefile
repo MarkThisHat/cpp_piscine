@@ -6,12 +6,12 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/08/24 13:00:01 by maalexan         ###   ########.fr        #
+#    Updated: 2024/08/25 09:44:46 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name
-NAME		:=	bureaucrat
+NAME		:=	form
 
 # Directories for source, object and libraries
 SRC_DIR		:=	./

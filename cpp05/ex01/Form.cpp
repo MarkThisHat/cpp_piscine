@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:27:59 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/25 09:38:00 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/25 09:46:03 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ Form::Form(const std::string name, const int gradeToSign, const int gradeToExec)
   gradeToExec(gradeToExec),
   isSigned(false) {}
 
-Form::Form(const Form &other):
+Form::Form(const Form& other):
   name(other.name),
   gradeToSign(other.gradeToSign),
   gradeToExec(other.gradeToExec),
   isSigned(other.isSigned){}
 
-Form &Form::operator=(const Form &other) {
+Form &Form::operator=(const Form& other) {
   if (this != &other) {
     isSigned = other.isSigned;
   }
