@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:45 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/25 12:45:41 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:26:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ class Form {
   ~Form();
 
   const std::string getName() const;
+  int getGradeToSign() const;
+  int getGradeToExec() const;
+  bool getIsSigned() const;
   Form& validateGrade(int grade);
   Form& beSigned(const Bureaucrat& signer);
 

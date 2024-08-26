@@ -6,72 +6,65 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:26:12 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/23 23:14:37 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 14:00:39 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 void endTest() {
   PRINT(BLACK, "");
 }
 
-void createBureaucrat(const std::string name, int grade) {
-  COUT(YELLOW, "Attempting to create Bureaucrat " + name + " with grade ");
-  PRINT(BG_GREEN L_WHITE, grade);
-  
+Form* createForm(const std::string name, int gradeToSign, int gradeToExec) {
+  COUT(CYAN, "Attempting to create Form " + name + " with signeable grade ");
+  COUT(CYAN UNDERLINE, gradeToSign);
+  COUT(CYAN, " and executable grade ");
+  PRINT(CYAN UNDERLINE, gradeToExec);
+  Form* newForm = NULL; 
+
   try {
-    Bureaucrat bureaucrat = Bureaucrat(name, grade);
-    PRINT(L_BLUE, bureaucrat);
+    newForm = new Form(name, gradeToSign, gradeToExec);
+    PRINT(PINK, *newForm);
   } catch (std::exception& exception) {
     PERR(BOLD BLACK BG_RED, exception.what());
   }
 
   endTest();
-}
-
-void promoteBureaucrat(Bureaucrat& bureaucrat, int increase) {
-  COUT(L_BLUE, bureaucrat);
-  COUT(L_GREEN, " - their rank will try to be increased by ");
-  PRINT(L_GREEN, increase);
-
-  try {
-    bureaucrat.incrementGrade(increase);
-  } catch (std::exception& exception) {
-    PERR(BOLD BLACK BG_RED, exception.what());
-  }
-
-  PRINT(BLACK BG_GREEN, bureaucrat);
-  endTest();
-}
-
-void demoteBureaucrat(Bureaucrat& bureaucrat, int decrease) {
-  COUT(L_BLUE, bureaucrat);
-  COUT(L_PINK, " - their rank will try to be decreased by ");
-  PRINT(L_PINK, decrease);
-
-  try {
-    bureaucrat.decrementGrade(decrease);
-  } catch (std::exception& exception) {
-    PERR(BOLD BLACK BG_RED, exception.what());
-  }
-
-  PRINT(BLACK BG_PINK, bureaucrat);
-  endTest();
+  return newForm;
 }
 
 int main() {
+  Form* invalidForm;
   Bureaucrat minion = Bureaucrat();
-  promoteBureaucrat(minion, 100);
-  demoteBureaucrat(minion, 50);
-
-  Bureaucrat boss = Bureaucrat("Boss", 1);
-  promoteBureaucrat(boss, 1);
-  demoteBureaucrat(boss, 150);
+  Bureaucrat boss = Bureaucrat("Boss", 2);
   
-  createBureaucrat("Dave", 1);
-  createBureaucrat("Pave", 150);
-  createBureaucrat("Mave", 75);
-  createBureaucrat("Save", 0);
-  createBureaucrat("Nave", 151);
+  invalidForm = createForm("{Invalid high grade}", 0, 1);
+  invalidForm = createForm("{Invalid low grade}", 1, 151);
+  if (invalidForm != NULL) PRINT(RED, "Invalid form was returned");
+
+  Form* formAnyOne = createForm("{Any one can sign}", 150, 1);
+  Form* formNotMinion = createForm("{Minion can't sign}", 149, 1);
+  Form* formNoOne = createForm("{No one can sign}", 1, 1);
+
+  PRINT(YELLOW, *formAnyOne);
+  minion.signForm(*formAnyOne);
+  PRINT(YELLOW, *formAnyOne);
+  endTest();
+  PRINT(YELLOW, *formNotMinion);
+  minion.signForm(*formNotMinion);
+  PRINT(YELLOW, *formNotMinion);
+  boss.signForm(*formNotMinion);
+  PRINT(YELLOW, *formNotMinion);
+  endTest();
+  PRINT(YELLOW, *formNoOne);
+  minion.signForm(*formNoOne);
+  PRINT(YELLOW, *formNoOne);
+  boss.signForm(*formNoOne);
+  PRINT(YELLOW, *formNoOne);
+  endTest();
+  delete formAnyOne;
+  delete formNotMinion;
+  delete formNoOne;
 }

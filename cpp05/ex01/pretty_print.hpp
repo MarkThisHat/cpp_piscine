@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:20:44 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/23 22:56:12 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 13:22:41 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 #include <iomanip>
 #include <iostream>
+#include <cstddef>
 
 #define RESET      "\033[0m"
 #define BLACK      "\033[30m"

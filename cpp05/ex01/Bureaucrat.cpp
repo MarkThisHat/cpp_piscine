@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:45:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/25 12:43:45 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:28:53 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
 
 Bureaucrat::~Bureaucrat() {}
 
-const std::string Bureaucrat::getName() const {
+std::string Bureaucrat::getName() const {
   return name;
 }
 

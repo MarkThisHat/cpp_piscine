@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:27:59 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/25 12:45:04 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 13:59:00 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "Bureaucrat.hpp"
 
 Form::Form():
-  name("Useless Form"),
+  name("Administrative Form"),
   gradeToSign(LOWEST_GRADE),
   gradeToExec(LOWEST_GRADE),
   isSigned(false) {}
@@ -46,6 +46,18 @@ const std::string Form::getName() const {
   return name;
 }
 
+int Form::getGradeToSign() const {
+  return gradeToSign;
+}
+
+int Form::getGradeToExec() const {
+  return gradeToExec;
+}
+
+bool Form::getIsSigned() const {
+  return isSigned;
+}
+
 Form& Form::validateGrade(int grade) {
   if (grade > LOWEST_GRADE) {
     throw GradeTooLowException();
@@ -70,4 +82,12 @@ const char* Form::GradeTooHighException::what() const throw() {
 
 const char* Form::GradeTooLowException::what() const throw() {
   return "Exception - Form: Grade too Low";
+}
+
+std::ostream &operator<<(std::ostream &ostream, const Form &form) {
+  ostream << "Form " << form.getName() << " is "
+          << (form.getIsSigned() ? "" : "NOT ") << "signed. It "
+          << "requires grade " << form.getGradeToSign() << " to be signed "
+          << "and grade " << form.getGradeToExec() << " to be executed.";
+  return ostream;  
 }
