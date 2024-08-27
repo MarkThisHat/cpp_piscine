@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/08/26 17:06:14 by maalexan         ###   ########.fr        #
+#    Updated: 2024/08/26 21:07:20 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,10 @@ CC			:=	c++
 CFLAGS	:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
 
 # Source files
-SRC			:=	main.cpp		\
-						Bureaucrat.cpp \
-						Form.cpp
+SRC			:=	main.cpp	\
+						AForm.cpp	\
+						Bureaucrat.cpp	\
+						ShrubberyCreationForm.cpp \
 
 # Object files
 OBJ			:=	$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(notdir $(SRC)))
@@ -39,13 +40,16 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+trim:
+	@rm -f *_shrubbery
+
 val: all
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${NAME}  || echo ""
 
 clean:
 	@[ -d ./objs ] && rm -rf ./objs || echo Object directory doesn\'t exist
 
-fclean: clean
+fclean: clean trim
 	@[ -f ./$(NAME) ] && rm $(NAME) || echo Program $(NAME) isn\'t compiled
 
 re: fclean all

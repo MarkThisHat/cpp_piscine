@@ -6,10 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:52:37 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/26 17:04:28 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:07:58 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 
 ShrubberyCreationForm::ShrubberyCreationForm()
@@ -30,3 +31,28 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {}
 
+std::string ShrubberyCreationForm::getSpec() const {
+  return "Shrubbery Form with target <" + getName() + ">";
+}
+
+AForm& ShrubberyCreationForm::beExecuted(const Bureaucrat& executor) {
+  if (executor.getGrade() > getGradeToExec()) {
+    throw GradeTooLowException();
+  }
+  if (writeToFile(getName() + "_shrubbery")) {
+    PRINT(GREEN,  getSpec() + " executed successfuly");
+  }
+  return *this;
+}
+
+bool ShrubberyCreationForm::writeToFile(const std::string fileName) {
+  std::ofstream outFile(fileName.c_str());
+  if (!outFile) {
+    PERR(RED, "Failed to open or write to file");
+    return false;
+  }
+  outFile << SHRUBERRY_TREE_A << std::endl;
+  outFile << SHRUBERRY_TREE_B << std::endl;
+  outFile.close();
+  return true;
+}

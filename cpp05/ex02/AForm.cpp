@@ -42,7 +42,7 @@ AForm &AForm::operator=(const AForm& other) {
 
 AForm::~AForm(){}
 
-const std::string AForm::getName() const {
+std::string AForm::getName() const {
   return name;
 }
 

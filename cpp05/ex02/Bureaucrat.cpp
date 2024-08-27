@@ -6,12 +6,12 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:45:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/26 11:28:53 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:51:53 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
 Bureaucrat::Bureaucrat():
   name("Forsaken Minion"), grade(LOWEST_GRADE) {}
@@ -70,12 +70,21 @@ Bureaucrat& Bureaucrat::setGrade(int newGrade) {
   return *this;
 }
 
-void Bureaucrat::signForm(Form& form) {
+void Bureaucrat::signForm(AForm& form) {
   try {
     form.beSigned(*this);
     PRINT(L_GREEN, getName() + " signed " + form.getName());
   } catch (std::exception& exception) {
     CERR(RED, getName() + " couldn't sign " + form.getName() + " because ");
+    PERR(BOLD BLACK BG_RED, exception.what());
+  }
+}
+
+void Bureaucrat::executeForm(AForm& form) {
+  try {
+    form.beExecuted(*this);
+  } catch (std::exception& exception) {
+    CERR(RED, getName() + " couldn't execute " + form.getSpec() + " because ");
     PERR(BOLD BLACK BG_RED, exception.what());
   }
 }
@@ -95,4 +104,3 @@ const char* Bureaucrat::GradeTooHighException::what() const throw() {
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
   return "Exception - Bureaucrat: Grade too Low";
 }
-

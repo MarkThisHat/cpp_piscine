@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:28:52 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/26 13:37:42 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:27:32 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #define HIGHEST_GRADE 1
 #define LOWEST_GRADE 150
 
-class Form;
+class AForm;
 
 class Bureaucrat {
  public:
@@ -34,7 +34,8 @@ class Bureaucrat {
   Bureaucrat& incrementGrade(int increment);
   Bureaucrat& decrementGrade(int decrement);
 
-  void signForm(Form& form);
+  void signForm(AForm& form);
+  void executeForm(AForm& form);
 
  private:
   const std::string name;
