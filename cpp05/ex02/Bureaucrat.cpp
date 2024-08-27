@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:45:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/26 21:14:09 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 22:54:53 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ Bureaucrat& Bureaucrat::signForm(AForm& form) {
 Bureaucrat& Bureaucrat::executeForm(AForm& form) {
   try {
     form.beExecuted(*this);
+    COUT(BG_LCYAN, " ");
+    PRINT(CYAN, getName() + " executed " + form.getSpec());
   } catch (std::exception& exception) {
+    CERR(BG_LRED, " ");
     CERR(RED, getName() + " couldn't execute " + form.getSpec() + " because ");
     PERR(BOLD BLACK BG_RED, exception.what());
   }

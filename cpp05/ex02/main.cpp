@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:26:12 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/26 22:34:02 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 22:53:52 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int main(int argc, char** argv) {
   boss.executeForm(*robotomy);
   boss.signForm(*robotomy).executeForm(*robotomy);
   PRINT(PINK, *robotomy);
-  for (int i = 0; i < 10; i++) boss.executeForm(*robotomy);
   endTest();
+
+  bool proveRandom = argc > 4 ? true : false;
+  if (proveRandom) for (int i = 0; i < 16; i++) boss.executeForm(*robotomy);
   delete robotomy;
 }
