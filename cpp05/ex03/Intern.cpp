@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 23:21:53 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/27 17:06:29 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:38:38 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@
 #include "PresidentialPardonForm.hpp"
 
 Intern::Intern() {
-  forms[0] = { "presidential pardon", &Intern::createPresidentialPardonForm };
-  forms[1] = { "robotomy request", &Intern::createRobotomyRequestForm };
-  forms[2] = { "shrubbery creation", &Intern::createShrubberyCreationForm };
+  forms[0].formName = "presidential pardon";
+  forms[0].formType = &Intern::createPresidentialPardonForm;
+  forms[1].formName = "robotomy request";
+  forms[1].formType = &Intern::createRobotomyRequestForm;
+  forms[2].formName = "shrubbery creation";
+  forms[2].formType = &Intern::createShrubberyCreationForm;
 }
 
 Intern::Intern(const Intern& other){
