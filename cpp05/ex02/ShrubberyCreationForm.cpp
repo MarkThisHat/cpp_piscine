@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:52:37 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/26 21:07:58 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:18:09 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ std::string ShrubberyCreationForm::getSpec() const {
 AForm& ShrubberyCreationForm::beExecuted(const Bureaucrat& executor) {
   if (executor.getGrade() > getGradeToExec()) {
     throw GradeTooLowException();
+  }
+  if (!getIsSigned()) {
+    throw FormNotSignedException();
   }
   if (writeToFile(getName() + "_shrubbery")) {
     PRINT(GREEN,  getSpec() + " executed successfuly");

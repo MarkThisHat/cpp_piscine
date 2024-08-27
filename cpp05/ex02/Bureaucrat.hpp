@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 18:28:52 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/26 20:27:32 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:12:47 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ class Bureaucrat {
   Bureaucrat& incrementGrade(int increment);
   Bureaucrat& decrementGrade(int decrement);
 
-  void signForm(AForm& form);
-  void executeForm(AForm& form);
+  Bureaucrat& signForm(AForm& form);
+  Bureaucrat& executeForm(AForm& form);
 
  private:
   const std::string name;

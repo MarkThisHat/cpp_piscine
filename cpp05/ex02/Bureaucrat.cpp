@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:45:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/26 20:51:53 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:14:09 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,25 @@ Bureaucrat& Bureaucrat::setGrade(int newGrade) {
   return *this;
 }
 
-void Bureaucrat::signForm(AForm& form) {
+Bureaucrat& Bureaucrat::signForm(AForm& form) {
   try {
     form.beSigned(*this);
-    PRINT(L_GREEN, getName() + " signed " + form.getName());
+    PRINT(BLUE, getName() + " signed " + form.getSpec());
   } catch (std::exception& exception) {
-    CERR(RED, getName() + " couldn't sign " + form.getName() + " because ");
+    CERR(RED, getName() + " couldn't sign " + form.getSpec() + " because ");
     PERR(BOLD BLACK BG_RED, exception.what());
   }
+  return *this;
 }
 
-void Bureaucrat::executeForm(AForm& form) {
+Bureaucrat& Bureaucrat::executeForm(AForm& form) {
   try {
     form.beExecuted(*this);
   } catch (std::exception& exception) {
     CERR(RED, getName() + " couldn't execute " + form.getSpec() + " because ");
     PERR(BOLD BLACK BG_RED, exception.what());
   }
+  return *this;
 }
 
 std::ostream& operator<<(std::ostream& ostream, const Bureaucrat& bureaucrat) {
