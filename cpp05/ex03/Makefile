@@ -6,12 +6,12 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/08/26 22:32:13 by maalexan         ###   ########.fr        #
+#    Updated: 2024/08/27 17:08:12 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name
-NAME		:=	executables
+NAME		:=	internship
 
 # Directories for source, object and libraries
 SRC_DIR		:=	./
@@ -29,6 +29,7 @@ SRC			:=	main.cpp	\
 						ShrubberyCreationForm.cpp	\
 						RobotomyRequestForm.cpp	\
 						PresidentialPardonForm.cpp \
+						Intern.cpp
 
 # Object files
 OBJ			:=	$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(notdir $(SRC)))
