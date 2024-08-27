@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 23:21:53 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/26 23:24:10 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/27 00:00:24 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+
+Form* (*forms[])(std::string);
 
 Intern::Intern() {}
 
