@@ -30,6 +30,7 @@ class AForm {
   bool getIsSigned() const;
   AForm& validateGrade(int grade);
   AForm& beSigned(const Bureaucrat& signer);
+  AForm& validateExecution(const Bureaucrat& executor);
 
   virtual std::string getSpec() const = 0;
   virtual AForm& beExecuted(const Bureaucrat& executor) = 0;

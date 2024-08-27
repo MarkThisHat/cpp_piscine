@@ -36,12 +36,7 @@ std::string PresidentialPardonForm::getSpec() const {
 }
 
 AForm& PresidentialPardonForm::beExecuted(const Bureaucrat& executor) {
-  if (executor.getGrade() > getGradeToExec()) {
-    throw GradeTooLowException();
-  }
-  if (!getIsSigned()) {
-    throw FormNotSignedException();
-  }
+  validateExecution(executor);
   PRINT(YELLOW UNDERLINE, getName() + " has been pardoned by Zaphod Beeblebrox" );
   return *this;
 }

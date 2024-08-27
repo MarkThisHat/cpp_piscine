@@ -76,6 +76,16 @@ AForm& AForm::beSigned(const Bureaucrat& signer) {
   return *this;
 }
 
+AForm& AForm::validateExecution(const Bureaucrat& executor) {
+  if (executor.getGrade() > getGradeToExec()) {
+    throw GradeTooLowException();
+  }
+  if (!getIsSigned()) {
+    throw FormNotSignedException();
+  }
+  return *this;
+}
+
 const char* AForm::GradeTooHighException::what() const throw() {
   return "Exception - Form: Grade too High";
 }

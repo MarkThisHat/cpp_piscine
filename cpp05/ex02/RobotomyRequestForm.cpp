@@ -40,12 +40,7 @@ std::string RobotomyRequestForm::getSpec() const {
 }
 
 AForm& RobotomyRequestForm::beExecuted(const Bureaucrat& executor) {
-  if (executor.getGrade() > getGradeToExec()) {
-    throw GradeTooLowException();
-  }
-  if (!getIsSigned()) {
-    throw FormNotSignedException();
-  }
+  validateExecution(executor);
   COUT(BG_YELLOW BLACK, "Makes some drilling noises ... ");
   (rollFiftyFifty()) ? 
   PRINT(BG_GREEN BLACK BOLD, getName() + " has been robotomized successfuly" ) :
