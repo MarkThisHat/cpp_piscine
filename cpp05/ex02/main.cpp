@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:26:12 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/26 22:16:56 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/08/26 22:34:02 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 void endTest() {
   PRINT(BLACK, "");
@@ -23,7 +24,17 @@ int main(int argc, char** argv) {
   Bureaucrat minion = Bureaucrat();
   Bureaucrat boss = Bureaucrat("Boss", 2);
 
-  const std::string shrubArg = argc > 1 ? argv[1] : "Shrub-Target";
+  const std::string pardonArg = argc > 1 ? argv[1] : "Felon";
+  AForm* pardon = new PresidentialPardonForm(pardonArg);
+  PRINT(PINK, *pardon);
+  minion.executeForm(*pardon);
+  boss.executeForm(*pardon);
+  boss.signForm(*pardon).executeForm(*pardon);
+  PRINT(PINK, *pardon);
+  endTest();
+  delete pardon;
+
+  const std::string shrubArg = argc > 2 ? argv[2] : "Shrub-Target";
   AForm* shrubbery = new ShrubberyCreationForm(shrubArg);
   PRINT(PINK, *shrubbery);
   minion.executeForm(*shrubbery);
@@ -33,7 +44,7 @@ int main(int argc, char** argv) {
   endTest();
   delete shrubbery;
 
-  const std::string robotArg = argc > 2 ? argv[2] : "Robot-Target";
+  const std::string robotArg = argc > 3 ? argv[3] : "Robot-Target";
   AForm* robotomy = new RobotomyRequestForm(robotArg);
   PRINT(PINK, *robotomy);
   minion.executeForm(*robotomy);

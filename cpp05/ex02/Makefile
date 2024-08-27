@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/08/26 22:15:13 by maalexan         ###   ########.fr        #
+#    Updated: 2024/08/26 22:32:13 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC			:=	main.cpp	\
 						Bureaucrat.cpp	\
 						ShrubberyCreationForm.cpp	\
 						RobotomyRequestForm.cpp	\
+						PresidentialPardonForm.cpp \
 
 # Object files
 OBJ			:=	$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(notdir $(SRC)))
