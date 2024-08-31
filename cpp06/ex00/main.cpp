@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScalarConverter.hpp                                :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 16:08:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/31 17:29:10 by maalexan         ###   ########.fr       */
+/*   Created: 2024/08/31 17:17:45 by maalexan          #+#    #+#             */
+/*   Updated: 2024/08/31 17:29:30 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include <iostream>
-#include <string>
+#include "ScalarConverter.hpp"
 
-class ScalarConverter {
- private:
-  ScalarConverter();
-  ~ScalarConverter();
-  ScalarConverter(const ScalarConverter&);
-  ScalarConverter& operator=(const ScalarConverter&);
-
- public:
-  static void convert(const std::string& str);
-};
+int main(int argc, char** argv) {
+  if (argc != 2) {
+    std::cerr << "Usage: " << argv[0] << " <string to convert>" << std::endl;
+    return (1);
+  }
+  ScalarConverter::convert(argv[1]);
+}

@@ -1,26 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScalarConverter.hpp                                :+:      :+:    :+:   */
+/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 16:08:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/08/31 17:29:10 by maalexan         ###   ########.fr       */
+/*   Created: 2024/08/31 15:39:50 by maalexan          #+#    #+#             */
+/*   Updated: 2024/08/31 17:28:53 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include <iostream>
-#include <string>
+#include "ScalarConverter.hpp"
 
-class ScalarConverter {
- private:
-  ScalarConverter();
-  ~ScalarConverter();
-  ScalarConverter(const ScalarConverter&);
-  ScalarConverter& operator=(const ScalarConverter&);
-
- public:
-  static void convert(const std::string& str);
-};
+void ScalarConverter::convert(const std::string& str) {
+  std::cout << str << std::endl;
+}
