@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:39:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/01 10:56:29 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/01 14:25:25 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int ScalarConverter::toInt(const std::string& str) {
   char* endOfConverted;
 
   long result = std::strtol(convertedString, &endOfConverted, BASE_INT);
-
   if (convertedString == endOfConverted) {
     throw std::invalid_argument("Input cannot be converted to int");
   }
@@ -28,12 +27,17 @@ int ScalarConverter::toInt(const std::string& str) {
   return static_cast<int>(result);
 }
 
-void ScalarConverter::convert(const std::string& str) {
+void ScalarConverter::tryInt(const std::string& str) {
+  std::cout << "int: ";
   try {
     int i = toInt(str);
-    std::cout << "Success! Int: " << i;
+    std::cout << i;
   } catch (std::exception& e) {
-    std::cerr << "Error! Couldn't convert because: " << e.what();
+    std::cout << "impossible";
   }
   std::cout << std::endl;
+}
+
+void ScalarConverter::convert(const std::string& str) {
+  tryInt(str);
 }
