@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:39:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/02 14:21:24 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:22:11 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void ScalarConverter::tryInt(const std::string& str) {
   }
   std::cout << std::endl;
 }
+
 void ScalarConverter::tryFloat(const std::string& str) {
   std::cout << "float: ";
   try {
@@ -107,7 +108,6 @@ float ScalarConverter::toFloat(const std::string& str) {
   }
   return static_cast<float>(result);
 }
-
 
 double ScalarConverter::toDouble(const std::string& str) {
   errno = 0;
