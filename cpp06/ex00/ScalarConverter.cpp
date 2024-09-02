@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:39:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/01 21:09:41 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:04:11 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void ScalarConverter::convert(const std::string& str) {
   tryChar(str);
   tryInt(str);
+  tryFloat(str);
 }
 
 void ScalarConverter::tryChar(const std::string& str) {
@@ -34,6 +35,17 @@ void ScalarConverter::tryInt(const std::string& str) {
   try {
     int i = toInt(str);
     std::cout << i;
+  } catch (std::exception& e) {
+    std::cout << "impossible";
+  }
+  std::cout << std::endl;
+}
+void ScalarConverter::tryFloat(const std::string& str) {
+  std::cout << "float: ";
+  try {
+    float f = toFloat(str);
+    std::cout << f;
+    std::cout << (f == static_cast<int>(f) ? ".0f" : "f");
   } catch (std::exception& e) {
     std::cout << "impossible";
   }
@@ -66,4 +78,19 @@ int ScalarConverter::toInt(const std::string& str) {
     throw std::out_of_range("Value outside boundries for an integer");
   }
   return static_cast<int>(result);
+}
+
+float ScalarConverter::toFloat(const std::string& str) {
+  errno = 0;
+  const char* convertedString = str.c_str();
+  char* endOfConverted;
+
+  float result = std::strtof(convertedString, &endOfConverted);
+  if (convertedString == endOfConverted) {
+    throw std::invalid_argument("Input cannot be converted to float");
+  }
+  if (errno == ERANGE) {
+    throw std::out_of_range("Overflow ocurred when converting to float");
+  }
+  return static_cast<float>(result);
 }
