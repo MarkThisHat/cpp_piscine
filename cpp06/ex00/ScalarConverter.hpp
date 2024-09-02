@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:08:56 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/01 14:20:38 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/01 20:51:10 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,13 @@ class ScalarConverter {
   ScalarConverter(const ScalarConverter&);
   ScalarConverter& operator=(const ScalarConverter&);
 
-  static int toInt(const std::string& str);
+  static void tryChar(const std::string& str);
+  static char toChar(int i);
+  static void printChar(char c);
+
   static void tryInt(const std::string& str);
+  static int toInt(const std::string& str);
+
 
  public:
   static void convert(const std::string& str);
