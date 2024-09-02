@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 15:39:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/02 14:04:11 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:21:24 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void ScalarConverter::convert(const std::string& str) {
   tryChar(str);
   tryInt(str);
   tryFloat(str);
+  tryDouble(str);
 }
 
 void ScalarConverter::tryChar(const std::string& str) {
@@ -46,6 +47,18 @@ void ScalarConverter::tryFloat(const std::string& str) {
     float f = toFloat(str);
     std::cout << f;
     std::cout << (f == static_cast<int>(f) ? ".0f" : "f");
+  } catch (std::exception& e) {
+    std::cout << "impossible";
+  }
+  std::cout << std::endl;
+}
+
+void ScalarConverter::tryDouble(const std::string& str) {
+  std::cout << "double: ";
+  try {
+    double d = toDouble(str);
+    std::cout << d;
+    if (d == static_cast<int>(d)) std::cout << ".0";
   } catch (std::exception& e) {
     std::cout << "impossible";
   }
@@ -93,4 +106,20 @@ float ScalarConverter::toFloat(const std::string& str) {
     throw std::out_of_range("Overflow ocurred when converting to float");
   }
   return static_cast<float>(result);
+}
+
+
+double ScalarConverter::toDouble(const std::string& str) {
+  errno = 0;
+  const char* convertedString = str.c_str();
+  char* endOfConverted;
+
+  double result = std::strtod(convertedString, &endOfConverted);
+  if (convertedString == endOfConverted) {
+    throw std::invalid_argument("Input cannot be converted to double");
+  }
+  if (errno == ERANGE) {
+    throw std::out_of_range("Overflow ocurred when converting to double");
+  }
+  return static_cast<double>(result);
 }
