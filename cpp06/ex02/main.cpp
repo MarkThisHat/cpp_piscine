@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:55:32 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/03 19:26:08 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:29:43 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,22 @@ Base* generate() {
 }
 
 void identify(Base* p) {
-  if (dynamic_cast<A*>(p)) std::cout << "\033[36mA\033[0m" << std::endl;
+  if (dynamic_cast<A*>(p)) std::cout << "\033[34mA\033[0m" << std::endl;
   if (dynamic_cast<B*>(p)) std::cout << "\033[33mB\033[0m" << std::endl;
   if (dynamic_cast<C*>(p)) std::cout << "\033[35mC\033[0m" << std::endl;
 }
 
 void identify(Base& p) {
   try {
-    dynamic_cast<A&>(p);
-    std::cout << "\033[96mA\033[0m" << std::endl;
+    (void)dynamic_cast<A&>(p);
+    std::cout << "\033[94mA\033[0m" << std::endl;
   } catch (std::exception& e) {
     try {
-      dynamic_cast<B&>(p);
+      (void)dynamic_cast<B&>(p);
       std::cout << "\033[93mB\033[0m" << std::endl;
     } catch (std::exception& e) {
       try {
-        dynamic_cast<C&>(p);
+        (void)dynamic_cast<C&>(p);
         std::cout << "\033[95mC\033[0m" << std::endl;
       } catch (std::exception& e) {
         std::cerr << "Error on generated class" << std::endl;
