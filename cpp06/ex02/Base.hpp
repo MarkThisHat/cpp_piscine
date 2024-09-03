@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:40:05 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/03 17:44:45 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:06:23 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 class Base {
   public:
-   virtual ~Base();
+   virtual ~Base() {};
 };
