@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 18:55:32 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/03 19:29:43 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/09 20:03:56 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,17 @@ Base* generate() {
 }
 
 void identify(Base* p) {
-  if (dynamic_cast<A*>(p)) std::cout << "\033[34mA\033[0m" << std::endl;
-  if (dynamic_cast<B*>(p)) std::cout << "\033[33mB\033[0m" << std::endl;
-  if (dynamic_cast<C*>(p)) std::cout << "\033[35mC\033[0m" << std::endl;
+  if (dynamic_cast<A*>(p) != NULL) {
+    std::cout << "\033[34mA\033[0m" << std::endl;
+    return;
+  }
+  if (dynamic_cast<B*>(p) != NULL) {
+    std::cout << "\033[33mB\033[0m" << std::endl;
+    return;
+  }
+  if (dynamic_cast<C*>(p) != NULL) {
+    std::cout << "\033[35mC\033[0m" << std::endl;
+  }
 }
 
 void identify(Base& p) {
