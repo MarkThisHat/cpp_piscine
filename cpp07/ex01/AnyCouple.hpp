@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:46:52 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/14 11:39:37 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/22 11:03:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ class AnyCouple {
  public:
   AnyCouple(T1 a, T2 b): dataOne(a), dataTwo(b) {}
   ~AnyCouple() {}
-  AnyCouple(AnyCouple& other): dataOne(other.dataOne), dataTwo(other.dataTwo) {}
-  AnyCouple& operator=(AnyCouple& other) {
+  AnyCouple(const AnyCouple& other): dataOne(other.dataOne), dataTwo(other.dataTwo) {}
+  AnyCouple& operator=(const AnyCouple& other) {
     if (this != other) {
       dataOne = other.dataOne;
       dataTwo = other.dataTwo;
