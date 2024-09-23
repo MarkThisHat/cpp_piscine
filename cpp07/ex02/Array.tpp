@@ -6,12 +6,12 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 09:30:03 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/23 10:50:54 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:51:53 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdexcept>
-#include "Array.hpp" //this line is mostly for IDE and should be removable
+//#include "Array.hpp" //this line is mostly for IDE and should be removable
 
 template<typename T>
 Array<T>::Array(): data(NULL), members(0) {}
@@ -26,7 +26,7 @@ Array<T>::~Array() {
 
 template<typename T>
 Array<T>::Array(const Array<T>& other):
- data(new T[other.members](), members(other.members)) {
+ data(new T[other.members]()), members(other.members) {
   for (unsigned int i = 0; i < members; i++) {
     data[i] = other.data[i];
   }
@@ -65,3 +65,4 @@ template<typename T>
   }
   throw std::out_of_range("Invalid index");
  }
+ 
