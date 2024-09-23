@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 14:43:17 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/22 14:46:53 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:50:50 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ class Array {
 
   unsigned int size() const;
 
+  T& operator[](unsigned int index);
+  const T& operator[](unsigned int index) const;
+
  private:
+  T* data;
   unsigned int members;
 };
+
+#include "Array.tpp"
