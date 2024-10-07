@@ -6,11 +6,12 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 14:43:17 by maalexan          #+#    #+#             */
-/*   Updated: 2024/09/23 10:50:50 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:01:17 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+#include <cstdlib>
 
 template<typename T>
 class Array {
