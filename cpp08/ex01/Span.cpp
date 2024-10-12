@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:07:53 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/12 12:45:55 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:48:24 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ Span& Span::operator=(const Span& other) {
 unsigned int Span::getMaxSize() const {
   return n;
 }
-#include <iostream>
+
 void Span::addNumber(int number) {
-  std::cout << "current n is " << n << std::endl;
-  std::cout << "current stored numbers is " << storedNumbers.size() << std::endl;
-  if (n == 0 || n >= storedNumbers.size()) {
+  if (n == 0 || storedNumbers.size() >= n) {
     throw std::overflow_error("Span unable to store any more values");
   }
   storedNumbers.insert(number);
@@ -58,7 +56,7 @@ int Span::shortestSpan() const {
 
   while (++next != storedNumbers.end()) {
     int difference = *next - *iter;
-    if (difference < shortest) difference = shortest;
+    if (difference < shortest) shortest = difference;
     iter++;
   }
   return shortest;
