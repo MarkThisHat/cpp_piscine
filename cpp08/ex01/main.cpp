@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:05:03 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/12 13:16:14 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/12 13:50:00 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include <sstream>
 #include "Span.hpp"
 
-int setlargeSpan(char *argv) {
+int setlargeSpan(int argc, char *argv) {
   int number;
   std::stringstream stringStream(argv);
 
-  if (!(stringStream >> number) || !stringStream.eof()) {
+  if (argc != 2 || !(stringStream >> number) || !stringStream.eof()) {
     std::cerr << "Provide a positive integer as second argument" << std::endl;
     return -1;
   }
@@ -29,31 +29,45 @@ int setlargeSpan(char *argv) {
   return number;
 }
 
+void providedMain() {
+  Span sp = Span(5);
+  sp.addNumber(6);
+  sp.addNumber(3);
+  sp.addNumber(17);
+  sp.addNumber(9);
+  sp.addNumber(11);
+  std::cout << sp.shortestSpan() << std::endl;
+  std::cout << sp.longestSpan() << std::endl;
+}
+
 int main(int argc, char **argv) {
+  providedMain();
+
   Span smallSpan(7);
   int array[] = {6129, 25, 17, 400, 73918, 1000003, 3};
 
   smallSpan.addNumbers(array, array + 7);
 
-  std::cout << "Shortest Span: " << smallSpan.shortestSpan() << std::endl;
+  std::cout << "\nShortest Span: " << smallSpan.shortestSpan() << std::endl;
   std::cout << "Longest Span: " << smallSpan.longestSpan() <<  std::endl;
 
   if (argc < 2) return 0;
-  int interval = setlargeSpan(argv[1]);
-  if (argc > 2 || interval < 1) return 1;
+
+  int interval = setlargeSpan(argc, argv[1]);
+  if (interval < 1) return 1;
 
   const unsigned int largeSize = 15000;
   Span largeSpan(largeSize);
 
   try {
-    for (unsigned int i = 0; i < largeSize; ++i) {
+    for (unsigned int i = 0; i < largeSize; i++) {
       largeSpan.addNumber(i * interval);
     }
     std::cout << "\nSuccessfully added " << largeSize << " numbers." << std::endl;
     std::cout << "Shortest span: " << largeSpan.shortestSpan() << std::endl;
     std::cout << "Longest span: " << largeSpan.longestSpan() << std::endl;
-
-  } catch (const std::exception &e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
+    largeSpan.addNumber(14);
+  } catch (const std::exception& e) {
+      std::cerr << "\nException: " << e.what() << std::endl;
   }
 }
