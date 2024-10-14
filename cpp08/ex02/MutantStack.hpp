@@ -6,9 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 15:00:37 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/12 16:37:21 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:26:15 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
 
 #include <deque>
 #include <stack>
@@ -25,10 +27,10 @@ class MutantStack: public std::stack<T> {
     return *reinterpret_cast<std::deque<T>*>(&this->c); //
   };
 
-  std::deque<T>::iterator iterator begin();
-  std::deque<T>::iterator iterator end();
-  const std::deque<T>::iterator iterator begin() const;
-  const std::deque<T>::iterator iterator end() const;
+  typename std::deque<T>::iterator begin();
+  typename std::deque<T>::iterator end();
+  typename std::deque<T>::const_iterator begin() const;
+  typename std::deque<T>::const_iterator end() const;
 };
 
 #include "MutantStack.tpp"
