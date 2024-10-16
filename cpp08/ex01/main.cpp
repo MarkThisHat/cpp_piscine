@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 12:05:03 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/12 13:50:00 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:18:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int main(int argc, char **argv) {
     std::cout << "\nSuccessfully added " << largeSize << " numbers." << std::endl;
     std::cout << "Shortest span: " << largeSpan.shortestSpan() << std::endl;
     std::cout << "Longest span: " << largeSpan.longestSpan() << std::endl;
+
     largeSpan.addNumber(14);
   } catch (const std::exception& e) {
       std::cerr << "\nException: " << e.what() << std::endl;

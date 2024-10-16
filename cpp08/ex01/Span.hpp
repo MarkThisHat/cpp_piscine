@@ -6,13 +6,15 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 09:58:01 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/12 12:38:29 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:24:18 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits>
+#include <algorithm>
+#include <numeric>
 #include <set>
 #include <stdexcept>
+#include <vector>
 
 class Span {
  public:

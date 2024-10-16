@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 10:07:53 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/12 12:48:24 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:28:10 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,18 @@ void Span::validateSpan() const {
 int Span::shortestSpan() const {
   validateSpan();
 
-  int shortest = std::numeric_limits<int>::max();  
-  std::set<int>::const_iterator iter = storedNumbers.begin();
-  std::set<int>::const_iterator next = iter;
-
-  while (++next != storedNumbers.end()) {
-    int difference = *next - *iter;
-    if (difference < shortest) shortest = difference;
-    iter++;
-  }
-  return shortest;
+  std::vector<int> differences;
+  std::set<int>::const_iterator start = storedNumbers.begin();
+  std::set<int>::const_iterator final = storedNumbers.end();
+  std::adjacent_difference(start, final, std::back_inserter(differences));
+  return *std::min_element(differences.begin() + 1, differences.end());
 }
 
 int Span::longestSpan() const {
   validateSpan();
 
-  return *storedNumbers.rbegin() - *storedNumbers.begin();
+  int minValue = *std::min_element(storedNumbers.begin(), storedNumbers.end());
+  int maxValue = *std::max_element(storedNumbers.begin(), storedNumbers.end());
+
+  return maxValue - minValue;
 }
