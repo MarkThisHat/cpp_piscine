@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:46:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/15 11:33:55 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:49:09 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,31 @@ int main() {
   mstack.push(0);
   list.push_back(0);
   MutantStack<int>::iterator it = mstack.begin();
-  std::list<int>::iterator it_list = list.begin();
+  std::list<int>::iterator itList = list.begin();
   MutantStack<int>::iterator end = mstack.end();
-  std::list<int>::iterator list_end = list.end();
+  std::list<int>::iterator listEnd = list.end();
   
   ++it;
   --it;
-  while (it != end && it_list != list_end) {
+  while (it != end && itList != listEnd) {
     std::cout << "Mutant Stack: ";
     std::cout << *it << std::endl;
     ++it;
     std::cout << "Default list: ";
-    std::cout << *it_list++ << std::endl;
+    std::cout << *itList++ << std::endl;
   }
   std::stack<int> s(mstack);
 
   MutantStack<int> newMstack;
+
+  std::cout << "Before the push, is the new stack empty? -> ";
+  std::cout << (newMstack.empty() ? "Yes" : "No") << std::endl;
   while (!s.empty()) {
     newMstack.push(s.top());
     s.pop();
   }
+  std::cout << "After the push, is the new stack empty? -> ";
+  std::cout << (newMstack.empty() ? "Yes" : "No") << std::endl;
 
   MutantStack<int>::const_iterator cit = newMstack.begin();
   MutantStack<int>::const_iterator cite = newMstack.end();
