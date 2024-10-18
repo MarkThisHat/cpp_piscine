@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:40:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/18 17:03:52 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:01:14 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
   std::map<std::string, float> dateValueMap;
 
   try {
-    Parser::fileParse(dataFile, dateValueMap, ',');
+    Parser::fileParse(dataFile, dateValueMap);
   } catch (std::exception& e) {
     std::cerr << "Exception: " << e.what() << std::endl;
     dataFile.close();
@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
 
   std::map<std::string, float> exchangeAmountMap;
   try {
-    Parser::fileParse(inputFile, exchangeAmountMap, '|');
+    Parser::fileParse(inputFile, exchangeAmountMap);
   } catch (std::exception& e) {
     std::cerr << "Exception: " << e.what() << std::endl;
     inputFile.close();
