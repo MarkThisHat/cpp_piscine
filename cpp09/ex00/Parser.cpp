@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:59:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/18 19:02:15 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:05:53 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ float Parser::floatParse(const std::string& rawValue) {
   iss >> result;
 
   if (iss.fail()) {
-    throw std::invalid_argument("Error: contains invalid number");
+    throw std::invalid_argument("contains invalid number");
   }
   return result;
 }
@@ -72,7 +72,7 @@ void Parser::fileParse(std::ifstream& file, std::map<std::string, float>& map) {
   std::string line;
   std::getline(file, line);
   if (line != "date,exchange_rate") {
-    throw std::invalid_argument("Error: line 1 is unformatted");
+    throw std::invalid_argument("line 1 is unformatted");
   }
   while (std::getline(file, line)) {
     size_t delimiterPos = line.find(',');
@@ -93,7 +93,7 @@ void Parser::validDate(int year, int month, int day) {
       return;
     }
   }
-  throw std::invalid_argument("Error: bad input");
+  throw std::invalid_argument("bad input");
 }
 
 bool Parser::leapYear(int year) {

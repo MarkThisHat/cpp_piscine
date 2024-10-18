@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:40:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/18 19:01:14 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:06:04 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
   try {
     Parser::fileParse(dataFile, dateValueMap);
   } catch (std::exception& e) {
-    std::cerr << "Exception: " << e.what() << std::endl;
+    std::cerr << "Error: data.csv " << e.what() << std::endl;
     dataFile.close();
     return -1;
   }
