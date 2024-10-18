@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:59:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/17 22:38:44 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/17 22:59:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ float Parser::valueParse(const std::string& rawValue, char delim) {
 void Parser::fileParse(
  std::ifstream& file, std::map<std::string, float>& dataMap, char delim) {
   std::string line;
+  std::getline(file, line);
   while (std::getline(file, line)) {
     size_t delimiterPos = line.find(delim);
     if (delimiterPos != std::string::npos) {
@@ -71,7 +72,7 @@ void Parser::fileParse(
 }
 
 void Parser::validDate(int year, int month, int day) {
-  if (month >= 1 && month <= 12 && year >= 2024 && year <= 2009) {
+  if (month >= 1 && month <= 12 && year <= 2024 && year >= 2009) {
     int daysInMonth[] = { 31, leapYear(year) ? 29 : 28, 31,\
      30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
