@@ -6,21 +6,25 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:40:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/16 18:28:42 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/17 22:33:38 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FileProcessor.hpp"
-#include "Utils.hpp"
+#include "Parser.hpp"
+#include <iostream>
 
 int main(int argc, char** argv) {
-  if (argc != 2) {
-    return Utils::argReject(argv[0]);
-  }
+  std::string input = (argc > 1) ? argv[1] : argv[0];
 
-  if (!FileProcessor::processFile(argv[1], argv[2], argv[3])) {
-    return 1;
+  std::ifstream dataFile ("data.csv");
+  if (!dataFile.is_open()) {
+    std::cerr << "Error: opening file" << std::endl;
+    return -1;
   }
+  
+  std::map<std::string, float> dateValueMap;
+  Parser::fileParse(dataFile, dateValueMap, ',');
 
+  std::cout << input << std::endl;
   return 0;
 }
