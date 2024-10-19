@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:40:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/19 13:50:44 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:54:09 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int main(int argc, char** argv) {
     std::string trimmedInput;
     try {
       trimmedInput = Parser::inputFormat(line);
+      exchange.makeExchange(trimmedInput);
     } catch(std::exception& e) {
       std::cerr << e.what() << " => " << line << std::endl;
     }
-    exchange.makeExchange(trimmedInput);
   }
   inputFile.close();
 
