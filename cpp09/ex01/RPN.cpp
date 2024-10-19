@@ -6,14 +6,14 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:15:25 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/19 18:40:36 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:41:32 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
-void RPN::operate() {
-  
+int RPN::operate() {
+  return 0;
 }
 
 RPN::RPN() {}
