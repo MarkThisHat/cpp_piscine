@@ -6,11 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:40:50 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/18 19:06:04 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:46:09 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include "BitcoinExchange.hpp"
 #include "Parser.hpp"
 
 int main(int argc, char** argv) {
@@ -38,15 +38,20 @@ int main(int argc, char** argv) {
     std::cerr << "Error: could not open file" << std::endl;
     return -1;
   }
+  BitcoinExchange exchange(dateValueMap);
 
-  std::map<std::string, float> exchangeAmountMap;
-  try {
-    Parser::fileParse(inputFile, exchangeAmountMap);
-  } catch (std::exception& e) {
-    std::cerr << "Exception: " << e.what() << std::endl;
-    inputFile.close();
-    return -1;
+  std::string line;
+  std::getline(inputFile, line);
+  while(std::getline(inputFile, line)) {
+    std::string trimmedInput;
+    try {
+      trimmedInput = Parser::inputFormat(line);
+    } catch(std::exception& e) {
+      std::cerr << e.what() << " => " << input << std::endl;
+    }
+    exchange.makeExchange(trimmedInput);
   }
   inputFile.close();
+
   return 0;
 }

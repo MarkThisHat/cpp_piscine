@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:59:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/18 19:05:53 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/19 11:58:18 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,34 @@ void Parser::fileParse(std::ifstream& file, std::map<std::string, float>& map) {
       map[key] = value;
     }
   }
+}
+
+std::string Parser::trim(const std::string& str) {
+  size_t start = 0;
+  while (start < str.size() && std::isspace(str[start])) {
+    start++;
+  }
+  size_t end = str.size();
+  while (end > start && std::isspace(str[end - 1])) {
+    end--;
+  }
+  return str.substr(start, end - start);
+}
+
+std::string Parser::inputFormat(const std::string& input) {
+  size_t pipePos = input.find('|');
+
+  if (pipePos == std::string::npos) {
+    throw std::invalid_argument("Error: bad input");
+  }
+  std::string datePart = trim(input.substr(0, pipePos));
+  std::string numberPart = trim(input.substr(pipePos + 1));
+
+  if (datePart == "" || numberPart == "") {
+    throw std::invalid_argument("Error: bad input");
+  }
+
+  return datePart + "," + numberPart;
 }
 
 void Parser::validDate(int year, int month, int day) {

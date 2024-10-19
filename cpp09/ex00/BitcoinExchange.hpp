@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:45:09 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/18 16:52:10 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:27:15 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,20 @@
 
 #include <iostream>
 #include <map>
+#define MAX_BTC 1000
 
 class BitcoinExchange {
  public:
-  static void printExchange(
-   const std::map<std::string, float>& exchangeData,
-   const std::map<std::string, float>& btcAmount);
+  BitcoinExchange(const std::map<std::string, float>& dataMap);
+  BitcoinExchange(const BitcoinExchange& other);
+  ~BitcoinExchange();
+
+  void makeExchange(const std::string& input) const;
 
  private:
+  const std::map<std::string, float>& data;
+
+  bool validateValue(const float value) const;
   BitcoinExchange();
-  BitcoinExchange(const BitcoinExchange& other);
   BitcoinExchange& operator=(const BitcoinExchange& other);
-  ~BitcoinExchange();
 };
