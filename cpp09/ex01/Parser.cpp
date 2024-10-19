@@ -6,13 +6,13 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:59:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/19 18:03:10 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:38:20 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Parser.hpp"
 
-bool Parser::parseInput(const std::string& input,
+void Parser::parseInput(const std::string& input,
  std::stack<int (*)(int, int)>& functions, std::stack<int>& operands) {
   for (size_t i = 0; i < input.length(); ++i) {
     if (validateInput(input, i)) {

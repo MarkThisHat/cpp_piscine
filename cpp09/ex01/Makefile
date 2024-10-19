@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/10/19 16:16:43 by maalexan         ###   ########.fr        #
+#    Updated: 2024/10/19 18:34:43 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ CFLAGS	:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
 
 # Source files
 SRC			:=	main.cpp \
+						RPN.cpp \
+						Parser.cpp
 
 # Object files
 OBJ			:=	$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(notdir $(SRC)))

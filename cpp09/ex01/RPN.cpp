@@ -6,16 +6,30 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:15:25 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/19 18:18:54 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:40:36 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
+void RPN::operate() {
+  
+}
+
 RPN::RPN() {}
-RPN::RPN(const RPN& other) {}
-RPN& RPN::operator=(const RPN& other) {}
+
 RPN::~RPN() {}
+
+RPN::RPN(const RPN& other): 
+ operands(other.operands), operations(other.operations) {}
+
+RPN& RPN::operator=(const RPN& other) {
+  if (this != &other) {
+    operands = other.operands;
+    operations = other.operations;
+  }
+  return *this;
+}
 
 std::stack<operation>& RPN::getOperations() {
   return operations;
