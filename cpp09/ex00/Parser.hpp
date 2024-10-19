@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:15:49 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/19 13:25:04 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:46:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 class Parser {
  public:
   static void fileParse(std::ifstream& file, std::map<std::string, float>& map);
-  static std::string Parser::inputFormat(const std::string& input);
+  static std::string inputFormat(const std::string& input);
   static std::string dateParse(const std::string& rawKey);
   static float floatParse(const std::string& rawValue);
 
@@ -30,7 +30,7 @@ class Parser {
   Parser& operator=(const Parser& other);
   ~Parser();
 
-  static std::string Parser::trim(const std::string& str);
+  static std::string trim(const std::string& str);
   static int intParse(const std::string& rawValue);
   static void validDate(int year, int month, int day);
   static bool leapYear(int year);

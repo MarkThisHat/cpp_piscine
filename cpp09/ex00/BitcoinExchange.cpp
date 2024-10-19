@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:52:23 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/19 13:41:18 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:49:37 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 #include "Parser.hpp"
 
 void BitcoinExchange::makeExchange(const std::string& input) const {
-  try {
-    std::string trimmedInput = Parser::inputFormat(input);
-  } catch(std::exception& e) {
-    std::cerr << e.what() << " => " << input << std::endl;
-    return;
-  }
-
   size_t pipePos = input.find(',');
   std::string date = input.substr(0, pipePos);
   std::string amountStr = input.substr(pipePos + 1);
@@ -45,7 +38,7 @@ void BitcoinExchange::makeExchange(const std::string& input) const {
   }
 
   std::map<std::string, float>::const_iterator iter = data.lower_bound(date);
-  std::cout << date << " => " << value << " = " << iter->second * value;
+  std::cout << date << " => " << value << " = " << iter->second * value << std::endl;
 }
 
 bool BitcoinExchange::validateValue(const float value) const {
