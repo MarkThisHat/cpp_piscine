@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:59:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/19 18:38:20 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/20 11:22:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void Parser::parseInput(const std::string& input,
 void Parser::stack(const char c,
  std::stack<int (*)(int, int)>& functions, std::stack<int>& operands) {
   if (!validateOperator(c)) {
-    operands.push(c);
+    operands.push(c - '0');
     return;
   }
 
