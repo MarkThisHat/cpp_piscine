@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:07:46 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/19 18:40:56 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/20 11:03:40 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,7 @@ class RPN {
  private:
   std::stack<int> operands;
   std::stack<operation> operations;
+
+  bool canOperate() const;
+  bool sucessfulyOperated() const;
 };

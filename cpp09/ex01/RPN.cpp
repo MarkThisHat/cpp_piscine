@@ -6,14 +6,36 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:15:25 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/19 18:41:32 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/20 11:08:26 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
+#include <iostream>
 
 int RPN::operate() {
-  return 0;
+  while (canOperate()) {
+    operation op = operations.top();
+    operations.pop();
+    int b = operands.top();
+    operands.pop();
+    int a = operands.top();
+    operands.pop();
+    operands.push(op(a, b));
+  }
+  if (sucessfulyOperated()) {
+    return operands.top();
+  }
+  throw std::invalid_argument("Error");
+  return -1;
+}
+
+bool RPN::canOperate() const {
+  return operations.size() >= 1 && operands.size() >= 2;
+}
+
+bool RPN::sucessfulyOperated() const {
+  return !operations.size() && operands.size() == 1;
 }
 
 RPN::RPN() {}
