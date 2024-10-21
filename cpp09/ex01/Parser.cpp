@@ -6,22 +6,30 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:59:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/21 16:52:01 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:41:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Parser.hpp"
 
 void Parser::parseInput(const std::string& input, std::stack<int>& operands,
- std::stack<int (*)(int, int)>& functions, size_t i) {
-  if (i >= input.length()) return;
-  parseInput(input, operands, functions, i + 1);
+ std::stack<int (*)(int, int)>& functions) {
+  (void) input;
+  (void) operands;
+  (void) functions;
+}
 
-  if (validateInput(input, i)) {
-    stack(input[i], operands, functions);
-  } else if (!std::isspace(input[i])) {
-    throw std::invalid_argument("Error");
+std::string Parser::cleanInput(const std::string& input) {
+  std::string trimmedInput;
+
+  for (size_t i = 0; i < input.length(); i++) {
+    if (validateInput(input, i)) {
+      trimmedInput += input[i];
+    } else if (!std::isspace(input[i])) {
+      throw std::invalid_argument("Error");
+    }
   }
+  return trimmedInput;
 }
 
 void Parser::stack(const char c,
@@ -29,23 +37,6 @@ void Parser::stack(const char c,
   if (!validateOperator(c)) {
     operands.push(c - '0');
     return;
-  }
-
-  switch(c) {
-    case '+':
-      functions.push(&add);
-      break;
-    case '-':
-      functions.push(&subtract);
-      break;
-    case '*':
-      functions.push(&multiply);
-      break;
-    case '/':
-      functions.push(&divide);
-      break;
-    default:
-      throw std::runtime_error("Invalid operand was parsed");
   }
 }
 
@@ -58,6 +49,25 @@ bool Parser::validateInput(const std::string& str, size_t i) {
 
   return (std::isdigit(str[i]) || validateOperator(str[i])) &&
    (i == length - 1 || str[i + 1] == ' ') && (i == 0 || str[i - 1] == ' ');
+}
+
+int (*Parser::getFunction(char c))(int, int) {
+  switch(c) {
+    case '+':
+      return (&add);
+      break;
+    case '-':
+      return (&subtract);
+      break;
+    case '*':
+      return (&multiply);
+      break;
+    case '/':
+      return (&divide);
+      break;
+    default:
+      throw std::runtime_error("Invalid operand was parsed");
+  }
 }
 
 Parser::Parser() {

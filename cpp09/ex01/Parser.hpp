@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:15:49 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/21 16:45:48 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:57:11 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@
 
 class Parser {
  public:
-  static void parseInput(
-    const std::string& input, std::stack<int>& operands,
-    std::stack<int (*)(int, int)>& functions, size_t i = 0);
-
+  static int (*getFunction(char c))(int, int);
+  static std::string cleanInput(const std::string& input);
 
  private:
   static bool validateOperator(char c);
