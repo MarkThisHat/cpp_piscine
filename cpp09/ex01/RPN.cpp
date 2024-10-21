@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:15:25 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/20 11:08:26 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/20 21:40:29 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int RPN::operate() {
   while (canOperate()) {
     operation op = operations.top();
     operations.pop();
-    int b = operands.top();
-    operands.pop();
     int a = operands.top();
+    operands.pop();
+    int b = operands.top();
     operands.pop();
     operands.push(op(a, b));
   }
