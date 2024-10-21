@@ -6,35 +6,26 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:59:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/20 11:48:34 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:52:01 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Parser.hpp"
 
-void Parser::parseInput(const std::string& input,
- std::stack<int (*)(int, int)>& functions, std::stack<int>& operands) {
-  std::stack<int> reversedOperands;
-  std::stack<int (*)(int, int)> reversedFunctions;
-  for (size_t i = 0; i < input.length(); ++i) {
-    if (validateInput(input, i)) {
-      stack(input[i], reversedFunctions, reversedOperands);
-    } else if (!std::isspace(input[i])) {
-      throw std::invalid_argument("Error");
-    }
-  }
-  while (!reversedOperands.empty()) {
-    operands.push(reversedOperands.top());
-    reversedOperands.pop();
-  }
-  while (!reversedFunctions.empty()) {
-    functions.push(reversedFunctions.top());
-    reversedFunctions.pop();
+void Parser::parseInput(const std::string& input, std::stack<int>& operands,
+ std::stack<int (*)(int, int)>& functions, size_t i) {
+  if (i >= input.length()) return;
+  parseInput(input, operands, functions, i + 1);
+
+  if (validateInput(input, i)) {
+    stack(input[i], operands, functions);
+  } else if (!std::isspace(input[i])) {
+    throw std::invalid_argument("Error");
   }
 }
 
 void Parser::stack(const char c,
- std::stack<int (*)(int, int)>& functions, std::stack<int>& operands) {
+ std::stack<int>& operands, std::stack<int (*)(int, int)>& functions) {
   if (!validateOperator(c)) {
     operands.push(c - '0');
     return;
