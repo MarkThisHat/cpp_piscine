@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:07:46 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/22 16:38:33 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:00:20 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,13 @@ class RPN {
   RPN& operator=(const RPN& other);
   ~RPN();
 
-  std::stack<int>& getOperands();
   int operate(const std::string& input);
-  void doMath(operation op);
 
  private:
   std::stack<int> operands;
 
-  void validateOperation() const;
+  void doMath(operation op);
+  int operationResult(bool complete);
   operation getOperation(char c) const;
 };
 

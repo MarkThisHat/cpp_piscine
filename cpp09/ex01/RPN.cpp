@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:15:25 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/22 16:51:26 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:00:16 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,31 @@ int RPN::operate(const std::string& cleanInput) {
   std::string::const_iterator end = cleanInput.end();
 
   while (iter != end) {
-  char c = *iter++;
-  (std::isdigit(c)) ? operands.push(c - '0') : doMath(getOperation(c));
+    char c = *iter++;
+    (std::isdigit(c)) ? operands.push(c - '0') : doMath(getOperation(c));
   }
 
-  if (operands.size() == 1) {
-    return operands.top();
-  }
+  return operationResult(operands.size() == 1);
+}
 
-  throw std::invalid_argument("Error");
-  return -1;
+int RPN::operationResult(bool complete) {
+  if (!complete) {
+    throw std::invalid_argument("Error");
+  }
+  int result = operands.top();
+  operands.pop();
+  return result;
 }
 
 void RPN::doMath(operation op) {
-    validateOperation();
-    int b = operands.top();
-    operands.pop();
-    int a = operands.top();
-    operands.pop();
-    operands.push(op(a, b));
-}
-
-void RPN::validateOperation() const {
   if (operands.size() < 2) {
     throw std::invalid_argument("Error");
   }
+  int b = operands.top();
+  operands.pop();
+  int a = operands.top();
+  operands.pop();
+  operands.push(op(a, b));
 }
 
 operation RPN::getOperation(char c) const {
@@ -70,10 +70,6 @@ RPN& RPN::operator=(const RPN& other) {
     operands = other.operands;
   }
   return *this;
-}
-
-std::stack<int>& RPN::getOperands() {
-  return operands;
 }
 
 int add(int a, int b) { return a + b; }
