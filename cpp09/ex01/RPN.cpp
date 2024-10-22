@@ -6,54 +6,74 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:15:25 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/21 17:27:24 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:39:44 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
-int RPN::operate() {
-  while (canOperate()) {
-    operation op = operations.top();
-    operations.pop();
-    int a = operands.top();
-    operands.pop();
-    int b = operands.top();
-    operands.pop();
-    operands.push(op(a, b));
+int RPN::operate(const std::string& cleanInput) {
+  std::string::const_iterator iter = cleanInput.begin();
+  std::string::const_iterator end = cleanInput.end();
+
+  while (iter != end) {
+  char c = *iter++;
+  (std::isdigit(c)) ? operands.push(c - '0') : doMath(getOperation(c));
   }
-  if (sucessfulyOperated()) {
+
+  if (operands.size() == 1) {
     return operands.top();
   }
+
   throw std::invalid_argument("Error");
   return -1;
 }
 
-bool RPN::canOperate() const {
-  return operations.size() >= 1 && operands.size() >= 2;
+void RPN::doMath(operation op) {
+    validateOperation();
+    int b = operands.top();
+    operands.pop();
+    int a = operands.top();
+    operands.pop();
+    operands.push(op(a, b));
 }
 
-bool RPN::sucessfulyOperated() const {
-  return !operations.size() && operands.size() == 1;
+void RPN::validateOperation() const {
+  if (operands.size() < 2) {
+    throw std::invalid_argument("Error");
+  }
+}
+
+operation RPN::getOperation(char c) const {
+  switch(c) {
+    case '+':
+      return (&add);
+      break;
+    case '-':
+      return (&subtract);
+      break;
+    case '*':
+      return (&multiply);
+      break;
+    case '/':
+      return (&divide);
+      break;
+    default:
+      throw std::runtime_error("Invalid operand");
+  }
 }
 
 RPN::RPN() {}
 
 RPN::~RPN() {}
 
-RPN::RPN(const RPN& other): 
- operands(other.operands), operations(other.operations) {}
+RPN::RPN(const RPN& other): operands(other.operands) {}
 
 RPN& RPN::operator=(const RPN& other) {
   if (this != &other) {
     operands = other.operands;
-    operations = other.operations;
   }
   return *this;
-}
-
-std::stack<operation>& RPN::getOperations() {
-  return operations;
 }
 
 std::stack<int>& RPN::getOperands() {

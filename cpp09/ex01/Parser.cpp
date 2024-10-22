@@ -6,20 +6,13 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:59:36 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/21 17:41:46 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:42:35 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Parser.hpp"
 
-void Parser::parseInput(const std::string& input, std::stack<int>& operands,
- std::stack<int (*)(int, int)>& functions) {
-  (void) input;
-  (void) operands;
-  (void) functions;
-}
-
-std::string Parser::cleanInput(const std::string& input) {
+std::string Parser::parseInput(const std::string& input) {
   std::string trimmedInput;
 
   for (size_t i = 0; i < input.length(); i++) {
@@ -32,14 +25,6 @@ std::string Parser::cleanInput(const std::string& input) {
   return trimmedInput;
 }
 
-void Parser::stack(const char c,
- std::stack<int>& operands, std::stack<int (*)(int, int)>& functions) {
-  if (!validateOperator(c)) {
-    operands.push(c - '0');
-    return;
-  }
-}
-
 bool Parser::validateOperator(char c) {
   return c == '+' || c == '-' || c == '*' || c == '/';
 }
@@ -49,25 +34,6 @@ bool Parser::validateInput(const std::string& str, size_t i) {
 
   return (std::isdigit(str[i]) || validateOperator(str[i])) &&
    (i == length - 1 || str[i + 1] == ' ') && (i == 0 || str[i - 1] == ' ');
-}
-
-int (*Parser::getFunction(char c))(int, int) {
-  switch(c) {
-    case '+':
-      return (&add);
-      break;
-    case '-':
-      return (&subtract);
-      break;
-    case '*':
-      return (&multiply);
-      break;
-    case '/':
-      return (&divide);
-      break;
-    default:
-      throw std::runtime_error("Invalid operand was parsed");
-  }
 }
 
 Parser::Parser() {

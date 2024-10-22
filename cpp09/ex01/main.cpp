@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 17:11:01 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/21 17:35:20 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:42:42 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int main(int argc, char **argv) {
   if (argc != 2) return -1;
 
   RPN rpn;
+  std::string input;
   try {
-    /*Parser::parseInput(argv[1], rpn.getOperands(), rpn.getOperations());
-    std::cout << rpn.operate() << std::endl;*/
-    std::cout << Parser::cleanInput(argv[1]) << std::endl;
+    input = Parser::parseInput(argv[1]);
+    std::cout << rpn.operate(input) << std::endl;
   } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;
   }

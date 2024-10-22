@@ -6,25 +6,21 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:15:49 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/21 17:57:11 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:42:55 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <stack>
 #include <stdexcept>
 
 class Parser {
  public:
-  static int (*getFunction(char c))(int, int);
-  static std::string cleanInput(const std::string& input);
+  static std::string parseInput(const std::string& input);
 
  private:
   static bool validateOperator(char c);
   static bool validateInput(const std::string& str, size_t i);
-  static void stack(const char c,
-   std::stack<int>& operands, std::stack<int (*)(int, int)>& functions);
 
   Parser();
   Parser(const Parser& other);
@@ -32,7 +28,3 @@ class Parser {
   ~Parser();
 };
 
-int add(int a, int b);
-int subtract(int a, int b);
-int multiply(int a, int b);
-int divide(int a, int b);
