@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:15:25 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/22 16:39:44 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:51:26 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,12 @@ operation RPN::getOperation(char c) const {
   switch(c) {
     case '+':
       return (&add);
-      break;
     case '-':
       return (&subtract);
-      break;
     case '*':
       return (&multiply);
-      break;
     case '/':
       return (&divide);
-      break;
     default:
       throw std::runtime_error("Invalid operand");
   }
