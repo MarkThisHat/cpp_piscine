@@ -6,12 +6,12 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/10/25 18:07:11 by maalexan         ###   ########.fr        #
+#    Updated: 2024/10/25 19:25:38 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name
-NAME		:=	pMergeme
+NAME		:=	PmergeMe
 
 # Directories for source, object and libraries
 SRC_DIR		:=	./
