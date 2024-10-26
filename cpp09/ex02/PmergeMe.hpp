@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/25 21:08:43 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/26 10:22:22 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,36 @@ void mergeInsertSort(std::vector<int>& arr, size_t arrSize) {
     }
 }
 
+
+
+Merge-insertion sort performs the following steps, on an input X of n elements:[6]
+
+1   Group the elements of X into ⌊ n / 2 ⌋ pairs of elements, arbitrarily, leaving one element unpaired if there is an odd number of elements.
+
+2   Perform ⌊ n / 2 ⌋ comparisons, one per pair, to determine the larger of the two elements in each pair.
+
+3   Recursively sort the ⌊ n / 2 ⌋ larger elements from each pair,
+    creating a sorted sequence S of ⌊ n / 2 ⌋ of the input elements,
+    in ascending order, using the merge-insertion sort.
+
+4   Insert at the start of S the element that was paired with the first and smallest element of S
+
+5   Insert the remaining ⌈ n / 2 ⌉ − 1 elements of X ∖ S into S one at a time,
+    with a specially chosen insertion ordering described below.
+    Use binary search in subsequences of S (as described below) to determine the
+    position at which each element should be inserted.
+
+The algorithm is designed to take advantage of the fact that the binary searches used to insert elements into S are most efficient (from the point of view of worst case analysis) when the length of the subsequence that is searched is one less than a power of two. This is because, for those lengths, all outcomes of the search use the same number of comparisons as each other.[1] To choose an insertion ordering that produces these lengths, consider the sorted sequence S after step 4 of the outline above (before inserting the remaining elements), and let x i denote the ith element of this sorted sequence. Thus,
+
+S = ( x 1 , x 2 , x 3 , … ) , 
+where each element x i with i ≥ 3 is paired with an element y i < x i that has not yet been inserted. (There are no elements y 1 or y 2 because x 1 and x 2 were paired with each other.) If n is odd, the remaining unpaired element should also be numbered as y i with i larger than the indexes of the paired elements. Then, the final step of the outline above can be expanded into the following steps:[1][2][3][4]
+
+Partition the uninserted elements y i into groups with contiguous indexes. There are two elements y 3 and y 4 in the first group, and the sums of sizes of every two adjacent groups form a sequence of powers of two. Thus, the sizes of groups are: 2, 2, 6, 10, 22, 42, ...
+Order the uninserted elements by their groups (smaller indexes to larger indexes), but within each group order them from larger indexes to smaller indexes. Thus, the ordering becomes
+
+y 4 , y 3 , y 6 , y 5 , y 12 , y 11 , y 10 , y 9 , y 8 , y 7 , y 22 , y 21 …
+
+Use this ordering to insert the elements y i into S  For each element y i, use a binary search from the start of S up to but not including x i to determine where to insert y i.
 */
+
+
