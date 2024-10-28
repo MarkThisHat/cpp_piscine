@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/28 14:58:06 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:08:14 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ class PmergeMe {
   PmergeMe& operator=(const PmergeMe& other);
   ~PmergeMe();
 
-  void mergeInsertionSort(Container<T, Allocator>& container, int containerSize);
+  void mergeInsertionSort(const Container<T, Allocator>& container, int containerSize);
 
  private:
+  void merge(const std::vector<std::pair<int, int> >);
 };
 
 #include <iostream>
@@ -40,7 +41,7 @@ void printer(const std::vector<std::pair<T, T> > vec) {
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocator>& container, int containerSize) {
+void PmergeMe<Container, T, Allocator>::mergeInsertionSort(const Container<T, Allocator>& container, int containerSize) {
   if (container.empty() || containerSize < 1) {
     throw std::invalid_argument("Invalid amount of elements to sort");
   }
@@ -66,7 +67,12 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocato
     unpaired = *iter;
     std::cout << "unpaired: " << unpaired << std::endl;
   }
+
 };
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::merge(std::vector<std::pair<int, int> >) {
+}
 
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
