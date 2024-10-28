@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/28 15:08:14 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:42:40 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,58 @@ void printer(const std::vector<std::pair<T, T> > vec) {
   std::cout << std::endl;
 }
 
+template <typename T>
+void pairAndSort(std::vector<std::pair<T, T> >& elements) {
+    for (size_t i = 0; i < elements.size(); i += 2) {
+        if (i + 1 < elements.size() && elements[i].second > elements[i + 1].second) {
+            std::swap(elements[i], elements[i + 1]);
+        }
+    }
+}
+
+template <typename T>
+void fordJohnsonMerge(std::vector<std::pair<T, T> >& elements) {
+    if (elements.size() <= 1) return;
+
+    // Temporary vector to hold sorted pairs
+    std::vector<std::pair<T, T> > sorted;
+
+    // Place the first pair in the sorted vector
+    sorted.push_back(elements[0]);
+
+    // Insert the remaining elements in sorted order
+    for (typename std::vector<std::pair<T, T> >::size_type i = 1; i < elements.size(); ++i) {
+        bool inserted = false;
+
+        // Explicit iterator type
+        typename std::vector<std::pair<T, T> >::iterator it;
+        for (it = sorted.begin(); it != sorted.end(); ++it) {
+            if (elements[i].second < it->second) {
+                sorted.insert(it, elements[i]);
+                inserted = true;
+                break;
+            }
+        }
+        if (!inserted) {
+            sorted.push_back(elements[i]);
+        }
+    }
+
+    // Copy sorted elements back into the original array
+    elements = sorted;
+}
+
+template <typename T>
+void fordJohnsonSort(std::vector<std::pair<T, T> >& elements) {
+    // Step 1: Pairing and sorting within pairs
+    pairAndSort(elements);
+
+    // Step 2: Merge pairs using Ford-Johnson insertion method
+    fordJohnsonMerge(elements);
+}
+
+
+
 template <template <typename, typename> class Container, typename T, typename Allocator>
 void PmergeMe<Container, T, Allocator>::mergeInsertionSort(const Container<T, Allocator>& container, int containerSize) {
   if (container.empty() || containerSize < 1) {
@@ -62,16 +114,17 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(const Container<T, Al
   }
 
   printer(elements);
-
+merge(elements);
   if (iter != end) {
     unpaired = *iter;
     std::cout << "unpaired: " << unpaired << std::endl;
   }
-
 };
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::merge(std::vector<std::pair<int, int> >) {
+void PmergeMe<Container, T, Allocator>::merge(std::vector<std::pair<int, int> > pairs) {
+  fordJohnsonSort(pairs);
+  printer(pairs);
 }
 
 
