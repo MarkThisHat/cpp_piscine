@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/28 19:09:39 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:30:50 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,55 +42,81 @@ void printer(const std::vector<std::pair<T, T> > vec) {
 
 
 template <typename T>
-void fordJohnsonMerge(std::vector<std::pair<T, int> >& elements) {
-    if (elements.size() <= 1) return;
-
-    std::vector<std::pair<T, int> > sorted;
-
-    // Place the first pair in the sorted vector
-    sorted.push_back(elements[0]);
-
-    // Insert the remaining elements in sorted order
-    for (typename std::vector<std::pair<T, int> >::size_type i = 1; i < elements.size(); ++i) {
-        bool inserted = false;
-        typename std::vector<std::pair<T, int> >::iterator it;
-        for (it = sorted.begin(); it != sorted.end(); ++it) {
-            if (elements[i].first < it->first) {
-                sorted.insert(it, elements[i]);
-                inserted = true;
-                break;
-            }
-        }
-        if (!inserted) {
-            sorted.push_back(elements[i]);
-        }
+void binaryInsert(std::vector<T>& sorted, const T& element) {
+    typename std::vector<T>::iterator it = sorted.begin();
+    while (it != sorted.end() && *it < element) {
+        ++it;
     }
-
-    // Copy sorted elements back into the original array
-    elements = sorted;
+    sorted.insert(it, element);
 }
 
 template <typename T>
-std::vector<T> sortUsingPairs(const std::vector<T>& input) {
-    // Convert input vector to a vector of pairs (value, original_index)
-    std::vector<std::pair<T, int> > pairs;
-    for (size_t i = 0; i < input.size(); ++i) {
-        pairs.push_back(std::make_pair(input[i], i));
+void fordJohnsonRecursiveSort(std::vector<std::pair<T, T> >& pairs, int left, int right) {
+    if (right - left <= 1) return;  // Base case: 1 or 2 elements
+
+    // Split into pairs and sort each recursively
+    int mid = left + (right - left) / 2;
+    fordJohnsonRecursiveSort(pairs, left, mid);
+    fordJohnsonRecursiveSort(pairs, mid + 1, right);
+
+    // Merge phase using pairs
+    std::vector<std::pair<T, T> > merged;
+    int i = left, j = mid + 1;
+    while (i <= mid && j <= right) {
+        if (pairs[i].second < pairs[j].second) {
+            merged.push_back(pairs[i++]);
+        } else {
+            merged.push_back(pairs[j++]);
+        }
     }
+    while (i <= mid) merged.push_back(pairs[i++]);
+    while (j <= right) merged.push_back(pairs[j++]);
 
-    // Sort the pairs using the first element of each pair
-    fordJohnsonMerge(pairs);  // Assumes fordJohnsonMerge works on std::vector<std::pair<T, T>>
-
-    // Extract the sorted values from the sorted pairs
-    std::vector<T> sortedValues;
-    for (size_t i = 0; i < pairs.size(); ++i) {
-        sortedValues.push_back(pairs[i].first);
+    // Copy back to the original pairs array
+    for (int k = 0; k < (int)merged.size(); ++k) {
+        pairs[left + k] = merged[k];
     }
-
-    return sortedValues;
 }
 
+// Wrapper function to use pairs and apply Ford-Johnson sorting recursively
+template <typename T>
+void sortWithPairs(std::vector<T>& input) {
+    std::vector<std::pair<T, T> > pairs;
+    T unpaired;
 
+    // Step 1: Pair elements, and handle any unpaired last element
+    size_t i;
+    for (i = 0; i + 1 < input.size(); i += 2) {
+        if (input[i] < input[i + 1]) {
+            pairs.push_back(std::make_pair(input[i], input[i + 1]));
+        } else {
+            pairs.push_back(std::make_pair(input[i + 1], input[i]));
+        }
+    }
+
+    // Check for an unpaired element
+    bool hasUnpaired = (i < input.size());
+    if (hasUnpaired) {
+        unpaired = input[i];
+    }
+
+    // Step 2: Recursively sort pairs using Ford-Johnson approach
+    fordJohnsonRecursiveSort(pairs, 0, pairs.size() - 1);
+
+    // Step 3: Build the final sorted output by extracting values from sorted pairs
+    input.clear();
+    for (size_t i = 0; i < pairs.size(); ++i) {
+        binaryInsert(input, pairs[i].first);   // Insert the smaller element
+        binaryInsert(input, pairs[i].second);  // Insert the larger element
+    }
+
+    // Step 4: Insert the unpaired element if it exists
+    if (hasUnpaired) {
+        binaryInsert(input, unpaired);
+    }
+}
+
+/*
 template <template <typename, typename> class Container, typename T, typename Allocator>
 void PmergeMe<Container, T, Allocator>::mergeInsertionSort(const Container<T, Allocator>& container, int containerSize) {
   if (container.empty() || containerSize < 1) {
@@ -102,7 +128,6 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(const Container<T, Al
 
   std::vector<std::pair<T, T> > elements;
   elements.reserve(containerSize / 2);
-  T unpaired;
 
   while (std::distance(iter, end) > 1) {
     T first = *iter++;
@@ -112,11 +137,8 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(const Container<T, Al
       elements.push_back(std::make_pair(second, first));
   }
 
-  printer(elements);
-
   if (iter != end) {
-    unpaired = *iter;
-    std::cout << "unpaired: " << unpaired << std::endl;
+    elements.push_back(std::make_pair(*iter, *iter));
   }
 
   std::vector<T> sortedValues = sortUsingPairs(container);
@@ -126,7 +148,7 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(const Container<T, Al
     }
     std::cout << std::endl;
 };
-
+*/
 template <template <typename, typename> class Container, typename T, typename Allocator>
 PmergeMe<Container, T, Allocator>::PmergeMe() {}
 
@@ -305,6 +327,57 @@ void PmergeMe<Container, T, Allocator>::merge(std::vector<std::pair<int, int> > 
   fordJohnsonSort(pairs);
   printer(pairs);
 }
+
+
+template <typename T>
+void fordJohnsonMerge(std::vector<std::pair<T, int> >& elements) {
+    if (elements.size() <= 1) return;
+
+    std::vector<std::pair<T, int> > sorted;
+
+    // Place the first pair in the sorted vector
+    sorted.push_back(elements[0]);
+
+    // Insert the remaining elements in sorted order
+    for (typename std::vector<std::pair<T, int> >::size_type i = 1; i < elements.size(); ++i) {
+        bool inserted = false;
+        typename std::vector<std::pair<T, int> >::iterator it;
+        for (it = sorted.begin(); it != sorted.end(); ++it) {
+            if (elements[i].first < it->first) {
+                sorted.insert(it, elements[i]);
+                inserted = true;
+                break;
+            }
+        }
+        if (!inserted) {
+            sorted.push_back(elements[i]);
+        }
+    }
+
+    // Copy sorted elements back into the original array
+    elements = sorted;
+}
+
+template <typename T>
+std::vector<T> sortUsingPairs(const std::vector<T>& input) {
+    // Convert input vector to a vector of pairs (value, original_index)
+    std::vector<std::pair<T, int> > pairs;
+    for (size_t i = 0; i < input.size(); ++i) {
+        pairs.push_back(std::make_pair(input[i], i));
+    }
+
+    // Sort the pairs using the first element of each pair
+    fordJohnsonMerge(pairs);  // Assumes fordJohnsonMerge works on std::vector<std::pair<T, T> >
+
+    // Extract the sorted values from the sorted pairs
+    std::vector<T> sortedValues;
+    for (size_t i = 0; i < pairs.size(); ++i) {
+        sortedValues.push_back(pairs[i].first);
+    }
+
+    return sortedValues;
+}
+
 */
 
 

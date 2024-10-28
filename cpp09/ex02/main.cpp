@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:14:42 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/28 14:59:24 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:28:50 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ int main() {
 
   int size = sizeof(array) / sizeof(array[0]);
   std::vector<int> vec(array, array + size);
-  PmergeMe<std::vector, int> merger;
+//  PmergeMe<std::vector, int> merger;
+  sortWithPairs(vec);
+//  merger.mergeInsertionSort(vec, size);
 
-  merger.mergeInsertionSort(vec, size);
+for (size_t i = 0; i < vec.size(); ++i) {
+        std::cout << vec[i] << " ";
+    }
+    std::cout << std::endl;
 }
