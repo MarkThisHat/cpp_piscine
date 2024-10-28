@@ -13,7 +13,7 @@
 #include <vector>
 #include <utility>
 
-template <typename T, template <typename> class Container>
+template <template <typename> class Container, typename T>
 class PmergeMe {
  public:
   PmergeMe();
@@ -26,11 +26,12 @@ class PmergeMe {
  private:
 };
 
-template <typename T, template <typename> class Container>
-void PmergeMe<T, Container>::mergeInsertionSort(Container<T>& container, int containerSize) {
+template <template <typename> class Container, typename T>
+void PmergeMe<Container, T>::mergeInsertionSort(Container<T>& container, int containerSize) {
+  if (container.empty() || containerSize < 1) throw std::invalid_argument("Invalid size of container");
+
   Container<T>::const_iterator iter;
-  std::vector<std::pair<T, T> elements;
-  std::pair<bool, T> unpaired;
+  std::vector<std::pair<T, T>> elements;
   
 };
 
