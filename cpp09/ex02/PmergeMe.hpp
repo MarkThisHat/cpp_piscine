@@ -6,14 +6,16 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/26 10:22:22 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:58:06 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
 
 #include <vector>
 #include <utility>
 
-template <template <typename> class Container, typename T>
+template <template <typename, typename> class Container, typename T, typename Allocator = std::allocator<T> >
 class PmergeMe {
  public:
   PmergeMe();
@@ -21,21 +23,67 @@ class PmergeMe {
   PmergeMe& operator=(const PmergeMe& other);
   ~PmergeMe();
 
-  void mergeInsertionSort(Container<T>& container, int containerSize);
+  void mergeInsertionSort(Container<T, Allocator>& container, int containerSize);
 
  private:
 };
 
-template <template <typename> class Container, typename T>
-void PmergeMe<Container, T>::mergeInsertionSort(Container<T>& container, int containerSize) {
-  if (container.empty() || containerSize < 1) throw std::invalid_argument("Invalid size of container");
+#include <iostream>
+template<typename T>
+void printer(const std::vector<std::pair<T, T> > vec) {
+  typename std::vector<std::pair<T, T> >::const_iterator iter = vec.begin();
+  while (iter != vec.end()) {
+    std::cout << "<" << iter->first << ", " << iter->second << "> ";
+    iter++;
+  }
+  std::cout << std::endl;
+}
 
-  Container<T>::const_iterator iter;
-  std::vector<std::pair<T, T>> elements;
-  
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocator>& container, int containerSize) {
+  if (container.empty() || containerSize < 1) {
+    throw std::invalid_argument("Invalid amount of elements to sort");
+  }
+
+  typename Container<T, Allocator>::const_iterator iter = container.begin();
+  typename Container<T, Allocator>::const_iterator end = container.end();
+
+  std::vector<std::pair<T, T> > elements;
+  elements.reserve(containerSize / 2);
+  T unpaired;
+
+  while (std::distance(iter, end) > 1) {
+    T first = *iter++;
+    T second = *iter++;
+    first < second ? 
+      elements.push_back(std::make_pair(first, second)):
+      elements.push_back(std::make_pair(second, first));
+  }
+
+  printer(elements);
+
+  if (iter != end) {
+    unpaired = *iter;
+    std::cout << "unpaired: " << unpaired << std::endl;
+  }
 };
 
 
+template <template <typename, typename> class Container, typename T, typename Allocator>
+PmergeMe<Container, T, Allocator>::PmergeMe() {}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+PmergeMe<Container, T, Allocator>::PmergeMe(const PmergeMe& other) {}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+PmergeMe<Container, T, Allocator>& PmergeMe<Container, T, Allocator>::operator=(const PmergeMe& other) {
+  if (this != &other) {
+  }
+  return *this;
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+PmergeMe<Container, T, Allocator>::~PmergeMe() {}
 
 /*
 #include <vector>
@@ -43,7 +91,7 @@ void PmergeMe<Container, T>::mergeInsertionSort(Container<T>& container, int con
 #include <utility>
 
 // Helper to create sorted pairs
-void createPairs(const std::vector<int>& arr, std::vector<std::pair<int, int>>& pairs,
+void createPairs(const std::vector<int>& arr, std::vector<std::pair<int, int> >& pairs,
                  std::vector<int>& largerElements, std::pair<bool, int>& unpaired) {
     for (size_t i = 0; i + 1 < arr.size(); i += 2) {
         if (arr[i] < arr[i + 1]) {
@@ -61,7 +109,7 @@ void createPairs(const std::vector<int>& arr, std::vector<std::pair<int, int>>& 
 }
 
 // Helper to insert elements using binary search
-void insertElements(const std::vector<std::pair<int, int>>& pairs, std::vector<int>& sortedSequence,
+void insertElements(const std::vector<std::pair<int, int> >& pairs, std::vector<int>& sortedSequence,
                     const std::pair<bool, int>& unpaired) {
     sortedSequence.push_back(pairs[0].first); // Insert the smallest of the first pair
 

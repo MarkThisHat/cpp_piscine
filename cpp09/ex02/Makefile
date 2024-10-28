@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/10/25 19:25:38 by maalexan         ###   ########.fr        #
+#    Updated: 2024/10/28 14:37:09 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ CC			:=	c++
 CFLAGS	:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
 
 # Source files
-SRC			:=	main.cpp \
+SRC			:=	main.cpp
 
 
 # Object files
