@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 19:05:14 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:13:46 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,18 @@ void PmergeMe<Container, T, Allocator>::printContainer(const Container<T, Alloca
       std::cout << *iter++ << " ";
     }
     std::cout << std::endl;
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+clock_t PmergeMe<Container, T, Allocator>::clockStart() {
+  return clock();
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+double PmergeMe<Container, T, Allocator>::clockEnd(clock_t startTime) {
+  clock_t endTime = clock();
+  double timeTakenUs = double(endTime - startTime) / CLOCKS_PER_SEC;
+  std::cout << std::fixed << std::setprecision(PRECISION)
+            << "Time taken for container: " << timeTakenUs << " µs" << std::endl;
+  return timeTakenUs;
 }

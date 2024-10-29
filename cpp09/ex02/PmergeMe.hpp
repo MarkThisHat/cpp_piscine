@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 19:12:43 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:13:29 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 #include <algorithm>
 #include <ctime>
+#include <iomanip>
 #include <iostream>
-#include <list>
 #include <stdexcept>
 #include <vector>
 
@@ -39,5 +39,7 @@ class PmergeMe {
   void distribute(const std::vector<T>& container, std::vector<T>& high, std::vector<T>& low);
   std::vector<T> merge(std::vector<T>& container, int size);
 };
+
+#define PRECISION 6
 
 #include "PmergeMe.tpp"
