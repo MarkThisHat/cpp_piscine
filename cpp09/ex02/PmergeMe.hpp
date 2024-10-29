@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 16:08:30 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:51:01 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@ class PmergeMe {
 
   void mergeInsertionSort(Container<T, Allocator>& container, int containerSize);
   Container<T, Allocator> mergeInsertionSort(const Container<T, Allocator>& container, int containerSize) const;
+  void printContainer(const Container<T, Allocator>& container) const;
+
  private:
+  void binary_insert(std::vector<T>& sorted, const T& element);
+  std::vector<T> lastRecursion(std::vector<T>& container, int size);
+  void distribute(const std::vector<T>& container, std::vector<T>& high, std::vector<T>& low);
+  std::vector<T> merge(std::vector<T>& container, int size);
 };
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
@@ -44,32 +50,8 @@ PmergeMe<Container, T, Allocator>& PmergeMe<Container, T, Allocator>::operator=(
 template <template <typename, typename> class Container, typename T, typename Allocator>
 PmergeMe<Container, T, Allocator>::~PmergeMe() {}
 
-template <typename T>
-void print(std::vector<T> vec) {
-  for (size_t i = 0; i < vec.size(); ++i) {
-    if (!(i % 2)) std::cout << "<";
-    std::cout << vec[i];
-    if (i % 2 || i + 1 == vec.size() ) std::cout << ">";
-    std::cout << " ";
-  }
-  std::cout << std::endl;
-}
-
-template <typename T>
-void print(std::vector<T> vec, const std::string text) {
-  std::cout << text << ": ";
-  print(vec);
-}
-
-template <typename T>
-void swap(T& a, T& b) {
-  T temp = a;
-  a = b;
-  b = temp;
-}
-
-template <typename T>
-void binary_insert(std::vector<T>& sorted, const T& element) {
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::binary_insert(std::vector<T>& sorted, const T& element) {
   typename std::vector<T>::iterator low = sorted.begin();
   typename std::vector<T>::iterator high = sorted.end();
   
@@ -84,8 +66,8 @@ void binary_insert(std::vector<T>& sorted, const T& element) {
   sorted.insert(low, element);
 }
 
-template <typename T>
-std::vector<T> lastRecursion(std::vector<T>& container, int size) {
+template <template <typename, typename> class Container, typename T, typename Allocator>
+std::vector<T> PmergeMe<Container, T, Allocator>::lastRecursion(std::vector<T>& container, int size) {
   std::vector<T> last;
   last.reserve(size);
   if (size == 1) last.push_back(container[0]);
@@ -101,9 +83,8 @@ std::vector<T> lastRecursion(std::vector<T>& container, int size) {
   return last;
 }
 
-
-template <typename T>
-void distribute(const std::vector<T>& container, std::vector<T>& high, std::vector<T>& low) {
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::distribute(const std::vector<T>& container, std::vector<T>& high, std::vector<T>& low) {
   typename std::vector<T>::const_iterator iter = container.begin();
   typename std::vector<T>::const_iterator end = container.end();
 
@@ -123,8 +104,8 @@ void distribute(const std::vector<T>& container, std::vector<T>& high, std::vect
   }
 }
 
-template <typename T>
-std::vector<T> merge(std::vector<T>& container, int size) {
+template <template <typename, typename> class Container, typename T, typename Allocator>
+std::vector<T> PmergeMe<Container, T, Allocator>::merge(std::vector<T>& container, int size) {
   if (size < 3) return lastRecursion(container, size);
   int newSize = size / 2;
   std::vector<T> sorted;
@@ -135,7 +116,7 @@ std::vector<T> merge(std::vector<T>& container, int size) {
   distribute(container, sorted, unsorted);
   sorted = merge(sorted, newSize); 
   for (typename std::vector<T>::iterator iter = unsorted.begin(); iter != unsorted.end(); ++iter) {
-      binary_insert(sorted, *iter);
+    binary_insert(sorted, *iter);
   }
   return sorted;
 }
@@ -167,7 +148,7 @@ Container<T, Allocator> PmergeMe<Container, T, Allocator>::mergeInsertionSort(co
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-void printContainer(const Container<T, Allocator>& container) {
+void PmergeMe<Container, T, Allocator>::printContainer(const Container<T, Allocator>& container) const {
     typename Container<T, Allocator>::const_iterator iter = container.begin();
     while (iter != container.end()) {
         std::cout << *iter++ << " ";

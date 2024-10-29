@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:14:42 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 16:08:44 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:51:08 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int main() {
   const PmergeMe<std::list, int> listMerger;
   
   vecMerger.mergeInsertionSort(vec, size);
-  printContainer(vec);
+  vecMerger.printContainer(vec);
   list = listMerger.mergeInsertionSort(list, size);
-  printContainer(list);
+  listMerger.printContainer(list);
 }
+
