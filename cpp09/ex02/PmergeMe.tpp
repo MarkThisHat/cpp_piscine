@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 16:52:46 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:05:14 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocato
   typename Container<T, Allocator>::const_iterator iter = container.begin();
   typename Container<T, Allocator>::const_iterator end = container.end();
 
+  clock_t startTime = clockStart();
+
   std::vector<T> elements;
   elements.reserve(containerSize);
   while (iter != end) {
@@ -111,6 +113,7 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocato
   elements = merge(elements, containerSize);
   container.clear();
   container.insert(container.end(), elements.begin(), elements.end());
+  clockEnd(startTime);
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
