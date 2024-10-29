@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 20:13:29 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:27:17 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ class PmergeMe {
   void printContainer(const Container<T, Allocator>& container) const;
 
  private:
-  clock_t clockStart();
-  double clockEnd(clock_t startTime);
+  double clockEnd(clock_t startTime, int range);
   void binary_insert(std::vector<T>& sorted, const T& element);
   std::vector<T> lastRecursion(std::vector<T>& container, int size);
   void distribute(const std::vector<T>& container, std::vector<T>& high, std::vector<T>& low);

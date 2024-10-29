@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 20:13:46 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:28:02 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocato
   typename Container<T, Allocator>::const_iterator iter = container.begin();
   typename Container<T, Allocator>::const_iterator end = container.end();
 
-  clock_t startTime = clockStart();
+  clock_t startTime = clock();
 
   std::vector<T> elements;
   elements.reserve(containerSize);
@@ -113,7 +113,7 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocato
   elements = merge(elements, containerSize);
   container.clear();
   container.insert(container.end(), elements.begin(), elements.end());
-  clockEnd(startTime);
+  clockEnd(startTime, containerSize);
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
@@ -134,15 +134,11 @@ void PmergeMe<Container, T, Allocator>::printContainer(const Container<T, Alloca
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-clock_t PmergeMe<Container, T, Allocator>::clockStart() {
-  return clock();
-}
-
-template <template <typename, typename> class Container, typename T, typename Allocator>
-double PmergeMe<Container, T, Allocator>::clockEnd(clock_t startTime) {
+double PmergeMe<Container, T, Allocator>::clockEnd(clock_t startTime, int range) {
   clock_t endTime = clock();
   double timeTakenUs = double(endTime - startTime) / CLOCKS_PER_SEC;
   std::cout << std::fixed << std::setprecision(PRECISION)
-            << "Time taken for container: " << timeTakenUs << " µs" << std::endl;
+            << "Time to process a range of " << range << " elements with a container: "
+            << timeTakenUs << " µs" << std::endl;
   return timeTakenUs;
 }
