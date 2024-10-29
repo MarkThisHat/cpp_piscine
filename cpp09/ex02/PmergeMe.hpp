@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 15:31:00 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:08:30 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ class PmergeMe {
   PmergeMe& operator=(const PmergeMe& other);
   ~PmergeMe();
 
-  void mergeInsertionSort(const Container<T, Allocator>& container, int containerSize);
-
+  void mergeInsertionSort(Container<T, Allocator>& container, int containerSize);
+  Container<T, Allocator> mergeInsertionSort(const Container<T, Allocator>& container, int containerSize) const;
  private:
 };
 
@@ -127,14 +127,12 @@ template <typename T>
 std::vector<T> merge(std::vector<T>& container, int size) {
   if (size < 3) return lastRecursion(container, size);
   int newSize = size / 2;
-
   std::vector<T> sorted;
   std::vector<T> unsorted;
+
   sorted.reserve(size);
   unsorted.reserve(size - newSize);
   distribute(container, sorted, unsorted);
-  print(sorted, "\nhigh");
-  print(unsorted, "low");
   sorted = merge(sorted, newSize); 
   for (typename std::vector<T>::iterator iter = unsorted.begin(); iter != unsorted.end(); ++iter) {
       binary_insert(sorted, *iter);
@@ -143,7 +141,7 @@ std::vector<T> merge(std::vector<T>& container, int size) {
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::mergeInsertionSort(const Container<T, Allocator>& container, int containerSize) {
+void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocator>& container, int containerSize) {
   if (containerSize < 1 || container.empty()) {
     throw std::invalid_argument("Invalid amount of elements to sort");
   } 
@@ -155,7 +153,24 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(const Container<T, Al
   while (iter != end) {
     elements.push_back(*iter++);
   }
-  print(elements);
   elements = merge(elements, containerSize);
-  print(elements);
+  container.clear();
+  container.insert(container.end(), elements.begin(), elements.end());
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+Container<T, Allocator> PmergeMe<Container, T, Allocator>::mergeInsertionSort(const Container<T, Allocator>& container, int containerSize) const {
+  Container<T, Allocator> newContainer = container;
+  const_cast<PmergeMe*>(this)->mergeInsertionSort(newContainer, containerSize);
+
+  return newContainer;
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void printContainer(const Container<T, Allocator>& container) {
+    typename Container<T, Allocator>::const_iterator iter = container.begin();
+    while (iter != container.end()) {
+        std::cout << *iter++ << " ";
+    }
+    std::cout << std::endl;
 }
