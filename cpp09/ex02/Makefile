@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/10/29 19:13:15 by maalexan         ###   ########.fr        #
+#    Updated: 2024/10/30 15:59:21 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ HDR_DIR		:=	./
 # Compilation flags
 CC			:=	c++
 CFLAGS	:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
+DEBUG_FLAGS := -g -DDEBUG=1
 
 # Source files
 SRC			:=	main.cpp \
@@ -37,7 +38,10 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(if $(DEBUG), $(DEBUG_FLAGS)) -c $< -o $@
+
+debug: DEBUG = 1
+debug: all
 
 val: all
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${NAME}  || echo ""

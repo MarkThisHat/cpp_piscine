@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:14:42 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 12:09:55 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:13:28 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,15 @@ int main(int argc, char* argv[]) {
 
   std::cout << "Before: ";
   vecMerger.printContainer(vec);
-  vecMerger.mergeInsertionSort(vec, size);
-  vecMerger.isSorted(vec, "std::vector");
+  try {
+    vecMerger.mergeInsertionSort(vec, size);
+    vecMerger.isSorted(vec, "std::vector");
 
-  list = listMerger.mergeInsertionSort(list, size);
-  listMerger.isSorted(list, "std::list");
+    list = listMerger.mergeInsertionSort(list, size);
+    listMerger.isSorted(list, "std::list");
+  } catch (std::exception& e ) {
+    std::cerr << e.what() << std::endl;
+  }
 
   delete[] array;
 }

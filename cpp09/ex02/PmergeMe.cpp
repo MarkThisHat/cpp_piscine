@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 19:05:38 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 15:54:06 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:04:57 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,11 @@ void PmergeMe<std::vector, int>::mergeInsertionSort(std::vector<int>& container,
   if (containerSize < 1 || container.empty()) {
     throw std::invalid_argument("Invalid amount of elements to sort");
   } 
-  calculateGroupSizes(containerSize);
   clock_t sortStart = clock();
 
   container = merge(container, containerSize);
-  double sortTime = clockCalc(sortStart, clock());
 
+  double sortTime = clockCalc(sortStart, clock());
   std::cout << "After: ";
   printContainer(container);
   clockLog(containerSize, sortTime);
