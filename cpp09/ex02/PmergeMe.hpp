@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 16:29:28 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:56:44 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 # ifndef DEBUG
 #  define DEBUG 0
 # endif
+# ifndef PRINTABLE
+#  define PRINTABLE 15
+# endif
 # define PRECISION 0
-# define PRINTABLE 15
 
 template <template <typename, typename> class Container, typename T, typename Allocator = std::allocator<T> >
 class PmergeMe {
