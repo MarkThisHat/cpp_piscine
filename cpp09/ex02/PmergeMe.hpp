@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 20:27:17 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:26:34 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ class PmergeMe {
   void printContainer(const Container<T, Allocator>& container) const;
 
  private:
-  double clockEnd(clock_t startTime, int range);
+  void clockLog(int range, double sortTime) const;
+  void clockLog(int range, double sortTime, double transferIn, double transferOut) const;
+  double clockCalc(clock_t start, clock_t finish) const;
   void binary_insert(std::vector<T>& sorted, const T& element);
   std::vector<T> lastRecursion(std::vector<T>& container, int size);
   void distribute(const std::vector<T>& container, std::vector<T>& high, std::vector<T>& low);
   std::vector<T> merge(std::vector<T>& container, int size);
 };
 
-#define PRECISION 6
+#define PRECISION 2
 
 #include "PmergeMe.tpp"

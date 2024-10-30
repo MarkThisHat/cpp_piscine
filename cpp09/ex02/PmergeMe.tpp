@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 20:28:02 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:38:04 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,24 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocato
   typename Container<T, Allocator>::const_iterator iter = container.begin();
   typename Container<T, Allocator>::const_iterator end = container.end();
 
-  clock_t startTime = clock();
 
   std::vector<T> elements;
+  clock_t inStart = clock();
   elements.reserve(containerSize);
   while (iter != end) {
     elements.push_back(*iter++);
   }
+  double inTime = clockCalc(inStart, clock());
+
+  clock_t sortStart = clock();
   elements = merge(elements, containerSize);
+  double sortTime = clockCalc(sortStart, clock());
+  
+  clock_t outStart = clock();
   container.clear();
   container.insert(container.end(), elements.begin(), elements.end());
-  clockEnd(startTime, containerSize);
+  double outTime = clockCalc(outStart, clock());
+  clockLog(containerSize, sortTime, inTime, outTime);
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
@@ -134,11 +141,16 @@ void PmergeMe<Container, T, Allocator>::printContainer(const Container<T, Alloca
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-double PmergeMe<Container, T, Allocator>::clockEnd(clock_t startTime, int range) {
-  clock_t endTime = clock();
-  double timeTakenUs = double(endTime - startTime) / CLOCKS_PER_SEC;
+void PmergeMe<Container, T, Allocator>::clockLog(int range, double sortTime, double transferIn, double transferOut) const {
+  double totalTime = sortTime + transferIn + transferOut;
   std::cout << std::fixed << std::setprecision(PRECISION)
-            << "Time to process a range of " << range << " elements with a container: "
-            << timeTakenUs << " µs" << std::endl;
-  return timeTakenUs;
+            << "Time to process a range of " << range 
+            << " elements with [template] -> " << totalTime
+            << "µs (sort: " << sortTime << "µs + in: " << transferIn
+            << "µs + out: " << transferOut << "µs)"<< std::endl;
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+double PmergeMe<Container, T, Allocator>::clockCalc(clock_t start, clock_t finish) const {
+  return double(finish - start) * 1000000 / CLOCKS_PER_SEC;
 }

@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 19:05:38 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/29 20:27:45 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:37:44 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,21 @@
 #include <list>
 
 template<>
-double PmergeMe<std::vector, int>::clockEnd(clock_t startTime, int range) {
-  clock_t endTime = clock();
-  double timeTakenUs = double(endTime - startTime)  / CLOCKS_PER_SEC;
+void PmergeMe<std::vector, int>::clockLog(int range, double sortTime) const {
   std::cout << std::fixed << std::setprecision(PRECISION)
             << "Time to process a range of " << range 
-            << " elements with std::vector : "
-            << timeTakenUs << " µs" << std::endl;
-  return timeTakenUs;
+            << " elements with [std::vector]-> "
+            << sortTime << " µs" << std::endl;
 }
 
 template<>
-double PmergeMe<std::list, int>::clockEnd(clock_t startTime, int range) {
-  clock_t endTime = clock();
-  double timeTakenUs = double(endTime - startTime)  / CLOCKS_PER_SEC;
+void PmergeMe<std::list, int>::clockLog(int range, double sortTime, double transferIn, double transferOut) const {
+  double totalTime = sortTime + transferIn + transferOut;
   std::cout << std::fixed << std::setprecision(PRECISION)
             << "Time to process a range of " << range 
-            << " elements with std::list : "
-            << timeTakenUs << " µs" << std::endl;
-  return timeTakenUs;
+            << " elements with [std::list] -> " << totalTime
+            << "µs (sort: " << sortTime << "µs + in: " << transferIn
+            << "µs + out: " << transferOut << "µs)"<< std::endl;
 }
 
 template <>
@@ -41,10 +37,11 @@ void PmergeMe<std::vector, int>::mergeInsertionSort(std::vector<int>& container,
     throw std::invalid_argument("Invalid amount of elements to sort");
   } 
 
-  clock_t startTime = clock();
-  
+  clock_t sortStart = clock();
+
   container = merge(container, containerSize);
-  clockEnd(startTime, containerSize);
+  double sortTime = clockCalc(sortStart, clock());
+  clockLog(containerSize, sortTime);
 }
 
 template <>
