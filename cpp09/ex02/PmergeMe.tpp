@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 12:07:03 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:29:00 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@ template <template <typename, typename> class Container, typename T, typename Al
 PmergeMe<Container, T, Allocator>::PmergeMe() {}
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-PmergeMe<Container, T, Allocator>::PmergeMe(const PmergeMe& other) {}
+PmergeMe<Container, T, Allocator>::PmergeMe(const PmergeMe& other) {
+  groupSizes = other.groupSizes;
+}
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
 PmergeMe<Container, T, Allocator>& PmergeMe<Container, T, Allocator>::operator=(const PmergeMe& other) {
+  if (this != &other) {
+    groupSizes = other.groupSizes;
+  }
   return *this;
 }
 
@@ -89,9 +94,10 @@ std::vector<T> PmergeMe<Container, T, Allocator>::merge(std::vector<T>& containe
   unsorted.reserve(size - newSize);
   distribute(container, sorted, unsorted);
   sorted = merge(sorted, newSize); 
-  for (typename std::vector<T>::iterator iter = unsorted.begin(); iter != unsorted.end(); ++iter) {
+  /*for (typename std::vector<T>::iterator iter = unsorted.begin(); iter != unsorted.end(); ++iter) {
     binary_insert(sorted, *iter);
-  }
+  }*/
+  orderedInsertion(sorted, unsorted);
   return sorted;
 }
 
@@ -102,7 +108,7 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocato
   } 
   typename Container<T, Allocator>::const_iterator iter = container.begin();
   typename Container<T, Allocator>::const_iterator end = container.end();
-
+  calculateGroupSizes(containerSize);
 
   std::vector<T> elements;
   clock_t inStart = clock();
@@ -185,4 +191,59 @@ bool PmergeMe<Container, T, Allocator>::isSorted(const Container<T, Allocator>& 
     }
   }
   return true;
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::calculateGroupSizes(int n) {
+  groupSizes.clear();
+  int lastSize = 2;
+  int sum = 0;
+  while (sum < n) {
+    groupSizes.push_back(lastSize);
+    sum += lastSize;       
+    if (groupSizes.size() % 2 == 0) {
+        lastSize *= 2;
+    }
+  }
+  if (sum > n) {
+      groupSizes.back() -= (sum - n);
+  }
+  /*std::vector<int>::const_iterator iter = groupSizes.begin();
+  while (iter != groupSizes.end()) {
+    std::cout << *iter++ << " ";
+  }
+  std::cout << "sum: " << sum;
+  std::cout << " groups size " << groupSizes.size() << std::endl;*/
+}
+
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::binaryInsert(std::vector<T>& sorted, const T& element, typename std::vector<T>::iterator end) {
+    typename std::vector<T>::iterator low = sorted.begin();
+    typename std::vector<T>::iterator high = end;
+
+    while (low < high) {
+        typename std::vector<T>::iterator mid = low + (high - low) / 2;
+        if (element < *mid) {
+            high = mid;
+        } else {
+            low = mid + 1;
+        }
+    }
+    sorted.insert(low, element);
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::orderedInsertion(std::vector<T>& sorted, std::vector<T>& unsorted) {
+    int unsortedSize = unsorted.size();
+    int elementsRemaining = unsortedSize;
+    int index = 0;
+
+    for (std::vector<int>::const_iterator it = groupSizes.begin(); elementsRemaining > 0 && it != groupSizes.end(); ++it) {
+        int groupSize = std::min(*it, elementsRemaining); 
+        for (int i = groupSize - 1; i >= 0 && index < unsortedSize; --i, ++index) {
+            binaryInsert(sorted, unsorted[index], sorted.end());
+        }
+        elementsRemaining -= groupSize;
+    }
 }
