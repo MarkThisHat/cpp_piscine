@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:14:42 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 16:13:28 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:34:08 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
   int* array;
   int size = argc - 1;
   try {
-      array = parseArguments(argc, argv);
+    array = parseArguments(argc, argv);
   } catch (std::exception& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return -1;

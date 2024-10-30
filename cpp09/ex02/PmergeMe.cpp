@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 19:05:38 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 16:04:57 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:28:42 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void PmergeMe<std::vector, int>::clockLog(int range, double sortTime) const {
   std::cout << std::fixed << std::setprecision(PRECISION)
             << "Time to process a range of " << range 
             << " elements with [std::vector]-> "
-            << sortTime << " µs" << std::endl;
+            << sortTime << "µs" << std::endl;
 }
 
 template<>
@@ -26,7 +26,7 @@ void PmergeMe<std::list, int>::clockLog(int range, double sortTime, double trans
   double totalTime = sortTime + transferIn + transferOut;
   std::cout << std::fixed << std::setprecision(PRECISION)
             << "Time to process a range of " << range 
-            << " elements with [std::list] -> " << totalTime
+            << " elements with [ std::list ]-> " << totalTime
             << "µs (sort: " << sortTime << "µs + in: " << transferIn
             << "µs + out: " << transferOut << "µs)"<< std::endl;
 }

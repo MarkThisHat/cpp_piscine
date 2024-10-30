@@ -6,7 +6,7 @@
 #    By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/17 19:37:25 by maalexan          #+#    #+#              #
-#    Updated: 2024/10/30 15:59:21 by maalexan         ###   ########.fr        #
+#    Updated: 2024/10/30 16:17:21 by maalexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,13 @@ OBJ_DIR		:=	./objs
 HDR_DIR		:=	./
 
 # Compilation flags
-CC			:=	c++
-CFLAGS	:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
-DEBUG_FLAGS := -g -DDEBUG=1
+CC					:=	c++
+CFLAGS			:=	-Wall -Wextra -Werror -std=c++98 -I $(HDR_DIR)
+DEBUG_FLAGS := -DDEBUG=1
 
 # Source files
 SRC			:=	main.cpp \
 						PmergeMe.cpp
-
 
 # Object files
 OBJ			:=	$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(notdir $(SRC)))

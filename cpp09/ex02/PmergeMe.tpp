@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 16:12:10 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:33:17 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocato
   std::vector<T> elements;
 
   clock_t inStart = clock();
-  elements.reserve(containerSize);
+  if (!DEBUG) elements.reserve(containerSize);
   while (iter != end) {
     elements.push_back(*iter++);
   }
@@ -69,8 +69,10 @@ std::vector<T> PmergeMe<Container, T, Allocator>::merge(std::vector<T>& containe
   std::vector<T> sorted;
   std::vector<T> unsorted;
 
-  sorted.reserve(size);
-  unsorted.reserve(size - newSize);
+  if (!DEBUG) {
+    sorted.reserve(size);
+    unsorted.reserve(size - newSize);
+  }
   distribute(container, sorted, unsorted);
   sorted = merge(sorted, newSize);
   for (typename std::vector<T>::iterator iter = unsorted.begin(); iter != unsorted.end(); iter++) {
@@ -103,7 +105,7 @@ void PmergeMe<Container, T, Allocator>::distribute(const std::vector<T>& contain
 template <template <typename, typename> class Container, typename T, typename Allocator>
 std::vector<T> PmergeMe<Container, T, Allocator>::lastRecursion(std::vector<T>& container, int size) {
   std::vector<T> last;
-  last.reserve(size);
+  if (!DEBUG) last.reserve(size);
   if (size == 1) last.push_back(container[0]);
   if (size == 2) {
     if(container[0] > container[1]) {         
@@ -144,7 +146,7 @@ void PmergeMe<Container, T, Allocator>::clockLog(int range, double sortTime, dou
   double totalTime = sortTime + transferIn + transferOut;
   std::cout << std::fixed << std::setprecision(PRECISION)
             << "Time to process a range of " << range 
-            << " elements with [template] -> " << totalTime
+            << " elements with [<container>]-> " << totalTime
             << "µs (sort: " << sortTime << "µs + in: " << transferIn
             << "µs + out: " << transferOut << "µs)"<< std::endl;
 }
