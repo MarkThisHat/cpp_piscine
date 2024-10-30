@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 10:38:04 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:37:27 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,26 @@ Container<T, Allocator> PmergeMe<Container, T, Allocator>::mergeInsertionSort(co
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
 void PmergeMe<Container, T, Allocator>::printContainer(const Container<T, Allocator>& container) const {
-    typename Container<T, Allocator>::const_iterator iter = container.begin();
+  typename Container<T, Allocator>::const_iterator iter = container.begin();
+  const int totalItems = container.size();
+
+  int i = 0;
+  while (i < PRINTABLE - 3 && iter != container.end()) {
+    std::cout << *iter++ << " ";
+    i++;
+  }
+  if (totalItems > PRINTABLE) {
+    std::cout << "[...] ";
+  }
+  if (totalItems > PRINTABLE - 3) {
+    iter = container.end();
+    std::advance(iter, -3);
+
     while (iter != container.end()) {
-      std::cout << *iter++ << " ";
+        std::cout << *iter++ << " ";
     }
-    std::cout << std::endl;
+  }
+  std::cout << std::endl;
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>

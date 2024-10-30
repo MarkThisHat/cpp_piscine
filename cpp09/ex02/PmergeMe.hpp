@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 10:26:34 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:28:31 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ class PmergeMe {
 };
 
 #define PRECISION 2
+#define PRINTABLE 15
 
 #include "PmergeMe.tpp"
