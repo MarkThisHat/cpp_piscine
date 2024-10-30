@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 11:28:31 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:07:09 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class PmergeMe {
   void mergeInsertionSort(Container<T, Allocator>& container, int containerSize);
   Container<T, Allocator> mergeInsertionSort(const Container<T, Allocator>& container, int containerSize) const;
   void printContainer(const Container<T, Allocator>& container) const;
+  bool isSorted(const Container<T, Allocator>& container, const std::string containerName) const;
 
  private:
   void clockLog(int range, double sortTime) const;

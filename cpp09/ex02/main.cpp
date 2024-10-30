@@ -6,12 +6,11 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:14:42 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 11:42:34 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:07:45 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
-#include <deque>
 #include <list>
 #include <sstream>
 
@@ -27,32 +26,17 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
- 
   std::vector<int> vec(array, array + size);
   PmergeMe<std::vector, int> vecMerger;
   std::cout << "Before: ";
   vecMerger.printContainer(vec);
   vecMerger.mergeInsertionSort(vec, size);
-  std::cout << "After: ";
-  vecMerger.printContainer(vec);
-
+  vecMerger.isSorted(vec, "std::vector");
 
   std::list<int> list(array, array + size);
   const PmergeMe<std::list, int> listMerger;
-  std::cout << "Before: ";
-  listMerger.printContainer(list);
   list = listMerger.mergeInsertionSort(list, size);
-  std::cout << "After: ";
-  listMerger.printContainer(list);
-
-
-  std::deque<int> deque(array, array + size);
-  PmergeMe<std::deque, int> dequeMerger;
-  std::cout << "\nBefore: ";
-  dequeMerger.printContainer(deque);
-  dequeMerger.mergeInsertionSort(deque, size);
-  std::cout << "After: ";
-  dequeMerger.printContainer(deque);
+  listMerger.isSorted(list, "std::list");
 
   delete[] array;
 }
@@ -79,4 +63,10 @@ int* parseArguments(int argc, char* argv[]) {
 /*
 ./PmergeMe 10 4 11 6 3 2 8 5 1 12 9 13 7
 ./PmergeMe `shuf -i 1-100000 -n 3000 | tr "\n" " "`
+
+#include <deque>
+
+std::deque<int> deque(array, array + size);
+PmergeMe<std::deque, int> dequeMerger;
+dequeMerger.mergeInsertionSort(deque, size);
 */

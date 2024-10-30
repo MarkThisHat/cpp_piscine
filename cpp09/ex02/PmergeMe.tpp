@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 11:37:27 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:07:03 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocato
   container.clear();
   container.insert(container.end(), elements.begin(), elements.end());
   double outTime = clockCalc(outStart, clock());
+
   clockLog(containerSize, sortTime, inTime, outTime);
 }
 
@@ -168,4 +169,20 @@ void PmergeMe<Container, T, Allocator>::clockLog(int range, double sortTime, dou
 template <template <typename, typename> class Container, typename T, typename Allocator>
 double PmergeMe<Container, T, Allocator>::clockCalc(clock_t start, clock_t finish) const {
   return double(finish - start) * 1000000 / CLOCKS_PER_SEC;
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+bool PmergeMe<Container, T, Allocator>::isSorted(const Container<T, Allocator>& container, const std::string containerName) const {
+  if (container.size() < 2) return true;
+
+  typename Container<T, Allocator>::const_iterator next = container.begin();
+  typename Container<T, Allocator>::const_iterator iter = next++;
+
+  while (next != container.end()) {
+    if (*iter++ > *next++) {
+      std::cerr << "Container " << containerName << " is not sorted" << std::endl;
+      return false;
+    }
+  }
+  return true;
 }
