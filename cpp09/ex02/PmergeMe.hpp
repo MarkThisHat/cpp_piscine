@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 14:24:11 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:45:38 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+
+#define DEBUG 0
+#define PRECISION 2
+#define PRINTABLE 15
 
 template <template <typename, typename> class Container, typename T, typename Allocator = std::allocator<T> >
 class PmergeMe {
@@ -38,15 +42,14 @@ class PmergeMe {
   void clockLog(int range, double sortTime) const;
   void clockLog(int range, double sortTime, double transferIn, double transferOut) const;
   double clockCalc(clock_t start, clock_t finish) const;
-  void binary_insert(std::vector<T>& sorted, const T& element);
-  void binaryInsert(std::vector<T>& sorted, const T& element, typename std::vector<T>::iterator end);
+  void specializedBinaryInsert(std::vector<T>& sorted, const T& element, typename std::vector<T>::iterator end);
   std::vector<T> lastRecursion(std::vector<T>& container, int size);
   void distribute(const std::vector<T>& container, std::vector<T>& high, std::vector<T>& low);
   std::vector<T> merge(std::vector<T>& container, int size);
   void orderedInsertion(std::vector<T>& sorted, std::vector<T>& unsorted);
-};
 
-#define PRECISION 2
-#define PRINTABLE 15
+  void binaryInsert(std::vector<T>& sorted, const T& element);
+  void printGroupSizes(int sum) const;
+};
 
 #include "PmergeMe.tpp"
