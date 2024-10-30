@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:14:42 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 12:07:45 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:09:55 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ int main(int argc, char* argv[]) {
     std::cerr << "Error: " << e.what() << std::endl;
     return -1;
   }
-
   std::vector<int> vec(array, array + size);
+  std::list<int> list(array, array + size);
   PmergeMe<std::vector, int> vecMerger;
+  const PmergeMe<std::list, int> listMerger;
+
   std::cout << "Before: ";
   vecMerger.printContainer(vec);
   vecMerger.mergeInsertionSort(vec, size);
   vecMerger.isSorted(vec, "std::vector");
 
-  std::list<int> list(array, array + size);
-  const PmergeMe<std::list, int> listMerger;
   list = listMerger.mergeInsertionSort(list, size);
   listMerger.isSorted(list, "std::list");
 
