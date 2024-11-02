@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:52:23 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/19 13:49:37 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:35:40 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void BitcoinExchange::makeExchange(const std::string& input) const {
   }
 
   std::map<std::string, float>::const_iterator iter = data.lower_bound(date);
+  if (iter == data.end()) {
+    iter--;
+  }
   std::cout << date << " => " << value << " = " << iter->second * value << std::endl;
 }
 
@@ -60,11 +63,6 @@ data(dataMap) {}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other):
  data(other.data) {}
-
-BitcoinExchange::BitcoinExchange():
- data(*static_cast<std::map<std::string, float>*>(0)) {
-  throw std::invalid_argument("Provide a database for initialization");
-}
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
   if (this != &other) {
