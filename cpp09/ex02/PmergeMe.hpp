@@ -17,6 +17,7 @@
 #include <iomanip>
 #include <iostream>
 #include <stdexcept>
+#include <utility>
 #include <vector>
 
 # ifndef DEBUG
@@ -40,6 +41,7 @@ class PmergeMe {
   void printContainer(const Container<T, Allocator>& container) const;
   bool isSorted(const Container<T, Allocator>& container, const std::string containerName) const;
 
+  void newMergeInsertionSort(Container<T, Allocator>& container, int containerSize);
  private:
   std::vector<T> merge(std::vector<T>& container, int size);
   void distribute(const std::vector<T>& container, std::vector<T>& high, std::vector<T>& low);

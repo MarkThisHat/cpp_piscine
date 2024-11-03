@@ -201,3 +201,24 @@ void PmergeMe<Container, T, Allocator>::printContainer(const Container<T, Alloca
   }
   std::cout << std::endl;
 }
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::newMergeInsertionSort(Container<T, Allocator>& container, int containerSize) {
+  if (containerSize < 1 || container.empty()) {
+    throw std::invalid_argument("Invalid amount of elements to sort");
+  } 
+  typename Container<T, Allocator>::const_iterator iter = container.begin();
+
+  std::vector<std::pair<T, int> > elements;
+  elements.reserve(containerSize);
+  for (int i = 0; i < containerSize; i++) {
+    elements.push_back(std::make_pair<*iter++, i>);
+  }
+
+}
+
+//template <template <typename, typename> class Container, typename T, typename Allocator>
+template <typename T>
+std::vector<std::pair<T, int> > wrapper(std::vector<std::pair<T, int> >) {
+
+}
