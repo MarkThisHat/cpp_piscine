@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iomanip>
 #include "BitcoinExchange.hpp"
 #include "Parser.hpp"
 
@@ -41,7 +42,12 @@ void BitcoinExchange::makeExchange(const std::string& input) const {
   if (iter == data.end()) {
     iter--;
   }
-  std::cout << date << " => " << value << " = " << iter->second * value << std::endl;
+  std::cout << date << " => " << value << " = "
+            << std::fixed << std::setprecision(2)
+            << iter->second * value << std::endl;
+
+  std::cout.unsetf(std::ios_base::floatfield);
+  std::cout << std::setprecision(6);
 }
 
 bool BitcoinExchange::validateValue(const float value) const {
