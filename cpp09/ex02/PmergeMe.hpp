@@ -50,6 +50,57 @@ class PmergeMe {
   void clockLog(int range, double sortTime) const;
   void clockLog(int range, double sortTime, double transferIn, double transferOut) const;
   double clockCalc(clock_t start, clock_t finish) const;
+
+  template<typename U>
+  std::vector<std::pair< U, std::pair<T, int> > > wrapper(const std::vector<std::pair<U, std::pair<T, int> > >& input);
 };
 
 #include "PmergeMe.tpp"
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::newMergeInsertionSort(Container<T, Allocator>& container, int containerSize) {
+  if (containerSize < 1 || container.empty()) {
+    throw std::invalid_argument("Invalid amount of elements to sort");
+  } 
+  typename Container<T, Allocator>::const_iterator iter = container.begin();
+
+  std::vector<std::pair<T, int> > elements;
+  elements.reserve(containerSize);
+  for (int i = 0; i < containerSize; i++) {
+    elements.push_back(std::make_pair(*iter++, i));
+  }
+
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+template <typename U>
+std::vector<std::pair< U, std::pair<T, int> > > PmergeMe<Container, T, Allocator>::wrapper(const std::vector<std::pair<U, std::pair<T, int> > >& input) {
+    std::vector<std::pair<U, std::pair<T, int> > > result;
+
+    for (size_t i = 0; i < input.size(); i++) {
+        result.push_back(std::make_pair(input[i].first, 
+          std::make_pair(input[i].second.first, static_cast<int>(i))));
+    }
+    return result;
+}
+
+template <typename T>
+void printElements(const std::vector<T>& elements) {
+    for (typename std::vector<T>::const_iterator it = elements.begin(); it != elements.end(); ++it) {
+        printElement(*it);
+        std::cout << " ";
+    }
+    std::cout << std::endl;
+}
+
+// Print function for a single pair (T, int)
+template <typename T>
+void printElement(const std::pair<T, int>& element) {
+    std::cout << "(" << element.first << ", " << element.second << ")";
+}
+
+// Print function for a nested pair ((U, (T, int)))
+template <typename U, typename T>
+void printElement(const std::pair<U, std::pair<T, int> >& element) {
+    std::cout << "(" << element.first << ", (" << element.second.first << ", " << element.second.second << "))";
+}
