@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
   std::list<int> list(array, array + size);
   PmergeMe<std::vector, int> vecMerger;
   const PmergeMe<std::list, int> listMerger;
-
+/*
   std::cout << "Before: ";
   vecMerger.printContainer(vec);
   try {
@@ -40,7 +40,9 @@ int main(int argc, char* argv[]) {
     listMerger.isSorted(list, "std::list");
   } catch (std::exception& e ) {
     std::cerr << e.what() << std::endl;
-  }
+  }*/
+
+ vecMerger.newMergeInsertionSort(vec, size);
 
   delete[] array;
 }

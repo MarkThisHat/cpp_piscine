@@ -28,6 +28,34 @@
 # endif
 # define PRECISION 0
 
+
+inline void printSimplePair(const std::pair<int, int>& p) {
+    std::cout << "<first: " << p.first << ", second: " << p.second << ">";
+}
+
+template <typename T>
+void printElement(const std::pair<T, int>& element) {
+    std::cout << "<value: " << element.first << ", index: " << element.second << ">";
+}
+
+template <typename U, typename T>
+void printElement(const std::pair<U, std::pair<T, int> >& element) {
+    std::cout << "[ U: ";
+    printSimplePair(element.first);
+    std::cout << ", T, int: ";
+    printElement(element.second); 
+    std::cout << " ]";
+}
+
+template <typename T>
+void printElements(const std::vector<T>& elements) {
+    for (typename std::vector<T>::const_iterator it = elements.begin(); it != elements.end(); ++it) {
+        printElement(*it);
+        std::cout << " ";
+    }
+    std::cout << std::endl;
+}
+
 template <template <typename, typename> class Container, typename T, typename Allocator = std::allocator<T> >
 class PmergeMe {
  public:
@@ -53,6 +81,9 @@ class PmergeMe {
 
   template<typename U>
   std::vector<std::pair< U, std::pair<T, int> > > wrapper(const std::vector<std::pair<U, std::pair<T, int> > >& input);
+
+  template<typename U>
+  std::vector<int> recursiveMerge(std::vector<std::pair<U, std::pair<T, int> > >& input);
 };
 
 #include "PmergeMe.tpp"
@@ -64,13 +95,21 @@ void PmergeMe<Container, T, Allocator>::newMergeInsertionSort(Container<T, Alloc
   } 
   typename Container<T, Allocator>::const_iterator iter = container.begin();
 
-  std::vector<std::pair<T, int> > elements;
+  std::vector<std::pair< std::pair<int, int> , std::pair<T, int> > > elements;
   elements.reserve(containerSize);
   for (int i = 0; i < containerSize; i++) {
-    elements.push_back(std::make_pair(*iter++, i));
+    elements.push_back(std::make_pair(std::make_pair(0, 0), std::make_pair(*iter++, i)));
   }
 
+  printElements(elements);
+
 }
+/*
+template <template <typename, typename> class Container, typename T, typename Allocator>
+template <typename U>
+std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<std::pair<U, std::pair<T, int> > >& input) {
+
+}*/
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
 template <typename U>
@@ -84,23 +123,25 @@ std::vector<std::pair< U, std::pair<T, int> > > PmergeMe<Container, T, Allocator
     return result;
 }
 
-template <typename T>
-void printElements(const std::vector<T>& elements) {
-    for (typename std::vector<T>::const_iterator it = elements.begin(); it != elements.end(); ++it) {
-        printElement(*it);
-        std::cout << " ";
+/*
+template <template <typename, typename> class Container, typename T, typename Allocator>
+template <typename U>
+void PmergeMe<Container, T, Allocator>::halver(const std::vector<U>& container, std::vector<T>& high, std::vector<T>& low) {
+  typename std::vector<U>::const_iterator iter = container.begin();
+  typename std::vector<U>::const_iterator end = container.end();
+
+  while (std::distance(iter, end) > 1) {
+    U first = *iter++;
+    U second = *iter++;
+    if (first > second) {
+      low.push_back(second);
+      high.push_back(first);
+    } else {
+      low.push_back(first);
+      high.push_back(second);
     }
-    std::cout << std::endl;
-}
-
-// Print function for a single pair (T, int)
-template <typename T>
-void printElement(const std::pair<T, int>& element) {
-    std::cout << "(" << element.first << ", " << element.second << ")";
-}
-
-// Print function for a nested pair ((U, (T, int)))
-template <typename U, typename T>
-void printElement(const std::pair<U, std::pair<T, int> >& element) {
-    std::cout << "(" << element.first << ", (" << element.second.first << ", " << element.second.second << "))";
-}
+  }
+  if (iter != end) {
+    low.push_back(*iter);
+  }
+}*/
