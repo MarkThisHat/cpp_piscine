@@ -84,6 +84,9 @@ class PmergeMe {
 
   template<typename U>
   std::vector<int> recursiveMerge(std::vector<std::pair<U, std::pair<T, int> > >& input);
+  
+  template<typename U>
+  void halver(const std::vector<std::pair<U, std::pair<T, int> > >& container, std::vector<std::pair<U, std::pair<T, int> > >& high, std::vector<std::pair<U, std::pair<T, int> > >& low);
 };
 
 #include "PmergeMe.tpp"
@@ -101,7 +104,18 @@ void PmergeMe<Container, T, Allocator>::newMergeInsertionSort(Container<T, Alloc
     elements.push_back(std::make_pair(std::make_pair(0, 0), std::make_pair(*iter++, i)));
   }
 
+std::vector<std::pair< std::pair<int, int> , std::pair<T, int> > > sorted;
+std::vector<std::pair< std::pair<int, int> , std::pair<T, int> > > unsorted;
+sorted.reserve(containerSize / 2);
+unsorted.reserve(containerSize - containerSize / 2);
+halver(elements, sorted, unsorted);
+
   printElements(elements);
+
+  std::cout << "sorted (high): " << std::endl;
+  printElements(sorted);
+  std::cout << "unsorted (low): " << std::endl;
+  printElements(unsorted);
 
 }
 /*
@@ -109,7 +123,7 @@ template <template <typename, typename> class Container, typename T, typename Al
 template <typename U>
 std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<std::pair<U, std::pair<T, int> > >& input) {
 
-}*/
+}
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
 template <typename U>
@@ -122,26 +136,39 @@ std::vector<std::pair< U, std::pair<T, int> > > PmergeMe<Container, T, Allocator
     }
     return result;
 }
+*/
 
-/*
 template <template <typename, typename> class Container, typename T, typename Allocator>
 template <typename U>
-void PmergeMe<Container, T, Allocator>::halver(const std::vector<U>& container, std::vector<T>& high, std::vector<T>& low) {
-  typename std::vector<U>::const_iterator iter = container.begin();
-  typename std::vector<U>::const_iterator end = container.end();
+void PmergeMe<Container, T, Allocator>::halver(const std::vector<std::pair<U, std::pair<T, int> > >& container, 
+            std::vector<std::pair<U, std::pair<T, int> > >& high, 
+            std::vector<std::pair<U, std::pair<T, int> > >& low) {
+    typename std::vector<std::pair<U, std::pair<T, int> > >::const_iterator iter = container.begin();
+    typename std::vector<std::pair<U, std::pair<T, int> > >::const_iterator end = container.end();
 
-  while (std::distance(iter, end) > 1) {
-    U first = *iter++;
-    U second = *iter++;
-    if (first > second) {
-      low.push_back(second);
-      high.push_back(first);
-    } else {
-      low.push_back(first);
-      high.push_back(second);
+    // Default value for U, assuming it is a type that can be default-constructed
+    U default_U = U();
+    int i = 0;
+    // Iterate through the container in pairs
+    while (std::distance(iter, end) > 1) {
+        T first_value = iter->second.first;            // Access the "inner" value of the first element
+        T second_value = (iter + 1)->second.first;     // Access the "inner" value of the second element
+
+        // Compare values and add to high or low vectors with default U
+        if (first_value > second_value) {
+            low.push_back(std::make_pair(default_U, std::make_pair(second_value, i)));
+            high.push_back(std::make_pair(default_U, std::make_pair(first_value, i)));
+        } else {
+            low.push_back(std::make_pair(default_U, std::make_pair(first_value, i)));
+            high.push_back(std::make_pair(default_U, std::make_pair(second_value, i)));
+        }
+
+        iter += 2;  // Move to the next pair
+        i++;
     }
-  }
-  if (iter != end) {
-    low.push_back(*iter);
-  }
-}*/
+
+    // If there’s an odd element remaining, add it to the low vector
+    if (iter != end) {
+        low.push_back(std::make_pair(default_U, std::make_pair(iter->second.first, i)));  // Add the "inner" value and index of the last element with default U
+    }
+}
