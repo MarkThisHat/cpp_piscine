@@ -28,31 +28,9 @@
 # endif
 # define PRECISION 0
 
-inline void printSimplePair(const std::pair<int, int>& p) {
-    std::cout << "<first: " << p.first << ", second: " << p.second << ">";
-}
-
 template <typename T>
 void printElement(const std::pair<T, int>& element) {
     std::cout << "<value: " << element.first << ", index: " << element.second << ">";
-}
-
-template <typename U, typename T>
-void printElement(const std::pair<U, std::pair<T, int> >& element) {
-    std::cout << "[ ";
-    printElement(element.second); 
-    std::cout << " ]";
-}
-
-template <typename T>
-void printElement(const std::pair<std::pair<std::pair<int, int>, std::pair<int, int> >, std::pair<T, int> >& element) {
-    std::cout << "[ Outer U: { ";
-    printSimplePair(element.first.first);
-    std::cout << ", ";
-    printSimplePair(element.first.second);
-    std::cout << " }, Inner T, int: ";
-    printElement(element.second);
-    std::cout << " ]";
 }
 
 template <typename T>
@@ -63,7 +41,92 @@ void printElements(const std::vector<T>& elements) {
     }
     std::cout << std::endl;
 }
+template <typename T>
+void printIndexes(const std::vector<T>& elements) {
+    for (typename std::vector<T>::const_iterator it = elements.begin(); it != elements.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
+/* jacobostal
+*/
 
+// Helper function to generate the Jacobsthal-based group sizes
+inline std::vector<int> generateGroupSizes(int totalElements) {
+    std::vector<int> groupSizes;
+    int currentSize = 2;
+    int sum = 0;
+
+    while (sum < totalElements) {
+        groupSizes.push_back(currentSize);
+        sum += currentSize;
+
+        // Alternate between doubling and adding 2
+        currentSize = (groupSizes.size() % 2 == 1) ? currentSize * 2 + 2 : currentSize * 2;
+    }
+
+    return groupSizes;
+}
+
+// Function to partition and order the unsorted elements based on Jacobsthal group sizes
+template <typename T>
+std::vector<std::pair<T, int> > partitionAndOrder(const std::vector<std::pair<T, int> >& unsorted) {
+    std::vector<int> groupSizes = generateGroupSizes(unsorted.size());
+    std::vector<std::pair<T, int> > orderedUnsorted;
+
+    size_t pos = 0;
+    for (size_t i = 0; i < groupSizes.size() && pos < unsorted.size(); ++i) {
+        int groupSize = groupSizes[i];
+
+        // Extract the group and manually reverse its order
+        std::vector<std::pair<T, int> > group;
+        for (int j = 0; j < groupSize && pos < unsorted.size(); ++j, ++pos) {
+            group.push_back(unsorted[pos]);
+        }
+
+        // Insert the group in reverse order into orderedUnsorted
+        for (int k = group.size() - 1; k >= 0; --k) {
+            orderedUnsorted.push_back(group[k]);
+        }
+    }
+
+    return orderedUnsorted;
+}
+
+// Function to perform binary insertion
+template <typename T>
+void binaryInsert(std::vector<std::pair<T, int> >& sorted, const std::pair<T, int>& element) {
+    int low = 0;
+    int high = sorted.size();
+
+    // Perform binary search to find the correct position
+    while (low < high) {
+        int mid = (low + high) / 2;
+        if (sorted[mid].first < element.first) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+
+    // Insert element at the calculated position
+    sorted.insert(sorted.begin() + low, element);
+}
+
+// Function to perform the Jacobsthal-based insertion of unsorted into sorted
+template <typename T>
+void jacobsthalInsert(std::vector<std::pair<T, int> >& sorted, const std::vector<std::pair<T, int> >& unsorted) {
+    // Partition and order the unsorted elements according to Jacobsthal sequence
+    std::vector<std::pair<T, int> > orderedUnsorted = partitionAndOrder(unsorted);
+
+    // Insert each element from orderedUnsorted into sorted using binary search
+    for (typename std::vector<std::pair<T, int> >::const_iterator it = orderedUnsorted.begin(); it != orderedUnsorted.end(); ++it) {
+        binaryInsert(sorted, *it);
+    }
+}
+
+
+//Actual class
 template <template <typename, typename> class Container, typename T, typename Allocator = std::allocator<T> >
 class PmergeMe {
  public:
@@ -92,9 +155,21 @@ class PmergeMe {
   void halver(const std::vector<std::pair<T, int> >& container, std::vector<std::pair<T, int> >& high, std::vector<std::pair<T, int> >& low);
 
   std::vector<int> lastPair(std::vector<std::pair<T, int> >& input);
+  void extractIndices(std::vector<int>& indices, const std::vector<std::pair<T, int> >& sorted);
 };
 
 #include "PmergeMe.tpp"
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::extractIndices(std::vector<int>& indices, const std::vector<std::pair<T, int> >& sorted) {
+  typename std::vector<std::pair<T, int> >::const_iterator iter = sorted.begin();
+  indices.clear();
+
+  while (iter != sorted.end()) {
+    indices.push_back(iter->second);
+    iter++;
+  }
+}
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
 void PmergeMe<Container, T, Allocator>::newMergeInsertionSort(Container<T, Allocator>& container, int containerSize) {
@@ -104,25 +179,19 @@ void PmergeMe<Container, T, Allocator>::newMergeInsertionSort(Container<T, Alloc
   typename Container<T, Allocator>::const_iterator iter = container.begin();
 
   std::vector<std::pair<T, int> > elements;
-  elements.reserve(containerSize);
   for (int i = 0; i < containerSize; i++) {
     elements.push_back(std::make_pair(*iter++, i));
   }
 
-  std::vector<std::pair<T, int> > sorted;
-  std::vector<std::pair<T, int> > unsorted;
-  sorted.reserve(containerSize / 2);
-  unsorted.reserve(containerSize - containerSize / 2);
-  halver(elements, sorted, unsorted);
   std::vector<int> indexes;
-  indexes = recursiveMerge(sorted);
+  indexes = recursiveMerge(elements);
+  printIndexes(indexes);
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
 std::vector<int> PmergeMe<Container, T, Allocator>::lastPair(std::vector<std::pair<T, int> >& input) {
   int size = input.size();
   std::vector<int> result;
-  result.reserve(size);
   result.push_back(0);
   if (size == 1) return result;
   if (input[0].first < input[1].first) {
@@ -141,22 +210,23 @@ std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<s
 
   std::vector<std::pair<T, int> > sorted;
   std::vector<std::pair<T, int> > unsorted;
-  sorted.reserve(size / 2);
+  sorted.reserve(size);
   unsorted.reserve(size - size / 2);
   halver(input, sorted, unsorted);
   indexes = recursiveMerge(sorted);
-
   std::vector<std::pair<T, int> > reSorted;
   std::vector<std::pair<T, int> > reUnsorted;
-  reSorted.reserve(sorted.size());
-  reUnsorted.reserve(unsorted.size());
   for (size_t i = 0; i < indexes.size(); i++) {
     reSorted.push_back(sorted[indexes[i]]);
     reUnsorted.push_back(unsorted[indexes[i]]);
   }
+
   sorted = reSorted;
   unsorted = reUnsorted;
-  //jacobastal binary insert
+
+//  sorted.insert(sorted.begin(), unsorted[0]);
+  jacobsthalInsert(sorted, unsorted);
+  extractIndices(indexes, sorted);
   return indexes;
 }
 
