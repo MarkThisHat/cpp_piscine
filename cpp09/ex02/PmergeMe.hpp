@@ -106,6 +106,8 @@ class PmergeMe {
   
   template<typename U>
   void halver(const std::vector<std::pair<U, std::pair<T, int> > >& container, std::vector<std::pair<U, std::pair<T, int> > >& high, std::vector<std::pair<U, std::pair<T, int> > >& low);
+
+  std::vector<int> lastPair(bool firstHigher);
 };
 
 #include "PmergeMe.tpp"
@@ -141,10 +143,24 @@ halver(elements, sorted, unsorted);
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
+std::vector<int> PmergeMe<Container, T, Allocator>::lastPair(bool firstHigher) {
+    std::vector<int> result;
+    if (firstHigher) {
+        result.push_back(0);
+        result.push_back(1);
+    } else {
+        result.push_back(1);
+        result.push_back(0);
+    }
+    return result;
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
 template <typename U>
 std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<std::pair<U, std::pair<T, int> > >& input) {
-    std::vector<int> indexes;
     int size = input.size();
+    if (size < 3) return lastPair(input[0].second.first > input[1].second.first);
+    std::vector<int> indexes;
 
     std::vector<std::pair<U , std::pair<T, int> > > sorted;
     std::vector<std::pair<U , std::pair<T, int> > > unsorted;
