@@ -28,7 +28,6 @@
 # endif
 # define PRECISION 0
 
-
 inline void printSimplePair(const std::pair<int, int>& p) {
     std::cout << "<first: " << p.first << ", second: " << p.second << ">";
 }
@@ -40,10 +39,30 @@ void printElement(const std::pair<T, int>& element) {
 
 template <typename U, typename T>
 void printElement(const std::pair<U, std::pair<T, int> >& element) {
+    std::cout << "[ ";
+    printElement(element.second); 
+    std::cout << " ]";
+}
+
+/* part go away
+template <typename U, typename T>
+void printElement(const std::pair<U, std::pair<T, int> >& element) {
     std::cout << "[ U: ";
     printSimplePair(element.first);
     std::cout << ", T, int: ";
     printElement(element.second); 
+    std::cout << " ]";
+}
+*/
+
+template <typename T>
+void printElement(const std::pair<std::pair<std::pair<int, int>, std::pair<int, int> >, std::pair<T, int> >& element) {
+    std::cout << "[ Outer U: { ";
+    printSimplePair(element.first.first);
+    std::cout << ", ";
+    printSimplePair(element.first.second);
+    std::cout << " }, Inner T, int: ";
+    printElement(element.second);
     std::cout << " ]";
 }
 
@@ -117,14 +136,69 @@ halver(elements, sorted, unsorted);
   std::cout << "unsorted (low): " << std::endl;
   printElements(unsorted);
 
+    recursiveMerge(sorted);
+
 }
-/*
+
 template <template <typename, typename> class Container, typename T, typename Allocator>
 template <typename U>
 std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<std::pair<U, std::pair<T, int> > >& input) {
+    std::vector<int> indexes;
+    int size = input.size();
 
+    std::vector<std::pair<U , std::pair<T, int> > > sorted;
+    std::vector<std::pair<U , std::pair<T, int> > > unsorted;
+    sorted.reserve(size / 2);
+    unsorted.reserve(size - size / 2);
+    halver(input, sorted, unsorted);
+
+std::cout << "\nFirst halving:" << std::endl;
+    printElements(input);
+
+  std::cout << "sorted (high): " << std::endl;
+  printElements(sorted);
+  std::cout << "unsorted (low): " << std::endl;
+  printElements(unsorted);
+
+  return indexes;
 }
 
+template <template <typename, typename> class Container, typename T, typename Allocator>
+template <typename U>
+void PmergeMe<Container, T, Allocator>::halver(const std::vector<std::pair<U, std::pair<T, int> > >& container, 
+            std::vector<std::pair<U, std::pair<T, int> > >& high, 
+            std::vector<std::pair<U, std::pair<T, int> > >& low) {
+    typename std::vector<std::pair<U, std::pair<T, int> > >::const_iterator iter = container.begin();
+    typename std::vector<std::pair<U, std::pair<T, int> > >::const_iterator end = container.end();
+
+    int i = 0;
+    
+    while (std::distance(iter, end) > 1) {
+        const U& firstOuter = iter->first;
+        T firstValue = iter->second.first;            
+        T secondValue = (iter + 1)->second.first;     
+        const U& secondOuter = (iter + 1)->first;
+
+        
+        if (firstValue > secondValue) {
+            low.push_back(std::make_pair(secondOuter, std::make_pair(secondValue, i)));
+            high.push_back(std::make_pair(firstOuter, std::make_pair(firstValue, i)));
+        } else {
+            low.push_back(std::make_pair(firstOuter, std::make_pair(firstValue, i)));
+            high.push_back(std::make_pair(secondOuter, std::make_pair(secondValue, i)));
+        }
+
+        iter += 2;  
+        i++;
+    }
+
+    if (iter != end) {
+        low.push_back(std::make_pair(iter->first, std::make_pair(iter->second.first, i)));  
+    }
+}
+
+
+/*
 template <template <typename, typename> class Container, typename T, typename Allocator>
 template <typename U>
 std::vector<std::pair< U, std::pair<T, int> > > PmergeMe<Container, T, Allocator>::wrapper(const std::vector<std::pair<U, std::pair<T, int> > >& input) {
@@ -137,38 +211,3 @@ std::vector<std::pair< U, std::pair<T, int> > > PmergeMe<Container, T, Allocator
     return result;
 }
 */
-
-template <template <typename, typename> class Container, typename T, typename Allocator>
-template <typename U>
-void PmergeMe<Container, T, Allocator>::halver(const std::vector<std::pair<U, std::pair<T, int> > >& container, 
-            std::vector<std::pair<U, std::pair<T, int> > >& high, 
-            std::vector<std::pair<U, std::pair<T, int> > >& low) {
-    typename std::vector<std::pair<U, std::pair<T, int> > >::const_iterator iter = container.begin();
-    typename std::vector<std::pair<U, std::pair<T, int> > >::const_iterator end = container.end();
-
-    // Default value for U, assuming it is a type that can be default-constructed
-    U default_U = U();
-    int i = 0;
-    // Iterate through the container in pairs
-    while (std::distance(iter, end) > 1) {
-        T first_value = iter->second.first;            // Access the "inner" value of the first element
-        T second_value = (iter + 1)->second.first;     // Access the "inner" value of the second element
-
-        // Compare values and add to high or low vectors with default U
-        if (first_value > second_value) {
-            low.push_back(std::make_pair(default_U, std::make_pair(second_value, i)));
-            high.push_back(std::make_pair(default_U, std::make_pair(first_value, i)));
-        } else {
-            low.push_back(std::make_pair(default_U, std::make_pair(first_value, i)));
-            high.push_back(std::make_pair(default_U, std::make_pair(second_value, i)));
-        }
-
-        iter += 2;  // Move to the next pair
-        i++;
-    }
-
-    // If there’s an odd element remaining, add it to the low vector
-    if (iter != end) {
-        low.push_back(std::make_pair(default_U, std::make_pair(iter->second.first, i)));  // Add the "inner" value and index of the last element with default U
-    }
-}
