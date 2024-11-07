@@ -29,8 +29,18 @@
 # define PRECISION 0
 
 template <typename T>
-void printElement(const std::pair<T, int>& element) {
-    std::cout << "<value: " << element.first << ", index: " << element.second << ">";
+struct Element {
+    T value;
+    int newIndex;
+    int oldIndex;
+
+    Element(const T& val, int newIndex, int oldIndex)
+        : value(val), newIndex(newIndex), oldIndex(oldIndex) {}
+  };
+
+template <typename T>
+void printElement(const Element<T>& element) {
+    std::cout << "<value: " << element.value << ", new index: " << element.newIndex << ", old index: " << element.oldIndex <<">";
 }
 
 template <typename T>
@@ -127,14 +137,14 @@ void jacobsthalInsert(std::vector<std::pair<T, int> >& sorted, const std::vector
 */
 
 template <typename T>
-void bostaryInsert(std::vector<std::pair<T, int> >& sorted, const std::pair<T, int>& element) {
+void bostaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element) {
     int low = 0;
     int high = sorted.size();
 
     // Perform binary search to find the correct position
     while (low < high) {
         int mid = (low + high) / 2;
-        if (sorted[mid].first < element.first) {
+        if (sorted[mid].value < element.value) {
             low = mid + 1;
         } else {
             high = mid;
@@ -169,26 +179,27 @@ class PmergeMe {
   void clockLog(int range, double sortTime, double transferIn, double transferOut) const;
   double clockCalc(clock_t start, clock_t finish) const;
 
-  std::vector<int> recursiveMerge(std::vector<std::pair<T, int> >& input);
-  
-  void halver(const std::vector<std::pair<T, int> >& container, std::vector<std::pair<T, int> >& high, std::vector<std::pair<T, int> >& low);
+  std::vector<int> recursiveMerge(std::vector<Element<T> >& input);
 
-  std::vector<int> lastFew(std::vector<std::pair<T, int> >& input);
-  void extractIndices(std::vector<int>& indices, const std::vector<std::pair<T, int> >& sorted);
+  void halver(const std::vector<Element<T> >& container, std::vector<Element<T> >& high, std::vector<Element<T> >& low);
+
+  std::vector<int> lastFew(std::vector<Element<T> >& input);
+  void extractIndices(std::vector<int>& indices, const std::vector<Element<T> >& sorted);
+
 };
 
 #include "PmergeMe.tpp"
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::extractIndices(std::vector<int>& indices, const std::vector<std::pair<T, int> >& sorted) {
-  typename std::vector<std::pair<T, int> >::const_iterator iter = sorted.begin();
+void PmergeMe<Container, T, Allocator>::extractIndices(std::vector<int>& indices, const std::vector<Element<T> >& sorted) {
+  typename std::vector<Element<T> >::const_iterator iter = sorted.begin();
   indices.clear();
 std::cout << "mothafucka \n";
 printElements(sorted);
   while (iter != sorted.end()) {
 /*  std::cout << "gonna take out the index of ";
     printElement(*iter);*/
-    indices.push_back(iter->second);
+    indices.push_back(iter->oldIndex);
 //    std::cout << " which is " << iter->second << std::endl;
     iter++;
   }
@@ -201,9 +212,9 @@ void PmergeMe<Container, T, Allocator>::newMergeInsertionSort(Container<T, Alloc
   } 
   typename Container<T, Allocator>::const_iterator iter = container.begin();
 
-  std::vector<std::pair<T, int> > elements;
+  std::vector<Element<T> > elements;
   for (int i = 0; i < containerSize; i++) {
-    elements.push_back(std::make_pair(*iter++, i));
+    elements.push_back(Element<T>(*iter++, i, 0));
   }
 
   std::vector<int> indexes;
@@ -212,45 +223,34 @@ void PmergeMe<Container, T, Allocator>::newMergeInsertionSort(Container<T, Alloc
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-std::vector<int> PmergeMe<Container, T, Allocator>::lastFew(std::vector<std::pair<T, int> >& input) {
+std::vector<int> PmergeMe<Container, T, Allocator>::lastFew(std::vector<Element<T> >& input) {
   int size = input.size();
-  if (size == 1) {
-    throw std::invalid_argument("Size 1 should not be in last few");
-  }
   std::vector<int> result;
-  if (input[0].first < input[1].first) {
-    result.push_back(input[0].second);
-    result.push_back(input[1].second);
+  result.reserve(size);
+  result.push_back(0);
+  if (size == 1) return result;
+  if (input[0].value < input[1].value) {
+    result.push_back(1);
   } else {
-    result.push_back(input[0].second);
-    result.push_back(input[1].second);
-  }
-  if (size == 3) {
-    if (input[2].first < input[result[0]].first) {
-      result.insert(result.begin(), input[2].second);
-    } else if (input[2].first > input[result[1]].first) {
-      result.push_back(input[2].second);
-    } else {
-      result.insert(result.begin() + 1, input[2].second);
-    }
+    result.insert(result.begin(), 1);
   }
   return result;
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<std::pair<T, int> >& input) {
+std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<Element<T> >& input) {
   int size = input.size();
   std::cout << "Entering recursive merge with: " << std::endl;
   printElements(input);
-  if (size < 4) return lastFew(input);
+  if (size < 3) return lastFew(input);
   std::vector<int> indexes;
 
-  std::vector<std::pair<T, int> > sorted;
-  std::vector<std::pair<T, int> > unsorted;
+  std::vector<Element<T> > sorted;
+  std::vector<Element<T> > unsorted;
   halver(input, sorted, unsorted);
   indexes = recursiveMerge(sorted);
-  std::vector<std::pair<T, int> > reSorted;
-  std::vector<std::pair<T, int> > reUnsorted;
+  std::vector<Element<T> > reSorted;
+  std::vector<Element<T> > reUnsorted;
   for (size_t i = 0; i < sorted.size(); i++) {
     reSorted.push_back(sorted[indexes[i]]);
     reUnsorted.push_back(unsorted[indexes[i]]);
@@ -262,7 +262,7 @@ std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<s
   unsorted = reUnsorted;
 
 //  sorted.insert(sorted.begin(), unsorted[0]);
-  for (typename std::vector<std::pair<T, int> >::const_iterator iter = unsorted.begin(); iter != unsorted.end(); iter++) {
+  for (typename std::vector<Element<T> >::const_iterator iter = unsorted.begin(); iter != unsorted.end(); iter++) {
     bostaryInsert(sorted, *iter);
   }
   std::cout << "fa\n";
@@ -274,27 +274,29 @@ std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<s
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::halver(const std::vector<std::pair<T, int> >& container, std::vector<std::pair<T, int> >& high, std::vector<std::pair<T, int> >& low) {
-  typename std::vector<std::pair<T, int> >::const_iterator iter = container.begin();
-  typename std::vector<std::pair<T, int> >::const_iterator end = container.end();
+void PmergeMe<Container, T, Allocator>::halver(const std::vector<Element<T> >& container, std::vector<Element<T> >& high, std::vector<Element<T> >& low) {
+  typename std::vector<Element<T> >::const_iterator iter = container.begin();
+  typename std::vector<Element<T> >::const_iterator end = container.end();
   int i = 0;
-  
+
   while (std::distance(iter, end) > 1) {
-    T firstValue = iter->first;
-    T secondValue = (iter + 1)->first;
+    T firstValue = iter->value;
+    T secondValue = (iter + 1)->value;
+    int firstIndex = iter->newIndex;
+    int secondIndex = (iter + 1)->newIndex;
 
     if (firstValue > secondValue) {
-      low.push_back(std::make_pair(secondValue, i));
-      high.push_back(std::make_pair(firstValue, i));
+      low.push_back(Element<T>(secondValue, i, secondIndex));
+      high.push_back(Element<T>(firstValue, i, firstIndex));
     } else {
-      low.push_back(std::make_pair(firstValue, i));
-      high.push_back(std::make_pair(secondValue, i));
+      low.push_back(Element<T>(firstValue, i, firstIndex));
+      high.push_back(Element<T>(secondValue, i, secondIndex));
     }
     iter += 2;
     i++;
   }
 
   if (iter != end) {
-    low.push_back(std::make_pair(iter->first, i));
+    low.push_back(Element<T>(iter->value, i, iter->newIndex));
   }
 }
