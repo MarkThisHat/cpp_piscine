@@ -49,7 +49,7 @@ void printIndexes(const std::vector<T>& elements) {
     std::cout << std::endl;
 }
 /* jacobostal
-*/
+
 
 // Helper function to generate the Jacobsthal-based group sizes
 inline std::vector<int> generateGroupSizes(int totalElements) {
@@ -124,7 +124,26 @@ void jacobsthalInsert(std::vector<std::pair<T, int> >& sorted, const std::vector
         binaryInsert(sorted, *it);
     }
 }
+*/
 
+template <typename T>
+void bostaryInsert(std::vector<std::pair<T, int> >& sorted, const std::pair<T, int>& element) {
+    int low = 0;
+    int high = sorted.size();
+
+    // Perform binary search to find the correct position
+    while (low < high) {
+        int mid = (low + high) / 2;
+        if (sorted[mid].first < element.first) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+
+    // Insert element at the calculated position
+    sorted.insert(sorted.begin() + low, element);
+}
 
 //Actual class
 template <template <typename, typename> class Container, typename T, typename Allocator = std::allocator<T> >
@@ -154,7 +173,7 @@ class PmergeMe {
   
   void halver(const std::vector<std::pair<T, int> >& container, std::vector<std::pair<T, int> >& high, std::vector<std::pair<T, int> >& low);
 
-  std::vector<int> lastPair(std::vector<std::pair<T, int> >& input);
+  std::vector<int> lastFew(std::vector<std::pair<T, int> >& input);
   void extractIndices(std::vector<int>& indices, const std::vector<std::pair<T, int> >& sorted);
 };
 
@@ -164,9 +183,13 @@ template <template <typename, typename> class Container, typename T, typename Al
 void PmergeMe<Container, T, Allocator>::extractIndices(std::vector<int>& indices, const std::vector<std::pair<T, int> >& sorted) {
   typename std::vector<std::pair<T, int> >::const_iterator iter = sorted.begin();
   indices.clear();
-
+std::cout << "mothafucka \n";
+printElements(sorted);
   while (iter != sorted.end()) {
+/*  std::cout << "gonna take out the index of ";
+    printElement(*iter);*/
     indices.push_back(iter->second);
+//    std::cout << " which is " << iter->second << std::endl;
     iter++;
   }
 }
@@ -189,15 +212,27 @@ void PmergeMe<Container, T, Allocator>::newMergeInsertionSort(Container<T, Alloc
 }
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-std::vector<int> PmergeMe<Container, T, Allocator>::lastPair(std::vector<std::pair<T, int> >& input) {
+std::vector<int> PmergeMe<Container, T, Allocator>::lastFew(std::vector<std::pair<T, int> >& input) {
   int size = input.size();
+  if (size == 1) {
+    throw std::invalid_argument("Size 1 should not be in last few");
+  }
   std::vector<int> result;
-  result.push_back(0);
-  if (size == 1) return result;
   if (input[0].first < input[1].first) {
-    result.push_back(1);
+    result.push_back(input[0].second);
+    result.push_back(input[1].second);
   } else {
-    result.insert(result.begin(), 1);
+    result.push_back(input[0].second);
+    result.push_back(input[1].second);
+  }
+  if (size == 3) {
+    if (input[2].first < input[result[0]].first) {
+      result.insert(result.begin(), input[2].second);
+    } else if (input[2].first > input[result[1]].first) {
+      result.push_back(input[2].second);
+    } else {
+      result.insert(result.begin() + 1, input[2].second);
+    }
   }
   return result;
 }
@@ -205,27 +240,35 @@ std::vector<int> PmergeMe<Container, T, Allocator>::lastPair(std::vector<std::pa
 template <template <typename, typename> class Container, typename T, typename Allocator>
 std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<std::pair<T, int> >& input) {
   int size = input.size();
-  if (size < 3) return lastPair(input);
+  std::cout << "Entering recursive merge with: " << std::endl;
+  printElements(input);
+  if (size < 4) return lastFew(input);
   std::vector<int> indexes;
 
   std::vector<std::pair<T, int> > sorted;
   std::vector<std::pair<T, int> > unsorted;
-  sorted.reserve(size);
-  unsorted.reserve(size - size / 2);
   halver(input, sorted, unsorted);
   indexes = recursiveMerge(sorted);
   std::vector<std::pair<T, int> > reSorted;
   std::vector<std::pair<T, int> > reUnsorted;
-  for (size_t i = 0; i < indexes.size(); i++) {
+  for (size_t i = 0; i < sorted.size(); i++) {
     reSorted.push_back(sorted[indexes[i]]);
     reUnsorted.push_back(unsorted[indexes[i]]);
   }
-
+  if (sorted.size() != unsorted.size()) {
+    reUnsorted.push_back(unsorted[sorted.size()]);
+  }
   sorted = reSorted;
   unsorted = reUnsorted;
 
 //  sorted.insert(sorted.begin(), unsorted[0]);
-  jacobsthalInsert(sorted, unsorted);
+  for (typename std::vector<std::pair<T, int> >::const_iterator iter = unsorted.begin(); iter != unsorted.end(); iter++) {
+    bostaryInsert(sorted, *iter);
+  }
+  std::cout << "fa\n";
+  printElements(sorted);
+  printElements(input);
+  std::cout << "fu" << std::endl;
   extractIndices(indexes, sorted);
   return indexes;
 }
