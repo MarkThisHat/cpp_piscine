@@ -39,7 +39,8 @@ struct Element {
 
 template <typename T>
 void printElement(const Element<T>& element) {
-    std::cout << "<value: " << element.value << ", new index: " << element.newIndex << ", old index: " << element.oldIndex <<">";
+    //std::cout << "<value: " << element.value << ", new index: " << element.newIndex << ", old index: " << element.oldIndex <<">";
+    std::cout << " index: " << element.newIndex;
 }
 
 template <typename T>
@@ -167,7 +168,7 @@ class PmergeMe {
 
   std::vector<int> lastFew(std::vector<Element<T> >& input);
   void extractIndices(std::vector<int>& indices, const std::vector<Element<T> >& sorted);
-
+std::vector<Element<T> > organizeInGroups(const std::vector<Element<T> >& elements);
 };
 
 #include "PmergeMe.tpp"
@@ -202,10 +203,10 @@ void PmergeMe<Container, T, Allocator>::populateGroups(int n) {
 /*
     Order the uninserted elements by their groups (smaller indexes to larger indexes), but within each group order them from larger indexes to smaller indexes. Thus, the ordering becomes
     y4 , y3 , y6 , y5 , y12 , y11 , y10 , y9 , y8 , y7 , y22 , y21 … 
-*/
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
 void PmergeMe<Container, T, Allocator>::organizeInGroups(std::vector<Element<T> >& elements) {
+    int size = elements.size();
     int currentIndex = 0;
 
     // Iterate through each group size in `groups`
@@ -214,7 +215,7 @@ void PmergeMe<Container, T, Allocator>::organizeInGroups(std::vector<Element<T> 
 
         // Collect indices for the current group
         std::vector<int> groupIndices;
-        for (int j = 0; j < groupSize && currentIndex < elements.size(); j++) {
+        for (int j = 0; j < groupSize && currentIndex < size; j++) {
             groupIndices.push_back(currentIndex);
             currentIndex++;
         }
@@ -228,22 +229,24 @@ void PmergeMe<Container, T, Allocator>::organizeInGroups(std::vector<Element<T> 
         }
     }
 }
+*/
 
-
-#include <vector>
-#include <algorithm>  // for std::reverse
-
-std::vector<int> organizeInGroups(const std::vector<int>& elements, const std::vector<int>& groupSizes) {
-    std::vector<int> organizedElements;
+template <template <typename, typename> class Container, typename T, typename Allocator>
+std::vector<Element<T> > PmergeMe<Container, T, Allocator>::organizeInGroups(const std::vector<Element<T> >& elements) {
+    std::vector<Element<T> > organizedElements;
+    int size = elements.size();
     int currentIndex = 0;
+    organizedElements.push_back(elements[currentIndex++]);
+    organizedElements[0].newIndex = -1;
 
-    for (size_t i = 0; i < groupSizes.size(); ++i) {
-        int groupSize = groupSizes[i];
-        
+    for (size_t i = 0; i < groups.size(); ++i) {
+        int groupSize = groups[i];
+
         // Extract the current group from the elements
-        std::vector<int> group;
-        for (int j = 0; j < groupSize && currentIndex < elements.size(); ++j) {
-            group.push_back(elements[currentIndex]);
+        std::vector<Element<T> > group;
+        for (int j = 0; j < groupSize && currentIndex < size; j++) {
+            Element<T> element(elements[currentIndex].value, currentIndex + 2, elements[currentIndex].oldIndex);
+            group.push_back(element);
             currentIndex++;
         }
 

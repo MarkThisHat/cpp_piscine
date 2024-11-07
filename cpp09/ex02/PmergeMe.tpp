@@ -109,8 +109,12 @@ std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<E
     reUnsorted.push_back(unsorted[sorted.size()]);
   }
   sorted = reSorted;
-  unsorted = reUnsorted;
-
+//  unsorted = reUnsorted;
+  std::cout << "b4:\n";
+  printElements(reUnsorted);
+  unsorted = organizeInGroups(reUnsorted);
+  std::cout << "aft:\n";
+  printElements(unsorted);
 //  sorted.insert(sorted.begin(), unsorted[0]);
   for (typename std::vector<Element<T> >::const_iterator iter = unsorted.begin(); iter != unsorted.end(); iter++) {
     binaryInsert(sorted, *iter);
