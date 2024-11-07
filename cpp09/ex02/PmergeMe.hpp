@@ -235,9 +235,7 @@ template <template <typename, typename> class Container, typename T, typename Al
 std::vector<Element<T> > PmergeMe<Container, T, Allocator>::organizeInGroups(const std::vector<Element<T> >& elements) {
     std::vector<Element<T> > organizedElements;
     int size = elements.size();
-    int currentIndex = 0;
-    organizedElements.push_back(elements[currentIndex++]);
-    organizedElements[0].newIndex = -1;
+    int currentIndex = 1;
 
     for (size_t i = 0; i < groups.size(); ++i) {
         int groupSize = groups[i];
@@ -254,6 +252,6 @@ std::vector<Element<T> > PmergeMe<Container, T, Allocator>::organizeInGroups(con
         std::reverse(group.begin(), group.end());
         organizedElements.insert(organizedElements.end(), group.begin(), group.end());
     }
-
+//printElements(organizedElements);
     return organizedElements;
 }
