@@ -6,7 +6,7 @@
 /*   By: maalexan <maalexan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 20:10:24 by maalexan          #+#    #+#             */
-/*   Updated: 2024/10/30 19:56:44 by maalexan         ###   ########.fr       */
+/*   Updated: 2024/11/07 18:48:28 by maalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,3 +203,54 @@ void PmergeMe<Container, T, Allocator>::populateGroups(int n) {
     Order the uninserted elements by their groups (smaller indexes to larger indexes), but within each group order them from larger indexes to smaller indexes. Thus, the ordering becomes
     y4 , y3 , y6 , y5 , y12 , y11 , y10 , y9 , y8 , y7 , y22 , y21 … 
 */
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::organizeInGroups(std::vector<Element<T> >& elements) {
+    int currentIndex = 0;
+
+    // Iterate through each group size in `groups`
+    for (size_t i = 0; i < groups.size(); i++) {
+        int groupSize = groups[i];
+
+        // Collect indices for the current group
+        std::vector<int> groupIndices;
+        for (int j = 0; j < groupSize && currentIndex < elements.size(); j++) {
+            groupIndices.push_back(currentIndex);
+            currentIndex++;
+        }
+
+        // Reverse the order of indices within this group
+        std::reverse(groupIndices.begin(), groupIndices.end());
+
+        // Assign the reversed order to `newIndex` of each Element in the group
+        for (size_t k = 0; k < groupIndices.size(); k++) {
+            elements[groupIndices[k]].newIndex = groupIndices[k] + 2;
+        }
+    }
+}
+
+
+#include <vector>
+#include <algorithm>  // for std::reverse
+
+std::vector<int> organizeInGroups(const std::vector<int>& elements, const std::vector<int>& groupSizes) {
+    std::vector<int> organizedElements;
+    int currentIndex = 0;
+
+    for (size_t i = 0; i < groupSizes.size(); ++i) {
+        int groupSize = groupSizes[i];
+        
+        // Extract the current group from the elements
+        std::vector<int> group;
+        for (int j = 0; j < groupSize && currentIndex < elements.size(); ++j) {
+            group.push_back(elements[currentIndex]);
+            currentIndex++;
+        }
+
+        // Reverse the group and add to the organizedElements
+        std::reverse(group.begin(), group.end());
+        organizedElements.insert(organizedElements.end(), group.begin(), group.end());
+    }
+
+    return organizedElements;
+}
