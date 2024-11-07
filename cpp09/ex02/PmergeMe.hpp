@@ -198,3 +198,8 @@ void PmergeMe<Container, T, Allocator>::populateGroups(int n) {
     printIntVec(groups);
   }
 }
+
+/*
+    Order the uninserted elements by their groups (smaller indexes to larger indexes), but within each group order them from larger indexes to smaller indexes. Thus, the ordering becomes
+    y4 , y3 , y6 , y5 , y12 , y11 , y10 , y9 , y8 , y7 , y22 , y21 … 
+*/
