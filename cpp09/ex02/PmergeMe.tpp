@@ -51,7 +51,7 @@ void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocato
     throw std::invalid_argument("Invalid amount of elements to sort");
   } 
   typename Container<T, Allocator>::const_iterator iter = container.begin();
-  
+populateGroups(containerSize);
   clock_t inStart = clock();
   std::vector<Element<T> > elements;
   for (int i = 0; i < containerSize; i++) {

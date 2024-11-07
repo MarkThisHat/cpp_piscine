@@ -17,7 +17,6 @@
 #include <iomanip>
 #include <iostream>
 #include <stdexcept>
-#include <utility>
 #include <vector>
 
 # ifndef DEBUG
@@ -52,11 +51,12 @@ void printElements(const std::vector<T>& elements) {
     std::cout << std::endl;
 }
 template <typename T>
-void printIndexes(const std::vector<T>& elements) {
-    for (typename std::vector<T>::const_iterator it = elements.begin(); it != elements.end(); ++it) {
-        std::cout << *it << " ";
-    }
-    std::cout << std::endl;
+void printIntVec(const std::vector<T>& elements) {
+  std::cout << "[ ";
+  for (typename std::vector<T>::const_iterator it = elements.begin(); it != elements.end(); ++it) {
+      std::cout << *it << " ";
+  }
+  std::cout << "]" << std::endl;
 }
 /* jacobostal
 
@@ -153,6 +153,8 @@ class PmergeMe {
   bool isSorted(const Container<T, Allocator>& container, const std::string containerName) const;
 
  private:
+  std::vector<int> groups;
+  void populateGroups(int size);
 
   void binaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element);
   void clockLog(int range, double sortTime) const;
@@ -169,4 +171,30 @@ class PmergeMe {
 };
 
 #include "PmergeMe.tpp"
+#include <cmath>
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::populateGroups(int n) {
+  groups.clear();
+  if (n == 0) return;
 
+  groups.push_back(2);
+  if (n == 1) return;
+
+  int i = 1;
+  int sum = 2;
+  while (true) {
+    int nextValue = std::pow(2, i + 1) - groups[i - 1];
+    if (sum + nextValue <= n) {
+      groups.push_back(nextValue);
+      sum += nextValue;
+      i++;
+    } else {
+      if (n - sum ) groups.push_back(n - sum);
+      break;
+    }
+  }
+  if (DEBUG) {
+    std::cout << "Printing the sort groups:\n";
+    printIntVec(groups);
+  }
+}
