@@ -30,7 +30,7 @@ void PmergeMe<std::list, int>::clockLog(int range, double sortTime, double trans
             << "µs (sort: " << sortTime << "µs + in: " << transferIn
             << "µs + out: " << transferOut << "µs)"<< std::endl;
 }
-
+/*
 template <>
 void PmergeMe<std::vector, int>::mergeInsertionSort(std::vector<int>& container, int containerSize) {
   if (containerSize < 1 || container.empty()) {
@@ -53,3 +53,4 @@ std::vector<int> PmergeMe<std::vector, int>::mergeInsertionSort(const std::vecto
 
   return newContainer;
 }
+*/

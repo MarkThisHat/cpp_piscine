@@ -136,24 +136,7 @@ void jacobsthalInsert(std::vector<std::pair<T, int> >& sorted, const std::vector
 }
 
 */
-template <typename T>
-void bostaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element) {
-    int low = 0;
-    int high = sorted.size();
 
-    // Perform binary search to find the correct position
-    while (low < high) {
-        int mid = (low + high) / 2;
-        if (sorted[mid].value < element.value) {
-            low = mid + 1;
-        } else {
-            high = mid;
-        }
-    }
-
-    // Insert element at the calculated position
-    sorted.insert(sorted.begin() + low, element);
-}
 
 //Actual class
 template <template <typename, typename> class Container, typename T, typename Allocator = std::allocator<T> >
@@ -169,12 +152,9 @@ class PmergeMe {
   void printContainer(const Container<T, Allocator>& container) const;
   bool isSorted(const Container<T, Allocator>& container, const std::string containerName) const;
 
-  void newMergeInsertionSort(Container<T, Allocator>& container, int containerSize);
  private:
-  std::vector<T> merge(std::vector<T>& container, int size);
-  void distribute(const std::vector<T>& container, std::vector<T>& high, std::vector<T>& low);
-  std::vector<T> lastRecursion(std::vector<T>& container, int size);
-  void binaryInsert(std::vector<T>& sorted, const T& element);
+
+  void binaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element);
   void clockLog(int range, double sortTime) const;
   void clockLog(int range, double sortTime, double transferIn, double transferOut) const;
   double clockCalc(clock_t start, clock_t finish) const;
@@ -190,114 +170,3 @@ class PmergeMe {
 
 #include "PmergeMe.tpp"
 
-template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::extractIndices(std::vector<int>& indices, const std::vector<Element<T> >& sorted) {
-  typename std::vector<Element<T> >::const_iterator iter = sorted.begin();
-  indices.clear();
-  while (iter != sorted.end()) {
-    indices.push_back(iter->oldIndex);
-    iter++;
-  }
-}
-
-template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::newMergeInsertionSort(Container<T, Allocator>& container, int containerSize) {
-  if (containerSize < 1 || container.empty()) {
-    throw std::invalid_argument("Invalid amount of elements to sort");
-  } 
-  typename Container<T, Allocator>::const_iterator iter = container.begin();
-  
-  clock_t inStart = clock();
-  std::vector<Element<T> > elements;
-  for (int i = 0; i < containerSize; i++) {
-    elements.push_back(Element<T>(*iter++, i, 0));
-  }
-  double inTime = clockCalc(inStart, clock());
-
-  clock_t sortStart = clock();
-  std::vector<int> indexes;
-  indexes = recursiveMerge(elements);
-  double sortTime = clockCalc(sortStart, clock());
-
-  clock_t outStart = clock();
-  Container<T, Allocator> sortedContainer;
-  for (int i = 0; i < containerSize; i++) {
-    sortedContainer.push_back(elements[indexes[i]].value);
-  }
-  container = sortedContainer;
-  double outTime = clockCalc(outStart, clock());
-  clockLog(containerSize, sortTime, inTime, outTime);
-}
-
-template <template <typename, typename> class Container, typename T, typename Allocator>
-std::vector<int> PmergeMe<Container, T, Allocator>::lastFew(std::vector<Element<T> >& input) {
-  int size = input.size();
-  std::vector<int> result;
-  result.reserve(size);
-  result.push_back(0);
-  if (size == 1) return result;
-  if (input[0].value < input[1].value) {
-    result.push_back(1);
-  } else {
-    result.insert(result.begin(), 1);
-  }
-  return result;
-}
-
-template <template <typename, typename> class Container, typename T, typename Allocator>
-std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<Element<T> >& input) {
-  int size = input.size();
-  if (size < 3) return lastFew(input);
-  std::vector<int> indexes;
-
-  std::vector<Element<T> > sorted;
-  std::vector<Element<T> > unsorted;
-  halver(input, sorted, unsorted);
-  indexes = recursiveMerge(sorted);
-  std::vector<Element<T> > reSorted;
-  std::vector<Element<T> > reUnsorted;
-  for (size_t i = 0; i < sorted.size(); i++) {
-    reSorted.push_back(sorted[indexes[i]]);
-    reUnsorted.push_back(unsorted[indexes[i]]);
-  }
-  if (sorted.size() != unsorted.size()) {
-    reUnsorted.push_back(unsorted[sorted.size()]);
-  }
-  sorted = reSorted;
-  unsorted = reUnsorted;
-
-//  sorted.insert(sorted.begin(), unsorted[0]);
-  for (typename std::vector<Element<T> >::const_iterator iter = unsorted.begin(); iter != unsorted.end(); iter++) {
-    bostaryInsert(sorted, *iter);
-  }
-  extractIndices(indexes, sorted);
-  return indexes;
-}
-
-template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::halver(const std::vector<Element<T> >& container, std::vector<Element<T> >& high, std::vector<Element<T> >& low) {
-  typename std::vector<Element<T> >::const_iterator iter = container.begin();
-  typename std::vector<Element<T> >::const_iterator end = container.end();
-  int i = 0;
-
-  while (std::distance(iter, end) > 1) {
-    T firstValue = iter->value;
-    T secondValue = (iter + 1)->value;
-    int firstIndex = iter->newIndex;
-    int secondIndex = (iter + 1)->newIndex;
-
-    if (firstValue > secondValue) {
-      low.push_back(Element<T>(secondValue, i, secondIndex));
-      high.push_back(Element<T>(firstValue, i, firstIndex));
-    } else {
-      low.push_back(Element<T>(firstValue, i, firstIndex));
-      high.push_back(Element<T>(secondValue, i, secondIndex));
-    }
-    iter += 2;
-    i++;
-  }
-
-  if (iter != end) {
-    low.push_back(Element<T>(iter->value, i, iter->newIndex));
-  }
-}
