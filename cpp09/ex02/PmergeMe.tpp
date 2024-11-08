@@ -34,24 +34,15 @@ Container<T, Allocator> PmergeMe<Container, T, Allocator>::mergeInsertionSort(co
   return newContainer;
 }
 
-
-template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::extractIndices(std::vector<int>& indices, const std::vector<Element<T> >& sorted) {
-  typename std::vector<Element<T> >::const_iterator iter = sorted.begin();
-  indices.clear();
-  while (iter != sorted.end()) {
-    indices.push_back(iter->oldIndex);
-    iter++;
-  }
-}
-
 template <template <typename, typename> class Container, typename T, typename Allocator>
 void PmergeMe<Container, T, Allocator>::mergeInsertionSort(Container<T, Allocator>& container, int containerSize) {
   if (containerSize < 1 || container.empty()) {
     throw std::invalid_argument("Invalid amount of elements to sort");
   } 
   typename Container<T, Allocator>::const_iterator iter = container.begin();
-populateGroups(containerSize);
+
+  populateGroups(containerSize);
+
   clock_t inStart = clock();
   std::vector<Element<T> > elements;
   for (int i = 0; i < containerSize; i++) {
@@ -149,26 +140,33 @@ void PmergeMe<Container, T, Allocator>::halver(const std::vector<Element<T> >& c
   }
 }
 
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::extractIndices(std::vector<int>& indices, const std::vector<Element<T> >& sorted) {
+  typename std::vector<Element<T> >::const_iterator iter = sorted.begin();
+  indices.clear();
+  while (iter != sorted.end()) {
+    indices.push_back(iter->oldIndex);
+    iter++;
+  }
+}
+
 /*
 ** Binary Insertion
 */
 template <template <typename, typename> class Container, typename T, typename Allocator>
 void PmergeMe<Container, T, Allocator>::binaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element, int inserted) {
-    int low = 0;
-    int high = std::min(element.newIndex + inserted, (int)sorted.size());
+  int low = 0;
+  int high = std::min(element.newIndex + inserted, (int)sorted.size());
 
-    // Perform binary search to find the correct position
-    while (low < high) {
-        int mid = (low + high) / 2;
-        if (sorted[mid].value < element.value) {
-            low = mid + 1;
-        } else {
-            high = mid;
-        }
+  while (low < high) {
+    int mid = (low + high) / 2;
+    if (sorted[mid].value < element.value) {
+      low = mid + 1;
+    } else {
+      high = mid;
     }
-
-    // Insert element at the calculated position
-    sorted.insert(sorted.begin() + low, element);
+  }
+  sorted.insert(sorted.begin() + low, element);
 }
 
 /*
@@ -209,6 +207,58 @@ bool PmergeMe<Container, T, Allocator>::isSorted(const Container<T, Allocator>& 
 }
 
 /*
+** Internal power of 2 groups managing
+*/
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::populateGroups(int n) {
+  groups.clear();
+  if (n == 0) return;
+
+  groups.push_back(2);
+  if (n == 1) return;
+
+  int i = 1;
+  int sum = 2;
+  while (true) {
+    int nextValue = std::pow(2, i + 1) - groups[i - 1];
+    if (sum + nextValue <= n) {
+      groups.push_back(nextValue);
+      sum += nextValue;
+      i++;
+    } else {
+      if (n - sum ) groups.push_back(n - sum);
+      break;
+    }
+  }
+  if (DEBUG) {
+    std::cout << "Printing the sort groups:\n";
+    printIntVec(groups);
+  }
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+std::vector<Element<T> > PmergeMe<Container, T, Allocator>::organizeInGroups(const std::vector<Element<T> >& elements) {
+  std::vector<Element<T> > organizedElements;
+  int size = elements.size();
+  int currentIndex = 1;
+
+  for (size_t i = 0; i < groups.size(); ++i) {
+    int groupSize = groups[i];
+
+    std::vector<Element<T> > group;
+    for (int j = 0; j < groupSize && currentIndex < size; j++) {
+      Element<T> element(elements[currentIndex].value, currentIndex + 2, elements[currentIndex].oldIndex);
+      group.push_back(element);
+      currentIndex++;
+    }
+
+    std::reverse(group.begin(), group.end());
+    organizedElements.insert(organizedElements.end(), group.begin(), group.end());
+  }
+  return organizedElements;
+}
+
+/*
 ** Container printer
 */
 template <template <typename, typename> class Container, typename T, typename Allocator>
@@ -229,8 +279,17 @@ void PmergeMe<Container, T, Allocator>::printContainer(const Container<T, Alloca
     std::advance(iter, -3);
 
     while (iter != container.end()) {
-        std::cout << *iter++ << " ";
+      std::cout << *iter++ << " ";
     }
   }
   std::cout << std::endl;
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::printIntVec(const std::vector<T>& elements) const {
+  std::cout << "[ ";
+  for (typename std::vector<T>::const_iterator it = elements.begin(); it != elements.end(); ++it) {
+      std::cout << *it << " ";
+  }
+  std::cout << "]" << std::endl;
 }

@@ -37,13 +37,13 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(DEFINES) -c -g $< -o $@
+	$(CC) $(CFLAGS) $(DEFINES) -c $< -o $@
 
 debug: DEFINES += -DDEBUG=1
-debug: all
+debug: re
 
 printable: DEFINES += -DPRINTABLE=3000
-printable: all
+printable: re
 
 val: all
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${NAME}  || echo ""
