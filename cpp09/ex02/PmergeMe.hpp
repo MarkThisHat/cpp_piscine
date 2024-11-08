@@ -159,7 +159,7 @@ class PmergeMe {
   void populateGroups(int size);
 
   void binaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element, int inserted);
-  void clockLog(int range, double sortTime) const;
+  
   void clockLog(int range, double sortTime, double transferIn, double transferOut) const;
   double clockCalc(clock_t start, clock_t finish) const;
 

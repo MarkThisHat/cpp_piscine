@@ -155,7 +155,7 @@ void PmergeMe<Container, T, Allocator>::halver(const std::vector<Element<T> >& c
 template <template <typename, typename> class Container, typename T, typename Allocator>
 void PmergeMe<Container, T, Allocator>::binaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element, int inserted) {
     int low = 0;
-    int high = element.newIndex + inserted;
+    int high = std::min(element.newIndex + inserted, (int)sorted.size());
 
     // Perform binary search to find the correct position
     while (low < high) {
