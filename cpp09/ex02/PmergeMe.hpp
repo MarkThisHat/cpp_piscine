@@ -40,7 +40,8 @@ struct Element {
 template <typename T>
 void printElement(const Element<T>& element) {
     //std::cout << "<value: " << element.value << ", new index: " << element.newIndex << ", old index: " << element.oldIndex <<">";
-    std::cout << " index: " << element.newIndex;
+    //std::cout << " index: " << element.newIndex;
+    std::cout << "<v: " << element.value << ", i: " << element.newIndex << ">";
 }
 
 template <typename T>
@@ -157,7 +158,7 @@ class PmergeMe {
   std::vector<int> groups;
   void populateGroups(int size);
 
-  void binaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element);
+  void binaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element, int inserted);
   void clockLog(int range, double sortTime) const;
   void clockLog(int range, double sortTime, double transferIn, double transferOut) const;
   double clockCalc(clock_t start, clock_t finish) const;

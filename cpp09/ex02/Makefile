@@ -37,7 +37,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(DEFINES) -c $< -o $@
+	$(CC) $(CFLAGS) $(DEFINES) -c -g $< -o $@
 
 debug: DEFINES += -DDEBUG=1
 debug: all

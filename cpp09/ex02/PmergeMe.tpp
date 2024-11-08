@@ -110,10 +110,12 @@ std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<E
   }
   sorted = reSorted;
   sorted.insert(sorted.begin(), reUnsorted[0]);
+  unsorted.clear();
   unsorted = organizeInGroups(reUnsorted);
 
+  int inserted = 0;
   for (typename std::vector<Element<T> >::const_iterator iter = unsorted.begin(); iter != unsorted.end(); iter++) {
-    binaryInsert(sorted, *iter);
+    binaryInsert(sorted, *iter, inserted++);
   }
   extractIndices(indexes, sorted);
   return indexes;
@@ -151,9 +153,9 @@ void PmergeMe<Container, T, Allocator>::halver(const std::vector<Element<T> >& c
 ** Binary Insertion
 */
 template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::binaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element) {
+void PmergeMe<Container, T, Allocator>::binaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element, int inserted) {
     int low = 0;
-    int high = sorted.size();
+    int high = element.newIndex + inserted;
 
     // Perform binary search to find the correct position
     while (low < high) {
