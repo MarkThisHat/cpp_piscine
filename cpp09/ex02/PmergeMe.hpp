@@ -65,6 +65,7 @@ class PmergeMe {
   void clockLog(int range, double sortTime, double transferIn, double transferOut) const;
   double clockCalc(clock_t start, clock_t finish) const;
   void printIntVec(const std::vector<T>& elements) const;
+  void printIndexedPairings(const std::vector<Element<T> >& elements) const;
 };
 
 #include "PmergeMe.tpp"

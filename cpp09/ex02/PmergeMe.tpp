@@ -14,10 +14,13 @@ template <template <typename, typename> class Container, typename T, typename Al
 PmergeMe<Container, T, Allocator>::PmergeMe() {}
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
-PmergeMe<Container, T, Allocator>::PmergeMe(const PmergeMe& other) {}
+PmergeMe<Container, T, Allocator>::PmergeMe(const PmergeMe& other):groups(other.groups) {}
 
 template <template <typename, typename> class Container, typename T, typename Allocator>
 PmergeMe<Container, T, Allocator>& PmergeMe<Container, T, Allocator>::operator=(const PmergeMe& other) {
+  if (this != &other) {
+    groups = other.groups;
+  }
   return *this;
 }
 
@@ -199,7 +202,7 @@ bool PmergeMe<Container, T, Allocator>::isSorted(const Container<T, Allocator>& 
 
   while (next != container.end()) {
     if (*iter++ > *next++) {
-      std::cerr << "Container " << containerName << " is not sorted" << std::endl;
+      std::cerr << "\033[31mContainer " << containerName << " is not sorted\033[0m" << std::endl;
       return false;
     }
   }
@@ -255,6 +258,10 @@ std::vector<Element<T> > PmergeMe<Container, T, Allocator>::organizeInGroups(con
     std::reverse(group.begin(), group.end());
     organizedElements.insert(organizedElements.end(), group.begin(), group.end());
   }
+  if (DEBUG) {
+    std::cout << "Printing the rearranged group with index:\n";
+    printIndexedPairings(organizedElements);
+  }
   return organizedElements;
 }
 
@@ -292,4 +299,13 @@ void PmergeMe<Container, T, Allocator>::printIntVec(const std::vector<T>& elemen
       std::cout << *it << " ";
   }
   std::cout << "]" << std::endl;
+}
+
+template <template <typename, typename> class Container, typename T, typename Allocator>
+void PmergeMe<Container, T, Allocator>::printIndexedPairings(const std::vector<Element<T> >& elements) const {
+  std::cout << "{ ";
+  for (typename std::vector<Element<T> >::const_iterator it = elements.begin(); it != elements.end(); ++it) {
+      std::cout << "<v: " << it->value << ", i: \033[35m" << it->newIndex << "\033[0m> ";
+  }
+  std::cout << "}" << std::endl;
 }

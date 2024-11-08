@@ -32,22 +32,6 @@ void PmergeMe<std::list, int>::clockLog(int range, double sortTime, double trans
             << "µs (sort: " << sortTime << "µs + in: " << transferIn
             << "µs + out: " << transferOut << "µs)"<< std::endl;
 }
-/*
-template <>
-void PmergeMe<std::vector, int>::mergeInsertionSort(std::vector<int>& container, int containerSize) {
-  if (containerSize < 1 || container.empty()) {
-    throw std::invalid_argument("Invalid amount of elements to sort");
-  } 
-  clock_t sortStart = clock();
-  container.reserve(containerSize);
-  container = merge(container, containerSize);
-
-  double sortTime = clockCalc(sortStart, clock());
-  std::cout << "After: ";
-  printContainer(container);
-  clockLog(containerSize, sortTime);
-}
-*/
 
 template <>
 void PmergeMe<std::vector, int>::mergeInsertionSort(std::vector<int>& container, int containerSize) {
@@ -55,7 +39,9 @@ void PmergeMe<std::vector, int>::mergeInsertionSort(std::vector<int>& container,
     throw std::invalid_argument("Invalid amount of elements to sort");
   } 
   std::vector<int>::const_iterator iter = container.begin();
-populateGroups(containerSize);
+
+  populateGroups(containerSize);
+
   clock_t inStart = clock();
   std::vector<Element<int> > elements;
   for (int i = 0; i < containerSize; i++) {
@@ -79,7 +65,6 @@ populateGroups(containerSize);
   printContainer(container);
   clockLog(containerSize, sortTime, inTime, outTime);
 }
-
 
 template <>
 std::vector<int> PmergeMe<std::vector, int>::mergeInsertionSort(const std::vector<int>& container, int containerSize) const {
