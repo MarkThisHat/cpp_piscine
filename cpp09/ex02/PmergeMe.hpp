@@ -59,13 +59,17 @@ class PmergeMe {
   std::vector<int> recursiveMerge(std::vector<Element<T> >& input);
   std::vector<int> lastFew(std::vector<Element<T> >& input);
   void halver(const std::vector<Element<T> >& container, std::vector<Element<T> >& high, std::vector<Element<T> >& low);
+  std::vector<Element<T> > reorganize(const std::vector<Element<T> >& sorted, std::vector<Element<T> >* unsorted);
   void binaryInsert(std::vector<Element<T> >& sorted, const Element<T>& element, int inserted);
   void extractIndices(std::vector<int>& indices, const std::vector<Element<T> >& sorted);
   
   void clockLog(int range, double sortTime, double transferIn, double transferOut) const;
   double clockCalc(clock_t start, clock_t finish) const;
   void printIntVec(const std::vector<T>& elements) const;
-  void printIndexedPairings(const std::vector<Element<T> >& elements) const;
+  void printIndexedPairings(const std::vector<Element<T> >& elements, bool old) const;
 };
+
+template<typename T>
+void debugPrint(const std::string intro, const std::vector<Element<T> >& high, const std::vector<Element<T> >& low);
 
 #include "PmergeMe.tpp"

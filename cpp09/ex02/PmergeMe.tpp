@@ -93,6 +93,8 @@ std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<E
   std::vector<Element<T> > unsorted;
   halver(input, sorted, unsorted);
   indexes = recursiveMerge(sorted);
+
+  if (DEBUG) debugPrint("Split:", sorted, unsorted);
   std::vector<Element<T> > reSorted;
   std::vector<Element<T> > reUnsorted;
   for (size_t i = 0; i < sorted.size(); i++) {
@@ -102,10 +104,12 @@ std::vector<int> PmergeMe<Container, T, Allocator>::recursiveMerge(std::vector<E
   if (sorted.size() != unsorted.size()) {
     reUnsorted.push_back(unsorted[sorted.size()]);
   }
+  if (DEBUG) debugPrint("Pre:", reSorted, reUnsorted);
+
   sorted = reSorted;
   sorted.insert(sorted.begin(), reUnsorted[0]);
-  unsorted.clear();
   unsorted = organizeInGroups(reUnsorted);
+  if (DEBUG) debugPrint("Post:", sorted, unsorted);
 
   int inserted = 0;
   for (typename std::vector<Element<T> >::const_iterator iter = unsorted.begin(); iter != unsorted.end(); iter++) {
@@ -258,10 +262,6 @@ std::vector<Element<T> > PmergeMe<Container, T, Allocator>::organizeInGroups(con
     std::reverse(group.begin(), group.end());
     organizedElements.insert(organizedElements.end(), group.begin(), group.end());
   }
-  if (DEBUG) {
-    std::cout << "Printing the rearranged group with index:\n";
-    printIndexedPairings(organizedElements);
-  }
   return organizedElements;
 }
 
@@ -301,11 +301,28 @@ void PmergeMe<Container, T, Allocator>::printIntVec(const std::vector<T>& elemen
   std::cout << "]" << std::endl;
 }
 
+
 template <template <typename, typename> class Container, typename T, typename Allocator>
-void PmergeMe<Container, T, Allocator>::printIndexedPairings(const std::vector<Element<T> >& elements) const {
+void PmergeMe<Container, T, Allocator>::printIndexedPairings(const std::vector<Element<T> >& elements, bool old) const {
   std::cout << "{ ";
   for (typename std::vector<Element<T> >::const_iterator it = elements.begin(); it != elements.end(); ++it) {
-      std::cout << "<v: " << it->value << ", i: \033[35m" << it->newIndex << "\033[0m> ";
+    int index = old ? it->oldIndex : it->newIndex;
+    std::cout << "<v: " << it->value << ", i: " << 
+    (old ? "\033[36m" : "\033[92m") << index << "\033[0m> ";
   }
   std::cout << "}" << std::endl;
+}
+
+template<typename T>
+void debugPrint(const std::string intro, const std::vector<Element<T> >& high, const std::vector<Element<T> >& low) {
+  std::cout << intro << "\nUpper: {";
+  for (typename std::vector<Element<T> >::const_iterator it = high.begin(); it != high.end(); ++it) {
+    std::cout << "<v: " << it->value << ", o: \033[35m" << it->oldIndex << "\033[0m, n: \033[93m" << it->newIndex << "\033[0m> ";
+  }
+  std::cout << "}" << std::endl;
+  std::cout << "Lower: {";
+  for (typename std::vector<Element<T> >::const_iterator it = low.begin(); it != low.end(); ++it) {
+    std::cout << "<v: " << it->value << ", o: \033[35m" << it->oldIndex << "\033[0m, n: \033[93m" << it->newIndex << "\033[0m> ";
+  }
+  std::cout << "}\n" << std::endl;
 }
